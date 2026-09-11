@@ -1620,11 +1620,11 @@ const questionPools = {
 
   ],
 
-  "testing matches": [
+  "testing": [
       {
         type: "matching",
         question: "Match the Telugu word to the English translation.",
-        // audio: "YOUR_AUDIO_URL_HERE",
+        audio: "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/audio/test.mp3",
 
         leftTitle: "తెలుగు",
         rightTitle: "English",
@@ -1787,28 +1787,17 @@ function loadQuestion() {
 
 function createAudioButton(audioUrl) {
 
-  const questionElement =
-    document.getElementById("question");
+  const questionElement = document.getElementById("question");
+  const container = document.createElement("div");
+  
+  container.id = "question-audio";
+  container.className = "audio-container";
 
-  const container =
-    document.createElement("div");
-
-  container.id =
-    "question-audio";
-
-  container.className =
-    "audio-container";
-
-  const button =
-    document.createElement("button");
-
+  const button = document.createElement("button");
   button.type = "button";
 
-  button.className =
-    "audio-button";
-
-  button.textContent =
-    "🔊 Listen";
+  button.className = "audio-button";
+  button.textContent = "🔊 Listen";
 
   button.addEventListener(
     "click",
@@ -1859,17 +1848,10 @@ function playAudio(audioUrl, button) {
 
     })
     .catch(function(error) {
-
-      console.error(
-        "Audio could not be played:",
-        error
-      );
-
+      console.error("Audio could not be played:", error);
       document.getElementById("feedback").textContent = "Audio could not be played.";
       button.disabled = false;
-      button.textContent =
-        "🔊 Play Audio";
-
+      button.textContent = "🔊 Play Audio";
     });
 }
 
