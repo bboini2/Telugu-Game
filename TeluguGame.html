@@ -1,0 +1,2535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Telugu Quiz</title>
+
+
+<style>
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  background: transparent;
+}
+
+#quiz-app {
+  width: 100%;
+  max-width: 700px;
+  min-height: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #222222;
+}
+
+#quiz-app *,
+#quiz-app *::before,
+#quiz-app *::after {
+  box-sizing: border-box;
+}
+
+.quiz-screen {
+  width: 100%;
+}
+
+
+/* =========================================================
+   HEADINGS
+   ========================================================= */
+
+#quiz-app h1 {
+  margin: 0 0 25px 0;
+  color: #222222 !important;
+  font-size: 30px;
+  line-height: 1.2;
+}
+
+#quiz-app h2 {
+  margin: 0 0 25px 0;
+  color: #222222 !important;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+
+/* =========================================================
+   NAME SCREEN
+   ========================================================= */
+
+#name-screen {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.name-panel {
+  width: 100%;
+  max-width: 500px;
+  padding: 40px 35px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.name-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #222222 !important;
+  font-size: 17px;
+  font-weight: bold;
+  text-align: left;
+}
+
+#player-name {
+  display: block;
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+  color: #222222 !important;
+  background-color: #ffffff !important;
+  border: 2px solid #cccccc;
+  border-radius: 8px;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 17px;
+  line-height: 52px;
+  outline: none;
+}
+
+#player-name::placeholder {
+  color: #777777 !important;
+  opacity: 1;
+}
+
+#player-name:focus {
+  border-color: #1b4557;
+}
+
+
+/* =========================================================
+   GENERAL BUTTONS
+   ========================================================= */
+
+.quiz-button {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px 20px;
+  color: #ffffff !important;
+  background-color: #1b4557 !important;
+  border: none;
+  border-radius: 8px;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.quiz-button:hover {
+  color: #ffffff !important;
+  background-color: #122f3b !important;
+}
+
+.secondary-button {
+  color: #1b4557 !important;
+  background-color: #ffffff !important;
+  border: 2px solid #1b4557;
+}
+
+.secondary-button:hover {
+  color: #122f3b !important;
+  background-color: #f5f3ff !important;
+}
+
+
+/* =========================================================
+   CATEGORY SCREEN
+   ========================================================= */
+
+#category-screen {
+  display: none;
+  padding: 30px 0;
+}
+
+.category-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.category-button {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  color: #222222 !important;
+  background-color: #ffffff !important;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.category-button:hover {
+  color: #222222 !important;
+  background-color: #f5f3ff !important;
+  border-color: #1b4557;
+}
+
+
+/* =========================================================
+   QUIZ SCREEN
+   ========================================================= */
+
+#quiz {
+  display: none;
+  padding: 20px 0;
+}
+
+#category-display {
+  margin-bottom: 15px;
+  color: #1b4557 !important;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  margin-bottom: 30px;
+  background-color: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background-color: #1b4557;
+  transition: width 0.3s ease;
+}
+
+#question {
+  margin: 0 0 20px 0;
+  color: #222222 !important;
+  font-size: 36px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   AUDIO
+   ========================================================= */
+
+.audio-container {
+  margin: 0 0 25px 0;
+  text-align: center;
+}
+
+.audio-button {
+  display: inline-block;
+  min-width: 180px;
+  padding: 14px 24px;
+  color: #ffffff !important;
+  background-color: #1b4557 !important;
+  border: none;
+  border-radius: 10px;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.audio-button:hover {
+  background-color: #122f3b !important;
+}
+
+.audio-button:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+
+/* =========================================================
+   MULTIPLE CHOICE ANSWERS
+   ========================================================= */
+
+.answers {
+  display: grid;
+  gap: 12px;
+}
+
+.answer {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 15px;
+  color: #222222 !important;
+  background-color: #ffffff !important;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  text-align: left;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.answer:hover:not(:disabled) {
+  color: #222222 !important;
+  background-color: #f5f3ff !important;
+  border-color: #1b4557;
+}
+
+.answer.correct {
+  color: #166534 !important;
+  background-color: #dcfce7 !important;
+  border-color: #22c55e;
+}
+
+.answer.incorrect {
+  color: #991b1b !important;
+  background-color: #fee2e2 !important;
+  border-color: #ef4444;
+}
+
+.answer:disabled {
+  opacity: 1;
+  cursor: default;
+}
+
+/* =========================================================
+MATCHING
+========================================================= */
+
+.matching-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.matching-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.matching-column-title {
+  margin-bottom: 2px;
+  color: #555555;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.matching-item {
+  width: 100%;
+  min-height: 55px;
+  padding: 12px 8px;
+
+  color: #222222 !important;
+  background-color: #ffffff !important;
+
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+
+  font-family:
+  Arial,
+  Helvetica,
+  sans-serif;
+
+  font-size: 16px;
+  line-height: 1.3;
+
+  cursor: pointer;
+
+  transition:
+  background-color 0.2s ease,
+  border-color 0.2s ease,
+  box-shadow 0.2s ease,
+  transform 0.15s ease;
+}
+
+.matching-item:hover:not(:disabled) {
+  background-color: #f5f3ff !important;
+  border-color: #1b4557;
+  transform: translateY(-1px);
+}
+
+.matching-item.selected {
+  color: #1e3a8a !important;
+  background-color: #dbeafe !important;
+  border-color: #2563eb;
+
+  box-shadow:
+  0 0 0 3px rgba(37, 99, 235, 0.20);
+
+  transform: translateY(-1px);
+}
+
+/* MATCHED PAIR COLORS */
+
+/* Pair 1 — Pale Lemon Yellow */
+.matching-item.match-color-1 {
+  color: #713f12 !important;
+  background-color: #fef9c3 !important;
+  border-color: #eab308;
+}
+
+/* Pair 2 — Purple */
+.matching-item.match-color-2 {
+  color: #4c1d95 !important;
+  background-color: #ede9fe !important;
+  border-color: #8b5cf6;
+}
+
+/* Pair 3 — Green */
+.matching-item.match-color-3 {
+  color: #14532d !important;
+  background-color: #dcfce7 !important;
+  border-color: #22c55e;
+}
+
+/* Pair 4 — Orange */
+.matching-item.match-color-4 {
+  color: #7c2d12 !important;
+  background-color: #ffedd5 !important;
+  border-color: #f97316;
+}
+
+/* Pair 5 — Pink */
+.matching-item.match-color-5 {
+  color: #831843 !important;
+  background-color: #fce7f3 !important;
+  border-color: #ec4899;
+}
+
+/* Pair 6 — Teal */
+.matching-item.match-color-6 {
+  color: #134e4a !important;
+  background-color: #ccfbf1 !important;
+  border-color: #14b8a6;
+}
+
+.matching-item.matched {
+  color: #166534 !important;
+  background-color: #dcfce7 !important;
+  border-color: #22c55e;
+
+  cursor: default;
+}
+
+.matching-item.incorrect-match {
+  color: #991b1b !important;
+  background-color: #fee2e2 !important;
+  border-color: #ef4444;
+
+  cursor: default;
+}
+
+.matching-item:disabled {
+  cursor: default;
+}
+
+.matching-item:disabled:hover {
+  transform: none;
+}
+
+/* =========================================================
+   FEEDBACK
+   ========================================================= */
+
+#feedback {
+  min-height: 25px;
+  margin-top: 18px;
+  color: #222222;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+
+/* =========================================================
+   NEXT BUTTON
+   ========================================================= */
+
+#next-btn {
+  display: none;
+}
+
+
+/* =========================================================
+   BACK TO CATEGORIES
+   ========================================================= */
+
+#back-category-btn {
+  margin-top: 12px;
+}
+
+
+/* =========================================================
+   RESULTS
+   ========================================================= */
+
+#results {
+  display: none;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+#results h1 {
+  margin-bottom: 20px;
+}
+
+#score {
+  margin: 20px 0;
+  color: #222222 !important;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#result-message {
+  color: #444444 !important;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.results-buttons {
+  width: 100%;
+  max-width: 450px;
+  margin: 25px auto 0 auto;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  #quiz-app {
+    padding: 15px;
+  }
+
+  #name-screen {
+    min-height: 450px;
+  }
+
+  .name-panel {
+    padding: 30px 20px;
+  }
+
+  #quiz-app h1 {
+    font-size: 26px;
+  }
+
+  #question {
+    font-size: 32px;
+  }
+
+  .matching-container {
+    gap: 8px;
+  }
+
+  .matching-item {
+    min-height: 50px;
+    padding: 10px 5px;
+    font-size: 14px;
+  }
+
+  .audio-button {
+    width: 100%;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div id="quiz-app">
+
+
+  <!-- =====================================================
+       NAME SCREEN
+       ===================================================== -->
+
+  <div
+    id="name-screen"
+    class="quiz-screen"
+  >
+
+    <div class="name-panel">
+
+      <h1>
+        Telugu Quiz
+      </h1>
+
+      <label
+        class="name-label"
+        for="player-name"
+      >
+        Enter your name
+      </label>
+
+      <input
+        type="text"
+        id="player-name"
+        placeholder="Your name"
+        maxlength="100"
+        autocomplete="name"
+      >
+
+      <button
+        type="button"
+        class="quiz-button"
+        onclick="savePlayerName()"
+      >
+        Continue
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       CATEGORY SCREEN
+       ===================================================== -->
+
+  <div
+    id="category-screen"
+    class="quiz-screen"
+  >
+
+    <h1>
+      Choose a Category
+    </h1>
+
+    <div
+      id="category-list"
+      class="category-list"
+    ></div>
+
+  </div>
+
+
+  <!-- =====================================================
+       QUIZ SCREEN
+       ===================================================== -->
+
+  <div
+    id="quiz"
+    class="quiz-screen"
+  >
+
+    <div id="category-display"></div>
+
+    <div class="progress">
+
+      <div
+        id="progress-bar"
+        class="progress-bar"
+      ></div>
+
+    </div>
+
+    <p id="question"></p>
+
+    <!-- Audio button will be inserted here when needed -->
+
+    <div
+      id="answers"
+      class="answers"
+    ></div>
+
+    <div id="feedback"></div>
+
+    <button
+      type="button"
+      id="next-btn"
+      class="quiz-button"
+      onclick="nextQuestion()"
+    >
+      Next Question
+    </button>
+
+    <button
+      type="button"
+      id="check-matches-btn"
+      class="quiz-button"
+      onclick="checkMatches()"
+      style="display: none;"
+    >
+      Check Matches
+    </button>
+
+    <button
+      type="button"
+      id="back-category-btn"
+      class="quiz-button secondary-button"
+      onclick="backToCategories()"
+    >
+      ← Back to Categories
+    </button>
+
+  </div>
+
+
+  <!-- =====================================================
+       RESULTS SCREEN
+       ===================================================== -->
+
+  <div
+    id="results"
+    class="quiz-screen"
+  >
+
+    <h1>
+      Quiz Complete!
+    </h1>
+
+    <div id="score"></div>
+
+    <div id="result-message"></div>
+
+    <div class="results-buttons">
+
+      <button
+        type="button"
+        class="quiz-button"
+        onclick="playAgain()"
+      >
+        Play Again
+      </button>
+
+      <button
+        type="button"
+        class="quiz-button secondary-button"
+        onclick="chooseAnotherCategory()"
+      >
+        Choose Another Category
+      </button>
+
+    </div>
+
+  </div>
+
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   GOOGLE APPS SCRIPT
+   ========================================================= */
+
+const GOOGLE_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbxlJZGHfxUYM313fFLgZd-9LlObHUhAKvKAoCzW6jugbnjmi55wxOccMdD7WZ-3H8OOXA/exec";
+
+
+/* =========================================================
+   QUIZ SETTINGS
+   ========================================================= */
+
+const QUESTIONS_PER_QUIZ = 8;
+
+
+/* =========================================================
+   QUESTION POOLS
+   =========================================================
+
+   QUESTION TYPES:
+
+   1. multiple-choice
+
+   {
+     type: "multiple-choice",
+     question: "What does this mean?",
+     audio: "https://example.com/audio.mp3",
+     answers: ["Water", "House", "Book", "Food"],
+     correct: 0
+   }
+
+
+   2. matching
+
+    {
+        type: "matching",
+        question: "Match the Telugu word to the English translation.",
+
+        audio: "YOUR_AUDIO_URL_HERE",
+
+        leftTitle: "తెలుగు",
+        rightTitle: "English",
+
+        pairs: [
+            { left: "అమ్మ", right: "Mother" },
+            { left: "నాన్న", right: "Father" },
+            { left: "అన్న", right: "Older Brother" },
+            { left: "అక్క", right: "Older Sister" }
+        ]
+    }
+
+   AUDIO IS OPTIONAL.
+
+   If there is no "audio" property, no audio button
+   will be displayed.
+
+*/
+
+const questionPools = {
+
+  /* =========================================================
+    Current
+   ========================================================= */
+
+  // a aa i ii
+  "[Telugu 1] Vowels Set 1": [
+      
+    // Identification
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: అ",
+
+        answers: [
+          "a as in amma",
+          "aa as in aaṭa",
+          "i as in illu",
+          "ii as in eega"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఆ",
+
+        answers: [
+          "a as in amma",
+          "aa as in aaṭa",
+          "i as in illu",
+          "ii as in eega"
+        ],
+
+        correct: 1
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఇ",
+
+        answers: [
+          "a as in amma",
+          "aa as in aaṭa",
+          "i as in illu",
+          "ii as in eega"
+        ],
+
+        correct: 2
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఈ",
+
+        answers: [
+          "a as in amma",
+          "aa as in aaṭa",
+          "i as in illu",
+          "ii as in eega"
+        ],
+
+        correct: 3
+      },
+
+    // Vocabulary
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: amma",
+
+        answers: [
+          "mother",
+          "wave",
+          "play",
+          "leaf",
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: ala",
+
+        answers: [
+          "wave",
+          "mother",
+          "cow",
+          "house"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: aaṭa",
+
+        answers: [
+          "play",
+          "cow",
+          "leaf",
+          "sky"    
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: aavu",
+
+        answers: [
+          "cow",
+          "play",
+          "leaf",
+          "fly"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: aaku",
+
+        answers: [
+          "leaf",
+          "squirrel",
+          "play",
+          "cow"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: illu",
+
+        answers: [
+          "house",
+          "brick",
+          "feather",
+          "swing"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: iṭuka",
+
+        answers: [
+          "brick",
+          "house",
+          "sand",
+          "feather"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to English: eega",
+
+        answers: [
+          "fly",
+          "whistle",
+          "feather",
+          "spear"
+        ],
+
+        correct: 0
+      },
+
+  ],
+  
+   // ka kha ga gha nga
+  "[Telugu 2] Consonants Set 1": [
+
+    // Identification
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following consonant: క",
+
+        answers: [
+          "ka",
+          "gha",
+          "kha",
+          "ga"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following consonant: ఖ",
+
+        answers: [
+          "kha",
+          "nga",
+          "ka",
+          "gha"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following consonant: గ",
+
+        answers: [
+          "ga",
+          "nga",
+          "kha",
+          "gha"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following consonant: ఘ",
+
+        answers: [
+          "gha",
+          "ga",
+          "nga",
+          "ka"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following consonant: ఙ",
+
+        answers: [
+          "nga",
+          "ka",
+          "ga",
+          "kha"
+        ],
+
+        correct: 0
+      },
+
+    // Vocabulary
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to Telugu: Pen",
+
+        answers: [
+          "కలం (kalam)",
+          "కప్ప (kappa)",
+          "కల (kala)",
+          "కాకి (kaaki)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to Telugu: Frog",
+
+        answers: [
+          "కలం (kalam)",
+          "కప్ప (kappa)",
+          "కల (kala)",
+          "కాకి (kaaki)"
+        ],
+
+        correct: 1
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to Telugu: Bell",
+
+        answers: [
+          "గంట (ganṭa)",
+          "గద (gada)",
+          "గంప (gampa)",
+          "గడప (gaḍapa)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to Telugu: Basket",
+
+        answers: [
+          "గంట (ganṭa)",
+          "గద (gada)",
+          "గంప (gampa)",
+          "గడప (gaḍapa)"
+        ],
+
+        correct: 2
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to Telugu: Donkey",
+
+        answers: [
+          "ఖరము (kharamu)",
+          "ఖడ్గము (khaḍgamu)",
+          "కలం (kalam)",
+          "కాకి (kaaki)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Translate the following word to Telugu: Crow",
+
+        answers: [
+          "కాకి (kaaki)",
+          "కల (kala)",
+          "కప్ప (kappa)",
+          "కలం (kalam)"
+        ],
+
+        correct: 0
+      },
+
+    ],
+
+  "[Review] Vowels (All)": [
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: అ",
+
+        answers: [
+          "a as in amma (mother)",
+          "aa as in aaṭa (play)",
+          "oo as in ooḍa (ship)",
+          "ru as in rishi (sage)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఆ",
+
+        answers: [
+          "aa as in aaṭa (play)",
+          "a as in amma (mother)",
+          "ee as in eenugu (elephant)",
+          "ai as in aidu (five)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఇ",
+
+        answers: [
+          "i as in illu (house)",
+          "ii as in eega (fly)",
+          "o as in okaṭi (one)",
+          "u as in uḍatha (squirrel)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఈ",
+
+        answers: [
+          "ii as in eega (fly)",
+          "i as in illu (house)",
+          "aha (like English aha!)",
+          "au as in aushadham (medicine)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఉ",
+
+        answers: [
+          "u as in uḍatha (squirrel)",
+          "aha (like English aha!)",
+          "uu as in uuyala (swing)",
+          "oo as in ooḍa (ship)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఊ",
+
+        answers: [
+          "uu as in uuyala (swing)",
+          "au as in aushadham (medicine)",
+          "ru as in rishi (sage)",
+          "am (like English um)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఋ",
+
+        answers: [
+          "ru as in rishi (sage)",
+          "ai as in aidu (five)",
+          "uu as in uuyala (swing)",
+          "au as in aushadham (medicine)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఎ",
+
+        answers: [
+          "e as in eluka (mouse)",
+          "aa as in aaṭa (play)",
+          "aha (like English aha!)",
+          "ee as in eenugu (elephant)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఏ",
+
+        answers: [
+          "ee as in eenugu (elephant)",
+          "ii as in eega (fly)",
+          "e as in eluka (mouse)",
+          "uu as in uuyala (swing)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఐ",
+
+        answers: [
+          "ai as in aidu (five)",
+          "oo as in ooḍa (ship)",
+          "a as in amma (mother)",
+          "i as in illu (house)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఒ",
+
+        answers: [
+          "o as in okaṭi (one)",
+          "u as in uḍatha (squirrel)",
+          "am (like English um)",
+          "e as in eluka (mouse)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఓ",
+
+        answers: [
+          "oo as in ooḍa (ship)",
+          "ii as in eega (fly)",
+          "o as in okaṭi (one)",
+          "ee as in eenugu (elephant)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: ఔ",
+
+        answers: [
+          "au as in aushadham (medicine)",
+          "i as in illu (house)",
+          "am (like English um)",
+          "e as in eluka (mouse)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: అం",
+
+        answers: [
+          "am (like English um)",
+          "aa as in aaṭa (play)",
+          "o as in okaṭi (one)",
+          "ru as in rishi (sage)"
+        ],
+
+        correct: 0
+      },
+
+      {
+        type: "multiple-choice",
+        question: "Identify the following vowel: అః",
+
+        answers: [
+            "aha (like English aha!)",
+            "u as in uḍatha (squirrel)",
+            "ai as in aidu (five)",
+            "a as in amma (mother)"
+        ],
+
+        correct: 0
+      }
+
+  ],
+
+  "[Challenge] Similar Consonants": [
+
+      {
+        question: "Identify the following consonant: ఘ",
+
+        answers: [
+          "gha",
+          "jha",
+          "ya",
+          "ma"
+        ],
+
+        correct: 0
+      },
+
+      {
+        question: "Identify the following consonant: ఝ",
+
+        answers: [
+          "gha",
+          "jha",
+          "ya",
+          "ma"
+        ],
+
+        correct: 1
+      },
+
+      {
+        question: "Identify the following consonant: య",
+
+        answers: [
+          "gha",
+          "jha",
+          "ya",
+          "ma"
+        ],
+
+        correct: 2
+      },
+
+      {
+        question: "Identify the following consonant: మ",
+
+        answers: [
+          "gha",
+          "jha",
+          "ya",
+          "ma"
+        ],
+
+        correct: 3
+      },
+
+      {
+        question: "Identify the following consonant: న",
+
+        answers: [
+          "na",
+          "sa",
+        ],
+
+        correct: 0
+      },
+
+      {
+        question: "Identify the following consonant: స",
+
+        answers: [
+          "na",
+          "sa",
+        ],
+
+        correct: 1
+      },
+      
+      {
+        question: "Identify the following consonant: డ",
+
+        answers: [
+          "ḍa",
+          "ḍha",
+          "da",
+          "dha",
+          "tha"
+        ],
+
+        correct: 0
+      },
+
+      {
+        question: "Identify the following consonant: ఢ",
+
+        answers: [
+          "ḍa",
+          "ḍha",
+          "da",
+          "dha",
+          "tha"
+        ],
+
+        correct: 1
+      },
+
+      {
+        question: "Identify the following consonant: ద",
+
+        answers: [
+          "ḍa",
+          "ḍha",
+          "da",
+          "dha",
+          "tha"
+        ],
+
+        correct: 2
+      },
+
+      {
+        question: "Identify the following consonant: ధ",
+
+        answers: [
+          "ḍa",
+          "ḍha",
+          "da",
+          "dha",
+          "tha"
+        ],
+
+        correct: 3
+      },
+
+      {
+        question: "Identify the following consonant: థ",
+
+        answers: [
+          "ḍa",
+          "ḍha",
+          "da",
+          "dha",
+          "tha"
+        ],
+
+        correct: 4
+      },
+
+      {
+        question: "Identify the following consonant: వ",
+
+        answers: [
+          "va",
+          "pa",
+          "pha",
+          "ṣa",
+          "ha"
+        ],
+
+        correct: 0
+      },
+
+      {
+        question: "Identify the following consonant: ప",
+
+        answers: [
+          "va",
+          "pa",
+          "pha",
+          "ṣa",
+          "ha"
+        ],
+
+        correct: 1
+      },
+
+      {
+        question: "Identify the following consonant: ఫ",
+
+        answers: [
+          "va",
+          "pa",
+          "pha",
+          "ṣa",
+          "ha"
+        ],
+
+        correct: 2
+      },
+
+      {
+        question: "Identify the following consonant: ష",
+
+        answers: [
+          "va",
+          "pa",
+          "pha",
+          "ṣa",
+          "ha"
+        ],
+
+        correct: 3
+      },
+
+      {
+        question: "Identify the following consonant: హ",
+
+        answers: [
+          "va",
+          "pa",
+          "pha",
+          "ṣa",
+          "ha"
+        ],
+
+        correct: 4
+      },
+
+      {
+        question: "Identify the following consonant: ర",
+
+        answers: [
+          "ra",
+          "ṭha"
+        ],
+
+        correct: 0
+      },
+
+      {
+      question: "Identify the following consonant: ఠ",
+
+      answers: [
+        "ra",
+        "ṭha"
+      ],
+
+      correct: 1
+    },
+
+  ],
+
+  "testing matches": [
+      {
+        type: "matching",
+        question: "Match the Telugu word to the English translation.",
+        // audio: "YOUR_AUDIO_URL_HERE",
+
+        leftTitle: "తెలుగు",
+        rightTitle: "English",
+
+        pairs: [
+          { left: "అమ్మ", right: "Mother" },
+          { left: "నాన్న", right: "Father" },
+          { left: "అన్న", right: "Older Brother" },
+          { left: "అక్క", right: "Older Sister" }
+        ]
+    }
+  ]
+
+};
+
+
+/* =========================================================
+   VARIABLES
+   ========================================================= */
+
+let selectedQuestions = [];
+let currentQuestion = 0;
+let score = 0;
+let playerName = "";
+let playerAnswers = [];
+let selectedCategory = "";
+
+// Matching question state
+let matchingSelections = {};
+let matchingChecked = false;
+
+function savePlayerName() {
+
+  const input =
+    document.getElementById("player-name");
+
+  const name =
+    input.value.trim();
+
+  if (!name) {
+
+    alert("Please enter your name.");
+
+    input.focus();
+
+    return;
+  }
+
+  playerName = name;
+
+  document.getElementById("name-screen")
+    .style.display = "none";
+
+  document.getElementById("category-screen")
+    .style.display = "block";
+}
+
+function selectCategory(category) {
+  selectedCategory = category;
+  beginNewQuiz();
+}
+
+function beginNewQuiz() {
+
+  const pool =
+    questionPools[selectedCategory];
+
+  if (!pool || pool.length === 0) {
+    alert("There are no questions in this category.");
+    return;
+  }
+
+  /* Randomize the question pool. */
+  const shuffledPool =
+    shuffle([...pool]);
+
+
+  /* Select the required number. */
+  selectedQuestions = shuffledPool.slice(0, Math.min(QUESTIONS_PER_QUIZ,pool.length));
+
+  currentQuestion = 0;
+  score = 0;
+  playerAnswers = [];
+
+  /* Hide other screens. */
+  document.getElementById("name-screen")
+    .style.display = "none";
+
+  document.getElementById("category-screen")
+    .style.display = "none";
+
+  document.getElementById("results")
+    .style.display = "none";
+
+  /* Show quiz. */
+  document.getElementById("quiz")
+    .style.display = "block";
+
+  /* Show selected category. */
+  document.getElementById("category-display")
+    .textContent =
+      selectedCategory;
+
+  loadQuestion();
+}
+
+function loadQuestion() {
+
+  const q = selectedQuestions[currentQuestion];
+
+  /* Update question text. */
+  document.getElementById("question")
+    .textContent =
+      `${currentQuestion + 1}. ${q.question}`;
+
+  /* Clear previous answers. */
+  const answersContainer =
+    document.getElementById("answers");
+
+  answersContainer.innerHTML = "";
+
+  /* Clear previous feedback. */
+  document.getElementById("feedback")
+    .textContent = "";
+
+  /* Hide Next button until question is completed. */
+  document.getElementById("next-btn")
+    .style.display = "none";
+
+  /* Remove previous audio button. */
+  const oldAudio =
+    document.getElementById("question-audio");
+
+  if (oldAudio) {
+    oldAudio.remove();
+  }
+
+  /* Show optional audio. */
+  if (q.audio) {
+    createAudioButton(q.audio);
+  }
+
+  /* Determine question type. */
+  if (q.type === "matching") {
+    loadMatching(q);
+  } else {
+    // Default to multiple-choice for backwards compatibility with your existing questions.
+    loadMultipleChoice(q);
+  }
+
+  /* Update progress. */
+  const progress =
+    (currentQuestion /
+      selectedQuestions.length) * 100;
+
+  document.getElementById("progress-bar")
+    .style.width =
+      progress + "%";
+}
+
+function createAudioButton(audioUrl) {
+
+  const questionElement =
+    document.getElementById("question");
+
+  const container =
+    document.createElement("div");
+
+  container.id =
+    "question-audio";
+
+  container.className =
+    "audio-container";
+
+  const button =
+    document.createElement("button");
+
+  button.type = "button";
+
+  button.className =
+    "audio-button";
+
+  button.textContent =
+    "🔊 Listen";
+
+  button.addEventListener(
+    "click",
+    function() {
+      playAudio(audioUrl, button);
+    }
+  );
+
+  container.appendChild(button);
+
+  /* Insert audio immediately after the question. */
+
+  questionElement
+    .parentNode
+    .insertBefore(
+      container,
+      document.getElementById("answers")
+    );
+}
+
+function stopAudio(){
+  /* Stop any previous audio. */
+  if (window.quizAudio) {
+    window.quizAudio.pause();
+    window.quizAudio.currentTime = 0;
+    window.quizAudio = null;
+  }
+}
+
+function playAudio(audioUrl, button) {
+  stopAudio();
+
+  const audio = new Audio(audioUrl);
+  window.quizAudio = audio;
+  button.disabled = true;
+  button.textContent = "🔊 Playing...";
+
+  audio.play()
+    .then(function() {
+
+      audio.addEventListener(
+        "ended",
+        function() {
+          button.disabled = false;
+          button.textContent = "🔊 Listen Again";
+        }
+      );
+
+    })
+    .catch(function(error) {
+
+      console.error(
+        "Audio could not be played:",
+        error
+      );
+
+      document.getElementById("feedback").textContent = "Audio could not be played.";
+      button.disabled = false;
+      button.textContent =
+        "🔊 Play Audio";
+
+    });
+}
+
+function loadMultipleChoice(q) {
+
+  const answersContainer =
+    document.getElementById("answers");
+
+  /*
+    Create answer objects so we can shuffle
+    the answers without losing the correct answer.
+  */
+
+  const answerObjects =
+    q.answers.map(
+      (answer, index) => {
+
+        return {
+          text: answer,
+          correct: index === q.correct
+        };
+
+      }
+    );
+
+  const shuffledAnswers =
+    shuffle(answerObjects);
+
+  /* Create answer buttons. */
+  shuffledAnswers.forEach(
+    answer => {
+
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.className = "answer";
+      button.textContent = answer.text;
+
+      button.addEventListener(
+        "click",
+        function() {
+          selectMultipleChoiceAnswer(button, answer.correct);
+        }
+      );
+
+      answersContainer.appendChild(button);
+
+    }
+  );
+}
+
+function selectMultipleChoiceAnswer(selectedButton, isCorrect) {
+
+  const buttons = document.querySelectorAll("#quiz-app .answer");
+
+  buttons.forEach(
+    button => {
+      button.disabled = true;
+    }
+  );
+
+  const q = selectedQuestions[currentQuestion];
+
+  /* Record the question and answer. */
+  playerAnswers.push({
+    question: q.question,
+    type: "multiple-choice",
+    answer: selectedButton.textContent,
+    correct: isCorrect,
+    pointsEarned: isCorrect ? 1 : 0
+  });
+
+  if (isCorrect) {
+    score++;
+    selectedButton.classList.add("correct");
+    document.getElementById("feedback").textContent ="✓ Correct!";
+    document.getElementById("feedback").style.color ="#16a34a";
+  }
+
+  else {
+
+    selectedButton.classList.add("incorrect");
+
+    /* Highlight the correct answer. */
+    buttons.forEach(
+      button => {
+
+        if (button.textContent === q.answers[q.correct]) {
+          button.classList.add("correct");
+        }
+
+      }
+    );
+
+    document.getElementById("feedback").textContent = "✗ Incorrect!";
+    document.getElementById("feedback").style.color ="#dc2626";
+  }
+
+  document.getElementById("next-btn").style.display = "block";
+}
+
+function loadMatching(q) {
+
+  const answersContainer = document.getElementById("answers");
+  answersContainer.innerHTML = "";
+
+  matchingSelections = {};
+  matchingChecked = false;
+
+  document.getElementById("check-matches-btn").style.display = "none";
+  document.getElementById("next-btn").style.display = "none";
+
+  const pairs = [...q.pairs];
+
+  const matchColors = [
+    "match-color-1",
+    "match-color-2",
+    "match-color-3",
+    "match-color-4",
+    "match-color-5",
+    "match-color-6"
+  ];
+
+  /* Give every LEFT item a permanent color. */
+  const leftColorMap = {};
+
+  pairs.forEach((pair, index) => {
+    leftColorMap[pair.left] = matchColors[index % matchColors.length];
+  });
+
+  const leftItems = shuffle(pairs.map(pair => pair.left));
+  const rightItems = shuffle(pairs.map(pair => pair.right));
+
+  // Create container
+  const matchingContainer = document.createElement("div");
+  matchingContainer.className = "matching-container";
+
+  const leftColumn = document.createElement("div");
+  leftColumn.className = "matching-column";
+
+  const rightColumn = document.createElement("div");
+  rightColumn.className = "matching-column";
+
+  // Column headings
+  const leftTitle = document.createElement("div");
+  leftTitle.className = "matching-column-title";
+  leftTitle.textContent = q.leftTitle || "Left";
+
+  const rightTitle = document.createElement("div");
+  rightTitle.className = "matching-column-title";
+  rightTitle.textContent = q.rightTitle || "Right";
+
+  leftColumn.appendChild(leftTitle);
+  rightColumn.appendChild(rightTitle);
+
+  let selectedSide = null;
+  let selectedValue = null;
+
+  // Helper functions
+  function clearMatchColors(button) {
+    matchColors.forEach(color => {
+      button.classList.remove(color);
+    });
+  }
+
+  function findLeftButton(value) {
+    return [...leftColumn.querySelectorAll(".matching-item")].find(
+      button => button.dataset.value === value
+    );
+  }
+
+  function findRightButton(value) {
+
+    return [...rightColumn.querySelectorAll(".matching-item")].find(
+      button => button.dataset.value === value
+    );
+  }
+
+  function updateMatchingDisplay() {
+
+    leftColumn
+      .querySelectorAll(".matching-item")
+      .forEach(button => {
+        button.classList.remove("selected", "matched-pair");
+        clearMatchColors(button);
+      });
+
+    rightColumn
+      .querySelectorAll(".matching-item")
+      .forEach(button => {
+        button.classList.remove("selected", "matched-pair");
+        clearMatchColors(button);
+      });
+
+    Object.entries(matchingSelections)
+      .forEach(([left, right]) => {
+        const colorClass = leftColorMap[left];
+        const leftButton = findLeftButton(left);
+        const rightButton = findRightButton(right);
+
+        if (leftButton) {
+          leftButton.classList.add("matched-pair", colorClass);
+        }
+
+        if (rightButton) {
+          rightButton.classList.add("matched-pair", colorClass);
+        }
+      });
+
+    if (selectedSide && selectedValue) {
+      const selectedButton =
+        selectedSide === "left"
+          ? findLeftButton(selectedValue)
+          : findRightButton(selectedValue);
+
+      if (selectedButton) {
+        selectedButton.classList.add("selected");
+      }
+
+    }
+
+  }
+
+  function removeMatchForLeft(left) {
+    delete matchingSelections[left];
+  }
+
+  function removeMatchForRight(right) {
+    Object.keys(matchingSelections)
+      .forEach(left => {
+        if (matchingSelections[left] === right) {
+          delete matchingSelections[left];
+        }
+      });
+  }
+
+  function handleSelection(side, value) {
+
+    if (matchingChecked) {
+      return;
+    }
+
+    if (!selectedSide) {
+
+      selectedSide = side;
+      selectedValue = value;
+
+      updateMatchingDisplay();
+
+      document.getElementById("feedback").textContent = "Now choose its matching item.";
+      document.getElementById("feedback").style.color = "#1b4557";
+
+      return;
+    }
+
+    // Click the same item again
+    if (
+      selectedSide === side &&
+      selectedValue === value
+    ) {
+
+      selectedSide = null;
+      selectedValue = null;
+
+      updateMatchingDisplay();
+      document.getElementById("feedback").textContent = "";
+      return;
+    }
+
+    // Click another item on the same side
+    if (selectedSide === side) {
+
+      selectedValue = value;
+      updateMatchingDisplay();
+
+      document.getElementById("feedback").textContent = "Now choose its matching item.";
+      document.getElementById("feedback").style.color = "#1b4557";
+
+      return;
+    }
+
+    // Selected two items on different sides
+    let left;
+    let right;
+
+    if (selectedSide === "left") {
+      left = selectedValue;
+      right = value;
+    } else {
+      right = selectedValue;
+      left = value;
+    }
+
+    removeMatchForLeft(left);
+    removeMatchForRight(right);
+    matchingSelections[left] = right;
+
+    selectedSide = null;
+    selectedValue = null;
+    updateMatchingDisplay();
+
+    // Are all items matched?
+    if (Object.keys(matchingSelections).length === pairs.length) {
+      document.getElementById("check-matches-btn").style.display = "block";
+      document.getElementById("feedback").textContent = "All items have been matched. Check your answers when you're ready.";
+      document.getElementById("feedback").style.color = "#1b4557";
+    }else {
+      document.getElementById("check-matches-btn").style.display = "none";
+      document.getElementById("feedback").textContent = "Match another pair.";
+      document.getElementById("feedback").style.color = "#1b4557";
+    }
+
+  }
+  // End helpers
+
+  // Create left items
+  leftItems.forEach(left => {
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "matching-item";
+    button.textContent = left;
+    button.dataset.value = left;
+
+    button.addEventListener(
+      "click",
+      function() {
+        handleSelection("left", left);
+      }
+    );
+
+    leftColumn.appendChild(button);
+
+
+  });
+
+// Create right items
+  rightItems.forEach(right => {
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "matching-item";
+    button.textContent = right;
+    button.dataset.value = right;
+
+    button.addEventListener(
+      "click",
+      function() {
+        handleSelection("right", right);
+      }
+    );
+
+    rightColumn.appendChild(button);
+
+  });
+
+  // Add columns
+  matchingContainer.appendChild(leftColumn);
+  matchingContainer.appendChild(rightColumn);
+  answersContainer.appendChild(matchingContainer);
+}
+
+function checkMatches() {
+
+  const q = selectedQuestions[currentQuestion];
+  const pairs = q.pairs;
+  matchingChecked = true;
+  let correctPairs = 0;
+
+  pairs.forEach(pair => {
+    const studentAnswer = matchingSelections[pair.left];
+    if (studentAnswer === pair.right) {
+      correctPairs++;
+    }
+  });
+
+  const pointsEarned = correctPairs / pairs.length;
+  score += pointsEarned;
+
+  const leftButtons =
+    document.querySelectorAll("#answers .matching-column:first-child .matching-item");
+  const rightButtons =
+    document.querySelectorAll("#answers .matching-column:last-child .matching-item");
+
+  pairs.forEach(pair => {
+
+    const studentAnswer = matchingSelections[pair.left];
+    const leftButton =
+      [...leftButtons].find(
+        button =>
+          button.dataset.value === pair.left
+      );
+
+    const rightButton =
+      [...rightButtons].find(
+        button =>
+          button.dataset.value === studentAnswer
+      );
+
+    if (studentAnswer === pair.right) {
+      if (leftButton) {
+        leftButton.classList.add("matched");
+      }
+
+      if (rightButton) {
+        rightButton.classList.add("matched");
+      }
+    } else {
+      if (leftButton) {
+        leftButton.classList.add("incorrect-match");
+      }
+
+      if (rightButton) {
+        rightButton.classList.add("incorrect-match");
+      }
+    }
+
+  });
+
+  document.querySelectorAll("#answers .matching-item").forEach(button => {
+    button.disabled = true;
+    button.classList.remove("selected");
+  });
+
+  const percentage = Math.round((correctPairs / pairs.length) * 100);
+
+  if (correctPairs === pairs.length) {
+    document.getElementById("feedback").textContent =
+      `✓ Perfect! ${correctPairs} of ${pairs.length} matches correct — ${pointsEarned.toFixed(2)} point.`;
+    document.getElementById("feedback").style.color = "#16a34a";
+  } else if (correctPairs > 0) {
+    document.getElementById("feedback").textContent =
+      `✓ ${correctPairs} of ${pairs.length} matches correct — ${pointsEarned.toFixed(2)} points (${percentage}%).`;
+    document.getElementById("feedback").style.color ="#1b4557";
+  } else {
+    document.getElementById("feedback").textContent =
+      `✗ 0 of ${pairs.length} matches correct — 0 points.`;
+    document.getElementById("feedback").style.color = "#dc2626";
+  }
+
+
+  const selectedPairs =
+  Object.entries(matchingSelections)
+    .map(([left, right]) =>
+      `${left} → ${right}`
+    )
+    .join(" | ");
+
+  playerAnswers.push({
+    question: q.question,
+    type: "matching",
+
+    answer: selectedPairs,
+    pointsEarned: pointsEarned,
+  });
+
+  /*
+    Hide Check Matches and show Next Question.
+  */
+
+  document.getElementById("check-matches-btn")
+    .style.display =
+      "none";
+
+  document.getElementById("next-btn")
+    .style.display =
+      "block";
+}
+
+function nextQuestion() {
+  stopAudio();
+
+  currentQuestion++;
+
+  if (currentQuestion < selectedQuestions.length) {
+    loadQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function backToCategories() {
+
+  /*
+    If the user hasn't started a quiz yet,
+    just return to categories.
+  */
+
+  if (selectedQuestions.length === 0) {
+    showCategories();
+    return;
+  }
+
+  // Remove the check matches button 
+  document.getElementById("check-matches-btn").style.display = "none";
+
+  stopAudio();
+
+  /* Reset quiz. */
+  selectedQuestions = [];
+  currentQuestion = 0;
+  score = 0;
+  playerAnswers = [];
+
+  showCategories();
+}
+
+function showCategories() {
+
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("results").style.display = "none";
+  document.getElementById("category-screen").style.display = "block";
+
+  /* Reset progress bar. */
+  document.getElementById("progress-bar").style.width = "0%";
+
+  /* Clear quiz content. */
+  document.getElementById("answers").innerHTML = "";
+  document.getElementById("feedback").textContent = "";
+}
+
+function showResults() {
+
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("results").style.display = "block";
+
+  const total = selectedQuestions.length;
+  const percentage = Math.round((score / total) * 100);
+
+  // limit decimal places
+  const displayScore = Number.isInteger(score) ? score : score.toFixed(3);
+  document.getElementById("score").textContent =
+    `${playerName}, you scored ${displayScore} / ${total} (${percentage}%)`;
+
+
+  let message;
+
+  if (percentage === 100) {
+    message = "Perfect score! 🎉";
+  }else if (percentage >= 80) {
+    message = "Excellent work!";
+  }else if (percentage >= 60) {
+    message = "Great job!";
+  }else if (percentage >= 50) {
+    message = "Not bad! Keep practicing.";
+  }else {
+    message = "Keep learning and try again!";
+  }
+
+  document.getElementById("result-message").textContent = message;
+
+  /* Save completed quiz results. */
+  saveResults();
+}
+
+function saveResults() {
+
+  const totalQuestions = selectedQuestions.length;
+  const percentage = Math.round((score / totalQuestions) * 100);
+
+  const data = {
+    playerName: playerName,
+    category: selectedCategory,
+    totalQuestions: totalQuestions,
+    score: score,
+    percentage: percentage,
+    answers: playerAnswers
+  };
+
+  fetch(
+    GOOGLE_SCRIPT_URL,
+    {
+      method: "POST",
+      body: JSON.stringify(data)
+    }
+  ).then(
+    response =>
+      response.text()
+  ).then(
+    result => {
+      console.log(
+        "Results saved:",
+        result
+      );
+
+    }
+  )
+
+  .catch(
+    error => {
+      console.error(
+        "Could not save results:",
+        error
+      );
+    }
+  );
+}
+
+function playAgain() {
+  beginNewQuiz();
+}
+
+function chooseAnotherCategory() {
+  showCategories();
+}
+
+function shuffle(array) {
+
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
+}
+
+function buildCategoryButtons() {
+
+  const categoryList = document.getElementById("category-list");
+  categoryList.innerHTML = "";
+
+  Object.keys(questionPools)
+    .forEach(
+      category => {
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "category-button";
+        button.textContent = category;
+
+        button.addEventListener(
+          "click",
+          function() {
+            selectCategory(category);
+          }
+        );
+
+        categoryList.appendChild(button);
+      }
+    );
+}
+
+// Initialize category buttons
+buildCategoryButtons();
+
+// ALLOW ENTER KEY ON NAME FIELD
+document.getElementById("player-name").addEventListener(
+    "keydown",
+    function(event) {
+
+      if (event.key === "Enter") {
+        event.preventDefault();
+        savePlayerName();
+      }
+
+    }
+  );
+
+</script>
+
+
+</body>
+</html>
