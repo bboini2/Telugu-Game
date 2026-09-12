@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Telugu Quiz</title>
+<title>Telugu Game</title>
 
 
 <style>
@@ -69,6 +69,59 @@ body {
   line-height: 1.3;
 }
 
+
+
+/* =========================================================
+   ACTIVITIES SCREEN
+   ========================================================= */
+
+#activities-screen {
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.activities-panel {
+  width: 100%;
+  max-width: 500px;
+  padding: 40px 35px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.activity-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.activity-button {
+  display: block;
+  width: 100%;
+  padding: 18px;
+  color: #222222 !important;
+  background-color: #ffffff !important;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.activity-button:hover {
+  color: #222222 !important;
+  background-color: #f5f3ff !important;
+  border-color: #1b4557;
+}
 
 /* =========================================================
    NAME SCREEN
@@ -558,6 +611,10 @@ MATCHING
     padding: 30px 20px;
   }
 
+  .activities-panel {
+    padding: 30px 20px;
+  }
+
   #quiz-app h1 {
     font-size: 26px;
   }
@@ -593,6 +650,39 @@ MATCHING
 <div id="quiz-app">
 
 
+
+  <!-- =====================================================
+       ACTIVITIES SCREEN
+       ===================================================== -->
+
+  <div
+    id="activities-screen"
+    class="quiz-screen"
+  >
+
+    <div class="activities-panel">
+
+      <h1>
+        Activities
+      </h1>
+
+      <div class="activity-list">
+
+        <button
+          type="button"
+          class="activity-button"
+          onclick="startPractice()"
+        >
+          Practice
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
   <!-- =====================================================
        NAME SCREEN
        ===================================================== -->
@@ -605,7 +695,7 @@ MATCHING
     <div class="name-panel">
 
       <h1>
-        Telugu Quiz
+        Telugu Game
       </h1>
 
       <label
@@ -654,6 +744,15 @@ MATCHING
       class="category-list"
     ></div>
 
+
+    <button
+      type="button"
+      class="quiz-button secondary-button"
+      onclick="showActivities()"
+    >
+      ← Back to Activities
+    </button>
+
   </div>
 
 
@@ -692,7 +791,7 @@ MATCHING
       type="button"
       id="next-btn"
       class="quiz-button"
-      onclick="nextQuestion()"
+      onclick="nextQuizQuestion()"
     >
       Next Question
     </button>
@@ -711,7 +810,7 @@ MATCHING
       type="button"
       id="back-category-btn"
       class="quiz-button secondary-button"
-      onclick="backToCategories()"
+      onclick="backToQuizCategories()"
     >
       ← Back to Categories
     </button>
@@ -741,7 +840,7 @@ MATCHING
       <button
         type="button"
         class="quiz-button"
-        onclick="playAgain()"
+        onclick="replayQuiz()"
       >
         Play Again
       </button>
@@ -749,7 +848,7 @@ MATCHING
       <button
         type="button"
         class="quiz-button secondary-button"
-        onclick="chooseAnotherCategory()"
+        onclick="chooseAnotherQuizCategory()"
       >
         Choose Another Category
       </button>
@@ -780,48 +879,6 @@ const GOOGLE_SCRIPT_URL =
 const QUESTIONS_PER_QUIZ = 8;
 
 
-/* =========================================================
-   QUESTION POOLS
-   =========================================================
-
-   QUESTION TYPES:
-
-   1. multiple-choice
-
-   {
-     type: "multiple-choice",
-     question: "What does this mean?",
-     audio: "https://example.com/audio.mp3",
-     answers: ["Water", "House", "Book", "Food"],
-     correct: 0
-   }
-
-
-   2. matching
-
-    {
-        type: "matching",
-        question: "Match the Telugu word to the English translation.",
-
-        audio: "YOUR_AUDIO_URL_HERE",
-
-        leftTitle: "తెలుగు",
-        rightTitle: "English",
-
-        pairs: [
-            { left: "అమ్మ", right: "Mother" },
-            { left: "నాన్న", right: "Father" },
-            { left: "అన్న", right: "Older Brother" },
-            { left: "అక్క", right: "Older Sister" }
-        ]
-    }
-
-   AUDIO IS OPTIONAL.
-
-   If there is no "audio" property, no audio button
-   will be displayed.
-
-*/
 
 const questionPools = {
 
@@ -1624,7 +1681,7 @@ const questionPools = {
       {
         type: "matching",
         question: "Match the Telugu word to the English translation.",
-        audio: "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/audio/test.mp3",
+        audio: "test.mp3",
 
         leftTitle: "తెలుగు",
         rightTitle: "English",
@@ -1640,149 +1697,118 @@ const questionPools = {
 
 };
 
-
 /* =========================================================
-   VARIABLES
+   QUIZ VARIABLES
    ========================================================= */
-
 let selectedQuestions = [];
 let currentQuestion = 0;
-let score = 0;
+let quizScore = 0;
 let playerName = "";
 let playerAnswers = [];
-let selectedCategory = "";
+let selectedQuizCategory = "";
 
 // Matching question state
 let matchingSelections = {};
 let matchingChecked = false;
 
+
+function showActivities() {
+  stopAudio();
+
+  document.getElementById("activities-screen").style.display = "flex";
+  document.getElementById("name-screen").style.display = "none";
+  document.getElementById("category-screen").style.display = "none";
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("results").style.display = "none";
+}
+
+function startPractice() {
+  document.getElementById("activities-screen").style.display = "none";
+  showQuizCategories();
+}
+
 function savePlayerName() {
-
-  const input =
-    document.getElementById("player-name");
-
-  const name =
-    input.value.trim();
+  const input = document.getElementById("player-name");
+  const name = input.value.trim();
 
   if (!name) {
-
-    alert("Please enter your name.");
-
     input.focus();
-
     return;
   }
 
   playerName = name;
-
-  document.getElementById("name-screen")
-    .style.display = "none";
-
-  document.getElementById("category-screen")
-    .style.display = "block";
+  showActivities();
 }
 
-function selectCategory(category) {
-  selectedCategory = category;
+function selectQuizCategory(category) {
+  selectedQuizCategory = category;
   beginNewQuiz();
 }
 
 function beginNewQuiz() {
 
-  const pool =
-    questionPools[selectedCategory];
+  const pool = questionPools[selectedQuizCategory];
 
   if (!pool || pool.length === 0) {
-    alert("There are no questions in this category.");
     return;
   }
 
   /* Randomize the question pool. */
-  const shuffledPool =
-    shuffle([...pool]);
-
+  const shuffledPool = shuffle([...pool]);
 
   /* Select the required number. */
   selectedQuestions = shuffledPool.slice(0, Math.min(QUESTIONS_PER_QUIZ,pool.length));
 
   currentQuestion = 0;
-  score = 0;
+  quizScore = 0;
   playerAnswers = [];
 
-  /* Hide other screens. */
-  document.getElementById("name-screen")
-    .style.display = "none";
+  document.getElementById("name-screen").style.display = "none";
+  document.getElementById("category-screen").style.display = "none";
+  document.getElementById("results").style.display = "none";
+  document.getElementById("quiz").style.display = "block";
+  document.getElementById("category-display").textContent = selectedQuizCategory;
 
-  document.getElementById("category-screen")
-    .style.display = "none";
-
-  document.getElementById("results")
-    .style.display = "none";
-
-  /* Show quiz. */
-  document.getElementById("quiz")
-    .style.display = "block";
-
-  /* Show selected category. */
-  document.getElementById("category-display")
-    .textContent =
-      selectedCategory;
-
-  loadQuestion();
+  loadQuizQuestion();
 }
 
-function loadQuestion() {
+function formatAudio(audioName){
+  return "https://raw.githubusercontent.com/username/reponame/main/audio/" + audioName;
+}
+
+function loadQuizQuestion() {
 
   const q = selectedQuestions[currentQuestion];
 
   /* Update question text. */
-  document.getElementById("question")
-    .textContent =
+  document.getElementById("question") .textContent =
       `${currentQuestion + 1}. ${q.question}`;
 
-  /* Clear previous answers. */
-  const answersContainer =
-    document.getElementById("answers");
-
+  const answersContainer = document.getElementById("answers");
   answersContainer.innerHTML = "";
-
-  /* Clear previous feedback. */
-  document.getElementById("feedback")
-    .textContent = "";
-
-  /* Hide Next button until question is completed. */
-  document.getElementById("next-btn")
-    .style.display = "none";
-
-  /* Remove previous audio button. */
-  const oldAudio =
-    document.getElementById("question-audio");
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("next-btn").style.display = "none";
+  const oldAudio = document.getElementById("question-audio");
 
   if (oldAudio) {
     oldAudio.remove();
   }
 
-  /* Show optional audio. */
   if (q.audio) {
-    createAudioButton(q.audio);
+    createAudioButton(formatAudio(q.audio));
   }
 
-  /* Determine question type. */
   if (q.type === "matching") {
     loadMatching(q);
-  } else {
-    // Default to multiple-choice for backwards compatibility with your existing questions.
+  } else if (q.type == "multiple-choice"){
+    // Default to multiple-choice
     loadMultipleChoice(q);
+  }else{
+    
   }
 
-  /* Update progress. */
-  const progress =
-    (currentQuestion /
-      selectedQuestions.length) * 100;
-
-  document.getElementById("progress-bar")
-    .style.width =
-      progress + "%";
+  const progress = (currentQuestion / selectedQuestions.length) * 100;
+  document.getElementById("progress-bar").style.width = progress + "%";
 }
 
 function createAudioButton(audioUrl) {
@@ -1809,7 +1835,6 @@ function createAudioButton(audioUrl) {
   container.appendChild(button);
 
   /* Insert audio immediately after the question. */
-
   questionElement
     .parentNode
     .insertBefore(
@@ -1868,7 +1893,6 @@ function loadMultipleChoice(q) {
   const answerObjects =
     q.answers.map(
       (answer, index) => {
-
         return {
           text: answer,
           correct: index === q.correct
@@ -1877,13 +1901,11 @@ function loadMultipleChoice(q) {
       }
     );
 
-  const shuffledAnswers =
-    shuffle(answerObjects);
+  const shuffledAnswers = shuffle(answerObjects);
 
   /* Create answer buttons. */
   shuffledAnswers.forEach(
     answer => {
-
       const button = document.createElement("button");
 
       button.type = "button";
@@ -1898,7 +1920,6 @@ function loadMultipleChoice(q) {
       );
 
       answersContainer.appendChild(button);
-
     }
   );
 }
@@ -1925,24 +1946,20 @@ function selectMultipleChoiceAnswer(selectedButton, isCorrect) {
   });
 
   if (isCorrect) {
-    score++;
+    quizScore++;
     selectedButton.classList.add("correct");
     document.getElementById("feedback").textContent ="✓ Correct!";
     document.getElementById("feedback").style.color ="#16a34a";
-  }
-
-  else {
+  } else {
 
     selectedButton.classList.add("incorrect");
 
     /* Highlight the correct answer. */
     buttons.forEach(
       button => {
-
         if (button.textContent === q.answers[q.correct]) {
           button.classList.add("correct");
         }
-
       }
     );
 
@@ -2024,7 +2041,6 @@ function loadMatching(q) {
   }
 
   function findRightButton(value) {
-
     return [...rightColumn.querySelectorAll(".matching-item")].find(
       button => button.dataset.value === value
     );
@@ -2070,9 +2086,7 @@ function loadMatching(q) {
       if (selectedButton) {
         selectedButton.classList.add("selected");
       }
-
     }
-
   }
 
   function removeMatchForLeft(left) {
@@ -2184,8 +2198,6 @@ function loadMatching(q) {
     );
 
     leftColumn.appendChild(button);
-
-
   });
 
 // Create right items
@@ -2205,7 +2217,6 @@ function loadMatching(q) {
     );
 
     rightColumn.appendChild(button);
-
   });
 
   // Add columns
@@ -2229,7 +2240,7 @@ function checkMatches() {
   });
 
   const pointsEarned = correctPairs / pairs.length;
-  score += pointsEarned;
+  quizScore += pointsEarned;
 
   const leftButtons =
     document.querySelectorAll("#answers .matching-column:first-child .matching-item");
@@ -2237,19 +2248,11 @@ function checkMatches() {
     document.querySelectorAll("#answers .matching-column:last-child .matching-item");
 
   pairs.forEach(pair => {
-
     const studentAnswer = matchingSelections[pair.left];
     const leftButton =
-      [...leftButtons].find(
-        button =>
-          button.dataset.value === pair.left
-      );
-
+      [...leftButtons].find(button => button.dataset.value === pair.left);
     const rightButton =
-      [...rightButtons].find(
-        button =>
-          button.dataset.value === studentAnswer
-      );
+      [...rightButtons].find(button => button.dataset.value === studentAnswer);
 
     if (studentAnswer === pair.right) {
       if (leftButton) {
@@ -2268,7 +2271,6 @@ function checkMatches() {
         rightButton.classList.add("incorrect-match");
       }
     }
-
   });
 
   document.querySelectorAll("#answers .matching-item").forEach(button => {
@@ -2292,100 +2294,72 @@ function checkMatches() {
     document.getElementById("feedback").style.color = "#dc2626";
   }
 
-
   const selectedPairs =
-  Object.entries(matchingSelections)
-    .map(([left, right]) =>
-      `${left} → ${right}`
-    )
-    .join(" | ");
+    Object.entries(matchingSelections)
+      .map(([left, right]) => `${left} → ${right}`).join(" | ");
 
   playerAnswers.push({
     question: q.question,
     type: "matching",
-
     answer: selectedPairs,
     pointsEarned: pointsEarned,
   });
 
-  /*
-    Hide Check Matches and show Next Question.
-  */
-
-  document.getElementById("check-matches-btn")
-    .style.display =
-      "none";
-
-  document.getElementById("next-btn")
-    .style.display =
-      "block";
+  document.getElementById("check-matches-btn").style.display = "none";
+  document.getElementById("next-btn").style.display = "block";
 }
 
-function nextQuestion() {
+function nextQuizQuestion() {
   stopAudio();
 
   currentQuestion++;
 
   if (currentQuestion < selectedQuestions.length) {
-    loadQuestion();
+    loadQuizQuestion();
   } else {
-    showResults();
+    showQuizResults();
   }
 }
 
-function backToCategories() {
-
-  /*
-    If the user hasn't started a quiz yet,
-    just return to categories.
-  */
-
+function backToQuizCategories() {
   if (selectedQuestions.length === 0) {
-    showCategories();
+    showQuizCategories();
     return;
   }
 
-  // Remove the check matches button 
   document.getElementById("check-matches-btn").style.display = "none";
 
   stopAudio();
 
-  /* Reset quiz. */
   selectedQuestions = [];
   currentQuestion = 0;
-  score = 0;
+  quizScore = 0;
   playerAnswers = [];
 
-  showCategories();
+  showQuizCategories();
 }
 
-function showCategories() {
-
+function showQuizCategories() {
   document.getElementById("quiz").style.display = "none";
   document.getElementById("results").style.display = "none";
   document.getElementById("category-screen").style.display = "block";
-
-  /* Reset progress bar. */
   document.getElementById("progress-bar").style.width = "0%";
-
-  /* Clear quiz content. */
   document.getElementById("answers").innerHTML = "";
   document.getElementById("feedback").textContent = "";
 }
 
-function showResults() {
+function showQuizResults() {
 
   document.getElementById("quiz").style.display = "none";
   document.getElementById("results").style.display = "block";
 
   const total = selectedQuestions.length;
-  const percentage = Math.round((score / total) * 100);
+  const percentage = Math.round((quizScore / total) * 100);
 
   // limit decimal places
-  const displayScore = Number.isInteger(score) ? score : score.toFixed(3);
+  const displayScore = Number.isInteger(quizScore) ? quizScore : quizScore.toFixed(3);
   document.getElementById("score").textContent =
     `${playerName}, you scored ${displayScore} / ${total} (${percentage}%)`;
-
 
   let message;
 
@@ -2403,20 +2377,19 @@ function showResults() {
 
   document.getElementById("result-message").textContent = message;
 
-  /* Save completed quiz results. */
-  saveResults();
+  saveQuizResults();
 }
 
-function saveResults() {
+function saveQuizResults() {
 
   const totalQuestions = selectedQuestions.length;
-  const percentage = Math.round((score / totalQuestions) * 100);
+  const percentage = Math.round((quizScore / totalQuestions) * 100);
 
   const data = {
     playerName: playerName,
-    category: selectedCategory,
+    category: selectedQuizCategory,
     totalQuestions: totalQuestions,
-    score: score,
+    score: quizScore,
     percentage: percentage,
     answers: playerAnswers
   };
@@ -2428,34 +2401,24 @@ function saveResults() {
       body: JSON.stringify(data)
     }
   ).then(
-    response =>
-      response.text()
+    response => response.text()
   ).then(
     result => {
-      console.log(
-        "Results saved:",
-        result
-      );
-
+      console.log("Results saved:", result);
     }
-  )
-
-  .catch(
+  ).catch(
     error => {
-      console.error(
-        "Could not save results:",
-        error
-      );
+      console.error("Could not save results:", error);
     }
   );
 }
 
-function playAgain() {
+function replayQuiz() {
   beginNewQuiz();
 }
 
-function chooseAnotherCategory() {
-  showCategories();
+function chooseAnotherQuizCategory() {
+  showQuizCategories();
 }
 
 function shuffle(array) {
@@ -2468,7 +2431,7 @@ function shuffle(array) {
   return array;
 }
 
-function buildCategoryButtons() {
+function buildQuizCategoryButtons() {
 
   const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
@@ -2485,7 +2448,7 @@ function buildCategoryButtons() {
         button.addEventListener(
           "click",
           function() {
-            selectCategory(category);
+            selectQuizCategory(category);
           }
         );
 
@@ -2495,18 +2458,21 @@ function buildCategoryButtons() {
 }
 
 // Initialize category buttons
-buildCategoryButtons();
+buildQuizCategoryButtons();
+
+// Start by asking for the player's name.
+document.getElementById("activities-screen").style.display = "none";
+document.getElementById("name-screen").style.display = "flex";
+document.getElementById("player-name").focus();
 
 // ALLOW ENTER KEY ON NAME FIELD
 document.getElementById("player-name").addEventListener(
     "keydown",
     function(event) {
-
       if (event.key === "Enter") {
         event.preventDefault();
         savePlayerName();
       }
-
     }
   );
 
