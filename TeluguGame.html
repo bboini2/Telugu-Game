@@ -8,7 +8,7 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>Telugu Game</title>
+<title>Telugu Learning Game</title>
 
 
 <style>
@@ -639,6 +639,209 @@ MATCHING
 
 }
 
+
+/* =========================================================
+   WORD SEARCH
+   ========================================================= */
+
+.word-search-screen {
+  min-height: 500px;
+}
+
+.word-search-panel {
+  width: 100%;
+  padding: 30px 25px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.word-search-header {
+  text-align: center;
+}
+
+.word-search-instructions {
+  margin: -10px 0 20px 0;
+  color: #555555;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.word-search-grid-wrap {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 25px auto;
+  overflow-x: auto;
+}
+
+.word-search-grid {
+  display: grid;
+  width: min(100%, 600px);
+  margin: 0 auto;
+  aspect-ratio: 1 / 1;
+  border: 2px solid #1b4557;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.word-search-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid #d9dee2;
+  border-bottom: 1px solid #d9dee2;
+  color: #222222;
+  background: #ffffff;
+  font-size: clamp(11px, 2.7vw, 20px);
+  font-weight: bold;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.word-search-cell.selected {
+  background: #dcecf2;
+}
+
+/* Temporary feedback when the user starts or drags through an already-found cell. */
+.word-search-cell.selected-found {
+  outline: 3px solid #1b4557;
+  outline-offset: -3px;
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.9);
+  position: relative;
+  z-index: 1;
+}
+
+.word-search-cell.found {
+  background: #b9d8e3;
+}
+
+/* Each discovered word gets its own visual color so nearby words are easier to distinguish. */
+.word-search-cell.found-0 { background: #f8d7da; }
+.word-search-cell.found-1 { background: #d1ecf1; }
+.word-search-cell.found-2 { background: #d4edda; }
+.word-search-cell.found-3 { background: #fff3cd; }
+.word-search-cell.found-4 { background: #e2d9f3; }
+.word-search-cell.found-5 { background: #cfe2ff; }
+.word-search-cell.found-6 { background: #fde2e4; }
+.word-search-cell.found-7 { background: #d8f3dc; }
+.word-search-cell.found-8 { background: #ffe5b4; }
+.word-search-cell.found-9 { background: #e0e0e0; }
+
+/* Overlapping found words use a split/segmented background instead of one color replacing another. */
+.word-search-cell.found-overlap {
+  background: transparent;
+}
+
+.word-search-cell.found {
+  font-weight: 800;
+  border-color: rgba(27, 69, 87, 0.35);
+}
+
+.word-search-cell:last-child {
+  border-right: 0;
+}
+
+.word-search-clues {
+  display: grid;
+  gap: 10px;
+  margin: 0 auto 25px auto;
+  max-width: 600px;
+}
+
+.word-search-clue {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #333333;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.word-search-clue.found {
+  border-color: #1b4557;
+  background: #f1f7f9;
+}
+
+.word-search-clue.found-0 { border-color: #d66a72; background: #fff1f2; }
+.word-search-clue.found-1 { border-color: #4d9aaa; background: #eefafd; }
+.word-search-clue.found-2 { border-color: #5c9b69; background: #f0fbf2; }
+.word-search-clue.found-3 { border-color: #c69b28; background: #fffaf0; }
+.word-search-clue.found-4 { border-color: #876bb2; background: #f7f3fc; }
+.word-search-clue.found-5 { border-color: #4e82c4; background: #f1f6ff; }
+.word-search-clue.found-6 { border-color: #c45d68; background: #fff3f4; }
+.word-search-clue.found-7 { border-color: #4f9660; background: #f0faf2; }
+.word-search-clue.found-8 { border-color: #c88635; background: #fff7eb; }
+.word-search-clue.found-9 { border-color: #777777; background: #f5f5f5; }
+
+.word-search-error {
+  margin: 12px auto;
+  padding: 12px 14px;
+  max-width: 720px;
+  border: 1px solid #c62828;
+  border-radius: 8px;
+  background: #fff4f4;
+  color: #8b1e1e;
+  font-weight: 600;
+}
+
+.word-search-clue-check {
+  flex: 0 0 auto;
+  width: 22px;
+  height: 22px;
+  border: 2px solid #9ca3af;
+  border-radius: 50%;
+  color: #1b4557;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 18px;
+  text-align: center;
+}
+
+.word-search-clue.found .word-search-clue-check {
+  border-color: #1b4557;
+}
+
+.word-search-status {
+  min-height: 24px;
+  margin-bottom: 15px;
+  color: #555555;
+  font-size: 15px;
+  text-align: center;
+}
+
+.word-search-complete {
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: #f1f7f9;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .word-search-panel {
+    padding: 25px 12px;
+  }
+
+  .word-search-grid {
+    width: 100%;
+  }
+}
+
 </style>
 
 </head>
@@ -676,7 +879,76 @@ MATCHING
           Practice
         </button>
 
+        <button
+          type="button"
+          id="word-search-activity-button"
+          class="activity-button"
+          onclick="startWordSearch()"
+        >
+          Word Search
+        </button>
+
       </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       WORD SEARCH CATEGORY SCREEN
+       ===================================================== -->
+
+  <div id="word-search-category-screen" class="quiz-screen" style="display: none;">
+    <h1>Choose a Word Search Category</h1>
+    <div id="word-search-category-error" class="word-search-error" style="display:none;"></div>
+    <div id="word-search-category-list" class="category-list"></div>
+    <button type="button" class="quiz-button secondary-button" onclick="showActivities()">
+      ← Back to Activities
+    </button>
+  </div>
+
+
+  <!-- =====================================================
+       WORD SEARCH SCREEN
+       ===================================================== -->
+
+  <div
+    id="word-search-screen"
+    class="quiz-screen word-search-screen"
+    style="display: none;"
+  >
+
+    <div class="word-search-panel">
+
+      <div class="word-search-header">
+        <h1 id="word-search-title">Word Search</h1>
+        <p class="word-search-instructions">
+          Read each clue, work out the hidden word, then press and drag across its letters.
+          Words go left-to-right, top-to-bottom, or diagonally forward.
+        </p>
+      </div>
+
+      <div id="word-search-status" class="word-search-status"></div>
+
+      <div class="word-search-grid-wrap">
+        <div id="word-search-grid" class="word-search-grid" aria-label="Word search grid"></div>
+      </div>
+
+      <div id="word-search-clues" class="word-search-clues"></div>
+
+      <div id="word-search-complete" class="word-search-complete" style="display: none;">
+        <h2>Completed!</h2>
+        <p>You found all of the hidden words.</p>
+      </div>
+
+      <button
+        type="button"
+        class="quiz-button secondary-button"
+        onclick="showWordSearchCategories()"
+      >
+        ← Back to Categories
+      </button>
 
     </div>
 
@@ -695,7 +967,7 @@ MATCHING
     <div class="name-panel">
 
       <h1>
-        Telugu Game
+        Telugu Learning Game
       </h1>
 
       <label
@@ -877,8 +1149,6 @@ const GOOGLE_SCRIPT_URL =
    ========================================================= */
 
 const QUESTIONS_PER_QUIZ = 8;
-
-
 
 const questionPools = {
 
@@ -1440,6 +1710,7 @@ const questionPools = {
   "[Challenge] Similar Consonants": [
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ఘ",
 
         answers: [
@@ -1453,6 +1724,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ఝ",
 
         answers: [
@@ -1466,6 +1738,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: య",
 
         answers: [
@@ -1479,6 +1752,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: మ",
 
         answers: [
@@ -1492,6 +1766,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: న",
 
         answers: [
@@ -1503,6 +1778,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: స",
 
         answers: [
@@ -1514,6 +1790,7 @@ const questionPools = {
       },
       
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: డ",
 
         answers: [
@@ -1528,6 +1805,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ఢ",
 
         answers: [
@@ -1542,6 +1820,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ద",
 
         answers: [
@@ -1556,6 +1835,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ధ",
 
         answers: [
@@ -1570,6 +1850,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: థ",
 
         answers: [
@@ -1584,6 +1865,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: వ",
 
         answers: [
@@ -1598,6 +1880,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ప",
 
         answers: [
@@ -1612,6 +1895,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ఫ",
 
         answers: [
@@ -1626,6 +1910,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ష",
 
         answers: [
@@ -1640,6 +1925,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: హ",
 
         answers: [
@@ -1654,6 +1940,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
         question: "Identify the following consonant: ర",
 
         answers: [
@@ -1665,6 +1952,7 @@ const questionPools = {
       },
 
       {
+        type: "multiple-choice",
       question: "Identify the following consonant: ఠ",
 
       answers: [
@@ -1677,57 +1965,72 @@ const questionPools = {
 
   ],
 
-  "testing": [
-      {
-        type: "matching",
-        question: "Match the Telugu word to the English translation.",
-        audio: "test.mp3",
+  // "testing": [
+  //     {
+  //       type: "matching",
+  //       question: "Match the Telugu word to the English translation.",
+  //       audio: "test.mp3",
 
-        leftTitle: "తెలుగు",
-        rightTitle: "English",
+  //       leftTitle: "తెలుగు",
+  //       rightTitle: "English",
 
-        pairs: [
-          { left: "అమ్మ", right: "Mother" },
-          { left: "నాన్న", right: "Father" },
-          { left: "అన్న", right: "Older Brother" },
-          { left: "అక్క", right: "Older Sister" }
-        ]
-    }
-  ]
+  //       pairs: [
+  //         { left: "అమ్మ", right: "Mother" },
+  //         { left: "నాన్న", right: "Father" },
+  //         { left: "అన్న", right: "Older Brother" },
+  //         { left: "అక్క", right: "Older Sister" }
+  //       ]
+  //   }
+  // ]
 
 };
 
+
+
+
 /* =========================================================
-   QUIZ VARIABLES
+   WORD SEARCH SETTINGS
+   =========================================================
+
+   Edit gridSize to control the grid dimensions for each puzzle.
+   The hidden words and clues are kept here, separate from questionPools.
+   The words themselves are never displayed to the learner.
    ========================================================= */
-let selectedQuestions = [];
-let currentQuestion = 0;
-let quizScore = 0;
-let playerName = "";
-let playerAnswers = [];
-let selectedQuizCategory = "";
 
-// Matching question state
-let matchingSelections = {};
-let matchingChecked = false;
+const WORD_SEARCH_COLORS = [
+  "#f8d7da",
+  "#d1ecf1",
+  "#d4edda",
+  "#fff3cd",
+  "#e2d9f3",
+  "#cfe2ff",
+  "#fde2e4",
+  "#d8f3dc",
+  "#ffe5b4",
+  "#e0e0e0"
+];
 
+const wordSearchPools = {
+  Animals: {
+    gridSize: 10,
+    entries: [
+      { word: "elephant",   clue: "ఏనుగు (enugu)" },
+      { word: "tiger",      clue: "పులి (puli)" },
+      { word: "horse",      clue: "గుర్రం (gurram)" },
+      { word: "rabbit",     clue: "కుందేలు (kundelu)" },
+      { word: "cat",        clue: "పిల్లి (pilli)"},
+      { word: "dog",        clue: "కుక్క (kukka)"},
+      { word: "lion",       clue: "సింహం (simham)"},
+    ]
+  }
+};
 
-function showActivities() {
-  stopAudio();
-
-  document.getElementById("activities-screen").style.display = "flex";
-  document.getElementById("name-screen").style.display = "none";
-  document.getElementById("category-screen").style.display = "none";
-  document.getElementById("quiz").style.display = "none";
-  document.getElementById("results").style.display = "none";
-}
-
-function startPractice() {
-  document.getElementById("activities-screen").style.display = "none";
-  showQuizCategories();
-}
+/* =========================================================
+   FUNCTIONS
+   ========================================================= */
 
 function savePlayerName() {
+
   const input = document.getElementById("player-name");
   const name = input.value.trim();
 
@@ -1739,6 +2042,639 @@ function savePlayerName() {
   playerName = name;
   showActivities();
 }
+
+function showActivities() {
+  /* Stop any quiz audio before leaving Practice. */
+  stopAudio();
+
+  document.getElementById("activities-screen").style.display = "flex";
+  document.getElementById("name-screen").style.display = "none";
+  document.getElementById("category-screen").style.display = "none";
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("results").style.display = "none";
+  document.getElementById("word-search-screen").style.display = "none";
+  document.getElementById("word-search-category-screen").style.display = "none";
+
+  wordSearchDragging = false;
+  wordSearchStartCell = null;
+  clearWordSearchSelection();
+}
+
+function startPractice() {
+  /* Practice uses the existing quiz exactly as before. */
+  document.getElementById("activities-screen").style.display = "none";
+
+  showQuizCategories();
+}
+
+function startWordSearch() {
+  showWordSearchCategories();
+}
+
+/* =========================================================
+   WORD SEARCH FUNCTIONS
+   ========================================================= */
+
+// Word Search state
+let selectedWordSearchCategory = "";
+let wordSearchGridSize = 12;
+let wordSearchEntries = [];
+let wordSearchGrid = [];
+let wordSearchPlacements = [];
+let wordSearchFound = new Set();
+let wordSearchDragging = false;
+let wordSearchStartCell = null;
+let wordSearchCurrentSelection = [];
+
+function showWordSearchCategories() {
+  const categoryList = document.getElementById("word-search-category-list");
+  categoryList.innerHTML = "";
+  const categoryError = document.getElementById("word-search-category-error");
+  if (categoryError) {
+    categoryError.style.display = "none";
+    categoryError.textContent = "";
+  }
+
+  Object.keys(wordSearchPools).forEach(function(category) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-button";
+    button.textContent = category;
+    button.addEventListener("click", function() {
+      launchWordSearch(category);
+    });
+    categoryList.appendChild(button);
+  });
+
+  if (!Object.keys(wordSearchPools).length) {
+    categoryList.innerHTML = "<p>No Word Search categories have been configured yet.</p>";
+  }
+
+  document.getElementById("activities-screen").style.display = "none";
+  document.getElementById("name-screen").style.display = "none";
+  document.getElementById("category-screen").style.display = "none";
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("results").style.display = "none";
+  document.getElementById("word-search-screen").style.display = "none";
+  document.getElementById("word-search-category-screen").style.display = "block";
+}
+
+function launchWordSearch(category) {
+
+  const puzzle = wordSearchPools[category];
+
+  if (!puzzle) {
+    showActivities();
+    return;
+  }
+
+  selectedWordSearchCategory = category;
+  wordSearchGridSize = Math.max(5, parseInt(puzzle.gridSize, 10) || 12);
+  wordSearchEntries = puzzle.entries.map(function(entry) {
+    return {
+      word: String(entry.word || "").toUpperCase().replace(/[^A-Z]/g, ""),
+      clue: String(entry.clue || "")
+    };
+  }).filter(function(entry) {
+    return entry.word.length > 1 && entry.clue;
+  });
+
+  if (!wordSearchEntries.length) {
+    alert("This Word Search does not contain any valid entries.");
+    showActivities();
+    return;
+  }
+
+  const longestWord = Math.max.apply(null, wordSearchEntries.map(function(entry) {
+    return entry.word.length;
+  }));
+
+  if (longestWord > wordSearchGridSize) {
+    alert("The grid is too small for the longest word. Increase gridSize to at least " + longestWord + ".");
+    showActivities();
+    return;
+  }
+
+  wordSearchFound = new Set();
+  wordSearchDragging = false;
+  wordSearchStartCell = null;
+  wordSearchCurrentSelection = [];
+
+  const puzzleBuilt = buildWordSearchPuzzle();
+
+  if (!puzzleBuilt) {
+    const categoryError = document.getElementById("word-search-category-error");
+    if (categoryError) {
+      categoryError.textContent =
+        "This puzzle could not be generated with gridSize " + wordSearchGridSize + ". Increase gridSize and try again.";
+      categoryError.style.display = "block";
+    }
+    return;
+  }
+
+  // Show the Word Search puzzle screen after the puzzle is successfully built.
+  document.getElementById("activities-screen").style.display = "none";
+  document.getElementById("name-screen").style.display = "none";
+  document.getElementById("category-screen").style.display = "none";
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("results").style.display = "none";
+  document.getElementById("word-search-category-screen").style.display = "none";
+  document.getElementById("word-search-screen").style.display = "flex";
+
+  renderWordSearch();
+}
+
+function buildWordSearchPuzzle() {
+
+  const size = wordSearchGridSize;
+
+  /*
+   * Allowed placement directions ONLY:
+   *   1. left-to-right
+   *   2. top-to-bottom
+   *   3. top-left to bottom-right
+   */
+  const directions = [
+    { row: 0,  col: 1  },
+    { row: 1,  col: 0  },
+    { row: 1,  col: 1  },
+  ];
+
+  /*
+   * Use backtracking rather than a simple greedy placement. This is important:
+   * a grid can have enough physical space for every word, while an unlucky
+   * early placement can still make the remaining words impossible to place.
+   * Backtracking prevents that from being reported as a false failure.
+   */
+  const entries = wordSearchEntries.slice().sort(function(a, b) {
+    return b.word.length - a.word.length;
+  });
+
+  function createEmptyGrid() {
+    return Array.from({ length: size }, function() {
+      return Array(size).fill("");
+    });
+  }
+
+  function getCandidates(grid, entry) {
+    const candidates = [];
+
+    for (let row = 0; row < size; row++) {
+      for (let col = 0; col < size; col++) {
+        for (const direction of directions) {
+          const endRow = row + direction.row * (entry.word.length - 1);
+          const endCol = col + direction.col * (entry.word.length - 1);
+
+          if (
+            endRow < 0 || endRow >= size ||
+            endCol < 0 || endCol >= size
+          ) {
+            continue;
+          }
+
+          let valid = true;
+          let overlap = 0;
+
+          for (let i = 0; i < entry.word.length; i++) {
+            const r = row + direction.row * i;
+            const c = col + direction.col * i;
+            const existing = grid[r][c];
+
+            if (existing && existing !== entry.word[i]) {
+              valid = false;
+              break;
+            }
+
+            if (existing === entry.word[i]) {
+              overlap++;
+            }
+          }
+
+          if (valid) {
+            candidates.push({
+              row: row,
+              col: col,
+              direction: direction,
+              overlap: overlap,
+              random: Math.random()
+            });
+          }
+        }
+      }
+    }
+
+    /* Prefer placements that share matching letters, then randomize ties. */
+    candidates.sort(function(a, b) {
+      if (b.overlap !== a.overlap) {
+        return b.overlap - a.overlap;
+      }
+      return a.random - b.random;
+    });
+
+    return candidates;
+  }
+
+  function placeEntry(grid, entry, candidate) {
+    const changedCells = [];
+
+    for (let i = 0; i < entry.word.length; i++) {
+      const r = candidate.row + candidate.direction.row * i;
+      const c = candidate.col + candidate.direction.col * i;
+
+      if (!grid[r][c]) {
+        grid[r][c] = entry.word[i];
+        changedCells.push({ row: r, col: c });
+      }
+    }
+
+    return changedCells;
+  }
+
+  function removeEntry(grid, changedCells) {
+    changedCells.forEach(function(cell) {
+      grid[cell.row][cell.col] = "";
+    });
+  }
+
+  /* Hard search budget: puzzle generation can never run indefinitely. */
+  let nodesVisited = 0;
+  const MAX_NODES = 50000;
+  let generationAborted = false;
+
+  function solve(grid, placements, index) {
+    nodesVisited++;
+    if (nodesVisited > MAX_NODES) {
+      generationAborted = true;
+      return false;
+    }
+
+    if (index >= entries.length) {
+      return true;
+    }
+
+    const entry = entries[index];
+    const candidates = getCandidates(grid, entry);
+
+    for (const candidate of candidates) {
+      if (generationAborted) return false;
+
+      const changedCells = placeEntry(grid, entry, candidate);
+
+      placements.push({
+        word: entry.word,
+        clue: entry.clue,
+        row: candidate.row,
+        col: candidate.col,
+        rowStep: candidate.direction.row,
+        colStep: candidate.direction.col
+      });
+
+      if (solve(grid, placements, index + 1)) {
+        return true;
+      }
+
+      placements.pop();
+      removeEntry(grid, changedCells);
+    }
+
+    return false;
+  }
+
+  /* Try multiple randomized backtracking builds for variety, within the hard budget. */
+  for (let attempt = 0; attempt < 5 && !generationAborted; attempt++) {
+    const grid = createEmptyGrid();
+    const placements = [];
+
+    if (solve(grid, placements, 0)) {
+      for (let row = 0; row < size; row++) {
+        for (let col = 0; col < size; col++) {
+          if (!grid[row][col]) {
+            grid[row][col] = String.fromCharCode(
+              65 + Math.floor(Math.random() * 26)
+            );
+          }
+        }
+      }
+
+      wordSearchGrid = grid;
+      wordSearchPlacements = placements;
+      return true;
+    }
+  }
+
+  /* No complete arrangement exists for the requested grid size. */
+  return false;
+}
+
+function renderWordSearch() {
+
+  document.getElementById("word-search-title").textContent = selectedWordSearchCategory + " Word Search";
+
+  const status = document.getElementById("word-search-status");
+  status.textContent = "Find all " + wordSearchEntries.length + " hidden words from the clues.";
+
+  const gridElement = document.getElementById("word-search-grid");
+
+  /* Word Search pointer events belong to the puzzle grid only. */
+  gridElement.onpointermove = wordSearchPointerMove;
+  gridElement.onpointerup = wordSearchPointerUp;
+  gridElement.onpointercancel = wordSearchPointerUp;
+
+  gridElement.innerHTML = "";
+  gridElement.style.gridTemplateColumns = "repeat(" + wordSearchGridSize + ", 1fr)";
+  gridElement.style.gridTemplateRows = "repeat(" + wordSearchGridSize + ", 1fr)";
+
+  for (let row = 0; row < wordSearchGridSize; row++) {
+    for (let col = 0; col < wordSearchGridSize; col++) {
+
+      const cell = document.createElement("div");
+      cell.className = "word-search-cell";
+      cell.textContent = wordSearchGrid[row][col];
+      cell.dataset.row = row;
+      cell.dataset.col = col;
+      cell.setAttribute("role", "gridcell");
+
+      cell.addEventListener("pointerdown", wordSearchPointerDown);
+      cell.addEventListener("pointerenter", wordSearchPointerEnter);
+
+      gridElement.appendChild(cell);
+    }
+  }
+
+  document.getElementById("word-search-complete").style.display = "none";
+  renderWordSearchClues();
+}
+
+function renderWordSearchClues() {
+
+  const cluesElement = document.getElementById("word-search-clues");
+  cluesElement.innerHTML = "";
+
+  wordSearchEntries.forEach(function(entry, index) {
+    const clue = document.createElement("div");
+    const placementIndex = wordSearchPlacements.findIndex(function(placement) {
+      return placement.word === entry.word;
+    });
+    const foundClass = wordSearchFound.has(entry.word)
+      ? " found found-" + Math.max(0, placementIndex % 10)
+      : "";
+    clue.className = "word-search-clue" + foundClass;
+    clue.dataset.entryIndex = index;
+
+    const check = document.createElement("span");
+    check.className = "word-search-clue-check";
+    check.textContent = wordSearchFound.has(entry.word) ? "✓" : "";
+
+    const text = document.createElement("span");
+    text.textContent = entry.clue;
+
+    clue.appendChild(check);
+    clue.appendChild(text);
+    cluesElement.appendChild(clue);
+  });
+}
+
+function getWordSearchCellFromEvent(event) {
+  const element = document.elementFromPoint(event.clientX, event.clientY);
+  if (!element || !element.classList.contains("word-search-cell")) {
+    return null;
+  }
+  return {
+    row: parseInt(element.dataset.row, 10),
+    col: parseInt(element.dataset.col, 10)
+  };
+}
+
+function wordSearchPointerDown(event) {
+
+  if (wordSearchFound.size === wordSearchEntries.length) return;
+
+  event.preventDefault();
+
+  const cell = getWordSearchCellFromEvent(event);
+  if (!cell) return;
+
+  wordSearchDragging = true;
+  wordSearchStartCell = cell;
+  wordSearchCurrentSelection = [cell];
+
+  try {
+    event.currentTarget.setPointerCapture(event.pointerId);
+  } catch (error) {
+    /* Pointer capture is not available in every embedded browser. */
+  }
+
+  renderTemporaryWordSearchSelection();
+}
+
+function wordSearchPointerEnter(event) {
+
+  if (!wordSearchDragging || !wordSearchStartCell) return;
+
+  const cell = {
+    row: parseInt(event.currentTarget.dataset.row, 10),
+    col: parseInt(event.currentTarget.dataset.col, 10)
+  };
+
+  wordSearchCurrentSelection = getStraightLineCells(wordSearchStartCell, cell);
+  renderTemporaryWordSearchSelection();
+}
+
+function wordSearchPointerMove(event) {
+
+  if (!wordSearchDragging || !wordSearchStartCell) return;
+
+  const cell = getWordSearchCellFromEvent(event);
+  if (!cell) return;
+
+  wordSearchCurrentSelection = getStraightLineCells(wordSearchStartCell, cell);
+  renderTemporaryWordSearchSelection();
+}
+
+function wordSearchPointerUp() {
+
+  if (!wordSearchDragging) return;
+
+  wordSearchDragging = false;
+  validateWordSearchSelection();
+}
+
+function getStraightLineCells(start, end) {
+
+  const rowDelta = end.row - start.row;
+  const colDelta = end.col - start.col;
+
+  const sameRow = rowDelta === 0;
+  const sameCol = colDelta === 0;
+  const diagonal = Math.abs(rowDelta) === Math.abs(colDelta);
+
+  if (!sameRow && !sameCol && !diagonal) {
+    /* Snap the endpoint to the nearest allowed straight line. */
+    const distance = Math.max(Math.abs(rowDelta), Math.abs(colDelta));
+    const rowStep = Math.abs(rowDelta) >= Math.abs(colDelta) ? Math.sign(rowDelta) : 0;
+    const colStep = Math.abs(colDelta) > Math.abs(rowDelta) ? Math.sign(colDelta) : 0;
+    end = {
+      row: start.row + rowStep * distance,
+      col: start.col + colStep * distance
+    };
+
+    end.row = Math.max(0, Math.min(wordSearchGridSize - 1, end.row));
+    end.col = Math.max(0, Math.min(wordSearchGridSize - 1, end.col));
+  }
+
+  const finalRowDelta = end.row - start.row;
+  const finalColDelta = end.col - start.col;
+  const length = Math.max(Math.abs(finalRowDelta), Math.abs(finalColDelta)) + 1;
+  const rowStep = Math.sign(finalRowDelta);
+  const colStep = Math.sign(finalColDelta);
+  const cells = [];
+
+  for (let i = 0; i < length; i++) {
+    cells.push({
+      row: start.row + rowStep * i,
+      col: start.col + colStep * i
+    });
+  }
+
+  return cells;
+}
+
+function renderTemporaryWordSearchSelection() {
+
+  document.querySelectorAll(".word-search-cell.selected, .word-search-cell.selected-found").forEach(function(cell) {
+    cell.classList.remove("selected", "selected-found");
+  });
+
+  wordSearchCurrentSelection.forEach(function(position) {
+    const cell = document.querySelector(
+      '.word-search-cell[data-row="' + position.row + '"][data-col="' + position.col + '"]'
+    );
+    if (cell) {
+      if (cell.classList.contains("found")) {
+        cell.classList.add("selected-found");
+      } else {
+        cell.classList.add("selected");
+      }
+    }
+  });
+}
+
+function clearWordSearchSelection() {
+
+  document.querySelectorAll(".word-search-cell.selected, .word-search-cell.selected-found").forEach(function(cell) {
+    cell.classList.remove("selected", "selected-found");
+  });
+
+  wordSearchCurrentSelection = [];
+}
+
+function updateWordSearchCellAppearance(cell, indices) {
+
+  const uniqueIndices = Array.from(new Set(indices));
+
+  cell.classList.remove(
+    "found-0", "found-1", "found-2", "found-3", "found-4",
+    "found-5", "found-6", "found-7", "found-8", "found-9",
+    "found-overlap"
+  );
+  cell.style.background = "";
+
+  if (uniqueIndices.length === 1) {
+    cell.classList.add("found-" + (uniqueIndices[0] % WORD_SEARCH_COLORS.length));
+    return;
+  }
+
+  if (uniqueIndices.length === 2) {
+    const colorA = WORD_SEARCH_COLORS[uniqueIndices[0] % WORD_SEARCH_COLORS.length];
+    const colorB = WORD_SEARCH_COLORS[uniqueIndices[1] % WORD_SEARCH_COLORS.length];
+    cell.classList.add("found-overlap");
+    cell.style.background =
+      "linear-gradient(135deg, " + colorA + " 0%, " + colorA + " 50%, " +
+      colorB + " 50%, " + colorB + " 100%)";
+    return;
+  }
+
+  /* If three or more words share a cell, divide it into equal color segments. */
+  const segment = 100 / uniqueIndices.length;
+  const stops = uniqueIndices.map(function(index, segmentIndex) {
+    const color = WORD_SEARCH_COLORS[index % WORD_SEARCH_COLORS.length];
+    const start = segmentIndex * segment;
+    const end = (segmentIndex + 1) * segment;
+    return color + " " + start + "%, " + color + " " + end + "%";
+  }).join(", ");
+
+  cell.classList.add("found-overlap");
+  cell.style.background = "conic-gradient(" + stops + ")";
+}
+
+function validateWordSearchSelection() {
+
+  const selectedWord = wordSearchCurrentSelection.map(function(position) {
+    return wordSearchGrid[position.row][position.col];
+  }).join("");
+
+  const placementIndex = wordSearchPlacements.findIndex(function(placement) {
+    return placement.word === selectedWord && !wordSearchFound.has(placement.word);
+  });
+
+  clearWordSearchSelection();
+
+  if (placementIndex === -1) {
+    return;
+  }
+
+  const placement = wordSearchPlacements[placementIndex];
+  wordSearchFound.add(placement.word);
+
+  /* Permanently mark the correct cells with this word's color. */
+  for (let i = 0; i < placement.word.length; i++) {
+    const row = placement.row + placement.rowStep * i;
+    const col = placement.col + placement.colStep * i;
+    const cell = document.querySelector(
+      '.word-search-cell[data-row="' + row + '"][data-col="' + col + '"]'
+    );
+    if (cell) {
+      cell.classList.add("found");
+
+      const existingIndices = (cell.dataset.foundIndices || "")
+        .split(",")
+        .filter(Boolean)
+        .map(function(value) { return parseInt(value, 10); })
+        .filter(function(value) { return !Number.isNaN(value); });
+
+      existingIndices.push(placementIndex);
+      cell.dataset.foundIndices = Array.from(new Set(existingIndices)).join(",");
+      updateWordSearchCellAppearance(cell, existingIndices);
+    }
+  }
+
+  renderWordSearchClues();
+
+  const remaining = wordSearchEntries.length - wordSearchFound.size;
+  document.getElementById("word-search-status").textContent =
+    remaining === 0
+      ? "All clues solved."
+      : remaining + " clue" + (remaining === 1 ? "" : "s") + " remaining.";
+
+  if (remaining === 0) {
+    document.getElementById("word-search-complete").style.display = "block";
+  }
+}
+
+/* =========================================================
+   QUIZ FUNCTIONS
+   ========================================================= */
+
+let selectedQuestions = [];
+let currentQuestion = 0;
+let quizScore = 0;
+let playerName = "";
+let playerAnswers = [];
+let selectedQuizCategory = "";
+
+// Matching question state
+let matchingSelections = {};
+let matchingChecked = false;
 
 function selectQuizCategory(category) {
   selectedQuizCategory = category;
@@ -1773,7 +2709,7 @@ function beginNewQuiz() {
 }
 
 function formatAudio(audioName){
-  return "https://raw.githubusercontent.com/username/reponame/main/audio/" + audioName;
+  return "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/audio/" + audioName;
 }
 
 function loadQuizQuestion() {
@@ -1800,11 +2736,18 @@ function loadQuizQuestion() {
 
   if (q.type === "matching") {
     loadMatching(q);
-  } else if (q.type == "multiple-choice"){
-    // Default to multiple-choice
+  } else if (q.type === "multiple-choice"){
     loadMultipleChoice(q);
-  }else{
-    
+  } else {
+    document.getElementById("feedback").textContent ="There seems to be an issue with this question...";
+    quizScore++;
+    playerAnswers.push({
+      question: q.question,
+      type: "UNKNOWN",
+      answer: "N/A",
+      pointsEarned: 1
+    });
+    document.getElementById("next-btn").style.display = "block";
   }
 
   const progress = (currentQuestion / selectedQuestions.length) * 100;
@@ -2457,6 +3400,10 @@ function buildQuizCategoryButtons() {
     );
 }
 
+/* =========================================================
+   INITIALIZATION
+   ========================================================= */
+
 // Initialize category buttons
 buildQuizCategoryButtons();
 
@@ -2465,7 +3412,7 @@ document.getElementById("activities-screen").style.display = "none";
 document.getElementById("name-screen").style.display = "flex";
 document.getElementById("player-name").focus();
 
-// ALLOW ENTER KEY ON NAME FIELD
+// Allow enter key on name field
 document.getElementById("player-name").addEventListener(
     "keydown",
     function(event) {
