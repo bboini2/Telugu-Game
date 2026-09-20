@@ -1092,19 +1092,9 @@ MATCHING
 
     <button
       type="button"
-      id="check-matches-btn"
+      id="check-answer-btn"
       class="quiz-button"
-      onclick="checkMatches()"
-      style="display: none;"
-    >
-      Check Matches
-    </button>
-
-    <button
-      type="button"
-      id="check-multiple-answer-btn"
-      class="quiz-button"
-      onclick="checkMultipleAnswer()"
+      onclick="checkAnswer()"
       style="display: none;"
     >
       Check Answer
@@ -1176,6 +1166,7 @@ const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxlJZGHfxUYM313fFLgZd-9LlObHUhAKvKAoCzW6jugbnjmi55wxOccMdD7WZ-3H8OOXA/exec";
 
 const audioLink = "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/audio/";
+
 
 
 /* =========================================================
@@ -1267,7 +1258,7 @@ const questionPools = {
       },
 
       {
-        type: "multiple-choice",
+        type: "multiple-answer",
         question: "Select the Telugu translation(s) of the following word: Uncle",
 
         answers: [
@@ -2131,6 +2122,8 @@ const questionPools = {
 };
 
 
+
+
 /* =========================================================
    WORD SEARCH SETTINGS
    =========================================================
@@ -2867,8 +2860,8 @@ function loadQuizQuestion() {
   answersContainer.innerHTML = "";
   document.getElementById("feedback").textContent = "";
   document.getElementById("next-btn").style.display = "none";
-  document.getElementById("check-matches-btn").style.display = "none";
-  document.getElementById("check-multiple-answer-btn").style.display = "none";
+  document.getElementById("check-answer-btn").style.display = "none";
+  document.getElementById("check-answer-btn").style.display = "none";
   const oldAudio = document.getElementById("question-audio");
 
   if (oldAudio) {
@@ -2980,7 +2973,7 @@ function playAudio(audioUrl, button) {
 function loadMultipleAnswer(q) {
 
   const answersContainer = document.getElementById("answers");
-  const checkButton = document.getElementById("check-multiple-answer-btn");
+  const checkButton = document.getElementById("check-answer-btn");
 
   checkButton.style.display = "none";
 
@@ -3072,7 +3065,7 @@ function checkMultipleAnswer() {
     pointsEarned: isCorrect ? 1 : 0
   });
 
-  document.getElementById("check-multiple-answer-btn").style.display = "none";
+  document.getElementById("check-answer-btn").style.display = "none";
   document.getElementById("next-btn").style.display = "block";
 }
 
@@ -3081,25 +3074,17 @@ function loadMultipleChoice(q) {
   const answersContainer =
     document.getElementById("answers");
 
-  /*
-    Create answer objects so we can shuffle
-    the answers without losing the correct answer.
-  */
-
   const answerObjects =
-    q.answers.map(
-      (answer, index) => {
-        return {
-          text: answer,
-          correct: index === q.correct
-        };
-
-      }
-    );
+    q.answers.map((answer, index) => {
+      return {
+        text: answer,
+        index: index
+      };
+    });
 
   const shuffledAnswers = shuffle(answerObjects);
 
-  /* Create answer buttons. */
+  /* Create answer buttons without checking them immediately. */
   shuffledAnswers.forEach(
     answer => {
       const button = document.createElement("button");
@@ -3107,11 +3092,12 @@ function loadMultipleChoice(q) {
       button.type = "button";
       button.className = "answer";
       button.textContent = answer.text;
+      button.dataset.answerIndex = String(answer.index);
 
       button.addEventListener(
         "click",
         function() {
-          selectMultipleChoiceAnswer(button, answer.correct);
+          selectMultipleChoiceAnswer(button);
         }
       );
 
@@ -3120,19 +3106,55 @@ function loadMultipleChoice(q) {
   );
 }
 
-function selectMultipleChoiceAnswer(selectedButton, isCorrect) {
+function selectMultipleChoiceAnswer(selectedButton) {
 
   const buttons = document.querySelectorAll("#quiz-app .answer");
 
-  buttons.forEach(
-    button => {
-      button.disabled = true;
-    }
-  );
+  /* A multiple-choice question has one selection, but it is not
+     submitted until the learner presses Check Answer. */
+  buttons.forEach(button => {
+    button.classList.remove("selected");
+  });
+
+  selectedButton.classList.add("selected");
+
+  document.getElementById("check-answer-btn").style.display = "block";
+  document.getElementById("feedback").textContent =
+    "Answer selected. Check your answer when you're ready.";
+  document.getElementById("feedback").style.color = "#1b4557";
+}
+
+function checkMultipleChoiceAnswer() {
 
   const q = selectedQuestions[currentQuestion];
+  const buttons = [...document.querySelectorAll("#quiz-app .answer")];
+  const selectedButton = buttons.find(button =>
+    button.classList.contains("selected")
+  );
 
-  /* Record the question and answer. */
+  if (!selectedButton) {
+    document.getElementById("feedback").textContent =
+      "Please select an answer first.";
+    document.getElementById("feedback").style.color = "#dc2626";
+    return;
+  }
+
+  const selectedIndex = Number(selectedButton.dataset.answerIndex);
+  const isCorrect = selectedIndex === q.correct;
+
+  buttons.forEach(button => {
+    button.disabled = true;
+    button.classList.remove("selected");
+
+    const index = Number(button.dataset.answerIndex);
+
+    if (index === q.correct) {
+      button.classList.add("correct");
+    } else if (index === selectedIndex) {
+      button.classList.add("incorrect");
+    }
+  });
+
   playerAnswers.push({
     question: q.question,
     type: "multiple-choice",
@@ -3143,26 +3165,15 @@ function selectMultipleChoiceAnswer(selectedButton, isCorrect) {
 
   if (isCorrect) {
     quizScore++;
-    selectedButton.classList.add("correct");
-    document.getElementById("feedback").textContent ="✓ Correct!";
-    document.getElementById("feedback").style.color ="#16a34a";
+    document.getElementById("feedback").textContent = "✓ Correct!";
+    document.getElementById("feedback").style.color = "#16a34a";
   } else {
-
-    selectedButton.classList.add("incorrect");
-
-    /* Highlight the correct answer. */
-    buttons.forEach(
-      button => {
-        if (button.textContent === q.answers[q.correct]) {
-          button.classList.add("correct");
-        }
-      }
-    );
-
-    document.getElementById("feedback").textContent = "✗ Incorrect!";
-    document.getElementById("feedback").style.color ="#dc2626";
+    document.getElementById("feedback").textContent =
+      "✗ Not quite. The correct answer is: " + q.answers[q.correct] + ".";
+    document.getElementById("feedback").style.color = "#dc2626";
   }
 
+  document.getElementById("check-answer-btn").style.display = "none";
   document.getElementById("next-btn").style.display = "block";
 }
 
@@ -3174,8 +3185,8 @@ function loadMatching(q) {
   matchingSelections = {};
   matchingChecked = false;
 
-  document.getElementById("check-matches-btn").style.display = "none";
-  document.getElementById("check-multiple-answer-btn").style.display = "none";
+  document.getElementById("check-answer-btn").style.display = "none";
+  document.getElementById("check-answer-btn").style.display = "none";
   document.getElementById("next-btn").style.display = "none";
 
   const pairs = [...q.pairs];
@@ -3366,11 +3377,11 @@ function loadMatching(q) {
 
     // Are all items matched?
     if (Object.keys(matchingSelections).length === pairs.length) {
-      document.getElementById("check-matches-btn").style.display = "block";
+      document.getElementById("check-answer-btn").style.display = "block";
       document.getElementById("feedback").textContent = "All items have been matched. Check your answers when you're ready.";
       document.getElementById("feedback").style.color = "#1b4557";
     }else {
-      document.getElementById("check-matches-btn").style.display = "none";
+      document.getElementById("check-answer-btn").style.display = "none";
       document.getElementById("feedback").textContent = "Match another pair.";
       document.getElementById("feedback").style.color = "#1b4557";
     }
@@ -3502,7 +3513,7 @@ function checkMatches() {
     pointsEarned: pointsEarned,
   });
 
-  document.getElementById("check-matches-btn").style.display = "none";
+  document.getElementById("check-answer-btn").style.display = "none";
   document.getElementById("next-btn").style.display = "block";
 }
 
@@ -3518,13 +3529,26 @@ function nextQuizQuestion() {
   }
 }
 
+function checkAnswer() {
+
+  const q = selectedQuestions[currentQuestion];
+
+  if (q.type === "multiple-choice") {
+    checkMultipleChoiceAnswer();
+  } else if (q.type === "multiple-answer") {
+    checkMultipleAnswer();
+  } else if (q.type === "matching") {
+    checkMatches();
+  }
+}
+
 function backToQuizCategories() {
   if (selectedQuestions.length === 0) {
     showQuizCategories();
     return;
   }
 
-  document.getElementById("check-matches-btn").style.display = "none";
+  document.getElementById("check-answer-btn").style.display = "none";
 
   stopAudio();
 
