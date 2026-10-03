@@ -1177,11 +1177,7 @@ const QUESTIONS_PER_QUIZ = 8;
 
 const questionPools = {
 
-  /* =========================================================
-    Current
-   ========================================================= */
-
-  "Family Relations": [
+  "[Telugu 1] Family Relations": [
     
       // Siblings
       {
@@ -2129,8 +2125,6 @@ const questionPools = {
    =========================================================
 
    Edit gridSize to control the grid dimensions for each puzzle.
-   The hidden words and clues are kept here, separate from questionPools.
-   The words themselves are never displayed to the learner.
    ========================================================= */
 
 // 10 colors, up to 10 words
@@ -2209,6 +2203,99 @@ function startPractice() {
 
 function startWordSearch() {
   showWordSearchCategories();
+}
+
+function launchConfetti() {
+    const canvas = document.createElement('canvas');
+
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9999';
+
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const pieces = [];
+    const colors = [
+        '#f44336',
+        '#ff9800',
+        '#ffeb3b',
+        '#4caf50',
+        '#2196f3',
+        '#9c27b0'
+    ];
+
+    // Create confetti pieces
+    for (let i = 0; i < 200; i++) {
+        pieces.push({
+            x: Math.random() * canvas.width,
+            y: -20 - Math.random() * canvas.height * 0.3,
+
+            width: 6 + Math.random() * 6,
+            height: 8 + Math.random() * 8,
+
+            color: colors[Math.floor(Math.random() * colors.length)],
+
+            speedY: 0.5 + Math.random() * 1,
+            speedX: -2 + Math.random() * 4,
+
+            rotation: Math.random() * Math.PI * 2,
+            rotationSpeed: -0.1 + Math.random() * 0.2,
+
+            gravity: 0.01 + Math.random() * 0.02
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        let activePieces = 0;
+
+        pieces.forEach(piece => {
+            piece.x += piece.speedX;
+            piece.y += piece.speedY;
+
+            piece.speedY += piece.gravity;
+            piece.rotation += piece.rotationSpeed;
+
+            // Only draw pieces that are still on screen
+            if (piece.y < canvas.height + 30) {
+                activePieces++;
+
+                ctx.save();
+
+                ctx.translate(piece.x, piece.y);
+                ctx.rotate(piece.rotation);
+
+                ctx.fillStyle = piece.color;
+                ctx.fillRect(
+                    -piece.width / 2,
+                    -piece.height / 2,
+                    piece.width,
+                    piece.height
+                );
+
+                ctx.restore();
+            }
+        });
+
+        // Continue until all pieces have fallen
+        if (activePieces > 0) {
+            requestAnimationFrame(animate);
+        } else {
+            canvas.remove();
+        }
+    }
+
+    animate();
 }
 
 /* =========================================================
@@ -2798,6 +2885,8 @@ function validateWordSearchSelection() {
 
   if (remaining === 0) {
     document.getElementById("word-search-complete").style.display = "block";
+
+    launchConfetti();
   }
 }
 
@@ -3586,6 +3675,7 @@ function showQuizResults() {
 
   if (percentage === 100) {
     message = "Perfect score! 🎉";
+    launchConfetti();
   }else if (percentage >= 80) {
     message = "Excellent work!";
   }else if (percentage >= 60) {
