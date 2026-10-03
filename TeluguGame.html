@@ -1170,955 +1170,45 @@ const audioLink = "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/au
 
 
 /* =========================================================
-   QUIZ SETTINGS
+   VOCABULARY
    ========================================================= */
 
-const QUESTIONS_PER_QUIZ = 8;
-
-const questionPools = {
-
-  "[Telugu 1] Family Relations": [
-    
-      // Siblings
-      {
-        type: "matching",
-        question: "Match the Telugu word to the English translation.",
-
-        leftTitle: "Telugu",
-        rightTitle: "English",
-
-        pairs: [
-          { left: "Chelli", right: "Younger Sister" },
-          { left: "Tammuḍu", right: "Younger Brother" },
-          { left: "Anna", right: "Older Brother" },
-          { left: "Akka", right: "Older Sister" }
-        ]
-      },
-
-      // Grandparents
-      {
-        type: "multiple-choice",
-        question: "Translate the following Telugu word: Nānamma",
-
-        answers: [
-          "Paternal grandmother",
-          "Father",
-          "Maternal grandmother",
-          "Grandfather",
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following Telugu word: Tāta",
-
-        answers: [
-          "Paternal grandmother",
-          "Father",
-          "Maternal grandmother",
-          "Grandfather",
-        ],
-
-        correct: 3
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following Telugu word: Ammamma",
-
-        answers: [
-          "Paternal grandmother",
-          "Father",
-          "Maternal grandmother",
-          "Grandfather",
-        ],
-
-        correct: 2
-      },
-
-      // Aunt/uncle
-      {
-        type: "multiple-answer",
-        question: "Select the Telugu translation(s) of the following word: Aunt",
-
-        answers: [
-          "Atta", 
-          "Pinni",
-          "Amma",
-          "Akka",
-        ],
-
-        correct: [0, 1]
-      },
-
-      {
-        type: "multiple-answer",
-        question: "Select the Telugu translation(s) of the following word: Uncle",
-
-        answers: [
-          "Babai",
-          "Māma",
-          "Tāta",
-          "Anna"
-        ],
-
-        correct: [0, 1]
-      },
-
-      // Mother/Father
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Mother",
-
-        answers: [
-          "Amma",
-          "Akka",
-          "Atta",
-          "Chelli",
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Father",
-
-        answers: [
-          "Nāna",
-          "Tāta",
-          "Anna",
-          "Babai",
-        ],
-
-        correct: 0
-      },
-
+const VocabularyCategories = {
+  Family: [
+    { id: "family-001", english: "Younger Sister", telugu: "చెల్లి", transliteration: "Chelli", audio: null, difficulty: 1 },
+    { id: "family-002", english: "Younger Brother", telugu: "తమ్ముడు", transliteration: "Tammuḍu", audio: null, difficulty: 1 },
+    { id: "family-003", english: "Older Brother", telugu: "అన్న", transliteration: "Anna", audio: null, difficulty: 1 },
+    { id: "family-004", english: "Older Sister", telugu: "అక్క", transliteration: "Akka", audio: null, difficulty: 1 },
+    { id: "family-005", english: "Paternal grandmother", telugu: "నానమ్మ", transliteration: "Nānamma", audio: null, difficulty: 1 },
+    { id: "family-006", english: "Grandfather", telugu: "తాత", transliteration: "Tāta", audio: null, difficulty: 1 },
+    { id: "family-007", english: "Maternal grandmother", telugu: "అమ్మమ్మ", transliteration: "Ammamma", audio: null, difficulty: 1 },
+    { id: "family-008", english: "Aunt", telugu: "అత్త", transliteration: "Atta", audio: null, difficulty: 1 },
+    // { id: "family-009", english: "Aunt", telugu: "పిన్ని", transliteration: "Pinni", audio: null, difficulty: 1 },
+    { id: "family-010", english: "Mother", telugu: "అమ్మ", transliteration: "Amma", audio: "amma.mp3", difficulty: 1 },
+    // { id: "family-011", english: "Uncle", telugu: "బాబాయ్", transliteration: "Babai", audio: null, difficulty: 1 },
+    { id: "family-012", english: "Uncle", telugu: "మామ", transliteration: "Māma", audio: null, difficulty: 1 },
+    { id: "family-013", english: "Father", telugu: "నాన్న", transliteration: "Nāna", audio: null, difficulty: 1 }
   ],
 
-  // a aa i ii
-  "[Telugu 1] Vowels Set 1": [
-      
-    // Identification
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: అ",
-
-        answers: [
-          "a as in amma",
-          "aa as in aaṭa",
-          "i as in illu",
-          "ii as in eega"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఆ",
-
-        answers: [
-          "a as in amma",
-          "aa as in aaṭa",
-          "i as in illu",
-          "ii as in eega"
-        ],
-
-        correct: 1
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఇ",
-
-        answers: [
-          "a as in amma",
-          "aa as in aaṭa",
-          "i as in illu",
-          "ii as in eega"
-        ],
-
-        correct: 2
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఈ",
-
-        answers: [
-          "a as in amma",
-          "aa as in aaṭa",
-          "i as in illu",
-          "ii as in eega"
-        ],
-
-        correct: 3
-      },
-
-    // Vocabulary
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: amma",
-        // audio: "amma.mp3",
-
-        answers: [
-          "mother",
-          "wave",
-          "play",
-          "leaf",
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: ala",
-        // audio: "ala.mp3",
-
-        answers: [
-          "wave",
-          "mother",
-          "cow",
-          "house"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: aaṭa",
-        // audio: "aata.mp3",
-
-        answers: [
-          "play",
-          "cow",
-          "leaf",
-          "sky"    
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: aavu",
-        // audio: "aavu.mp3",
-
-        answers: [
-          "cow",
-          "play",
-          "leaf",
-          "fly"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: aaku",
-        // audio: "aaku.mp3",
-
-        answers: [
-          "leaf",
-          "squirrel",
-          "play",
-          "cow"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: illu",
-        // audio: "illu.mp3",
-
-        answers: [
-          "house",
-          "brick",
-          "feather",
-          "swing"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: iṭuka",
-        // audio: "ituka.mp3",
-
-        answers: [
-          "brick",
-          "house",
-          "sand",
-          "feather"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to English: eega",
-        // audio: "eega.mp3",
-
-        answers: [
-          "fly",
-          "whistle",
-          "feather",
-          "spear"
-        ],
-
-        correct: 0
-      },
-
-  ],
-  
-   // ka kha ga gha nga
-  "[Telugu 2] Consonants Set 1": [
-
-    // Identification
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: క",
-
-        answers: [
-          "ka",
-          "gha",
-          "kha",
-          "ga"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ఖ",
-
-        answers: [
-          "kha",
-          "nga",
-          "ka",
-          "gha"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: గ",
-
-        answers: [
-          "ga",
-          "nga",
-          "kha",
-          "gha"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ఘ",
-
-        answers: [
-          "gha",
-          "ga",
-          "nga",
-          "ka"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ఙ",
-
-        answers: [
-          "nga",
-          "ka",
-          "ga",
-          "kha"
-        ],
-
-        correct: 0
-      },
-
-    // Vocabulary
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Pen",
-
-        answers: [
-          "కలం (kalam)",
-          "కప్ప (kappa)",
-          "కల (kala)",
-          "కాకి (kaaki)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Frog",
-
-        answers: [
-          "కలం (kalam)",
-          "కప్ప (kappa)",
-          "కల (kala)",
-          "కాకి (kaaki)"
-        ],
-
-        correct: 1
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Bell",
-
-        answers: [
-          "గంట (ganṭa)",
-          "గద (gada)",
-          "గంప (gampa)",
-          "గడప (gaḍapa)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Basket",
-
-        answers: [
-          "గంట (ganṭa)",
-          "గద (gada)",
-          "గంప (gampa)",
-          "గడప (gaḍapa)"
-        ],
-
-        correct: 2
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Donkey",
-
-        answers: [
-          "ఖరము (kharamu)",
-          "ఖడ్గము (khaḍgamu)",
-          "కలం (kalam)",
-          "కాకి (kaaki)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Translate the following word to Telugu: Crow",
-
-        answers: [
-          "కాకి (kaaki)",
-          "కల (kala)",
-          "కప్ప (kappa)",
-          "కలం (kalam)"
-        ],
-
-        correct: 0
-      },
-
-    ],
-
-  "[Review] Vowels (All)": [
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: అ",
-
-        answers: [
-          "a as in amma (mother)",
-          "aa as in aaṭa (play)",
-          "oo as in ooḍa (ship)",
-          "ru as in rishi (sage)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఆ",
-
-        answers: [
-          "aa as in aaṭa (play)",
-          "a as in amma (mother)",
-          "ee as in eenugu (elephant)",
-          "ai as in aidu (five)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఇ",
-
-        answers: [
-          "i as in illu (house)",
-          "ii as in eega (fly)",
-          "o as in okaṭi (one)",
-          "u as in uḍatha (squirrel)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఈ",
-
-        answers: [
-          "ii as in eega (fly)",
-          "i as in illu (house)",
-          "aha (like English aha!)",
-          "au as in aushadham (medicine)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఉ",
-
-        answers: [
-          "u as in uḍatha (squirrel)",
-          "aha (like English aha!)",
-          "uu as in uuyala (swing)",
-          "oo as in ooḍa (ship)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఊ",
-
-        answers: [
-          "uu as in uuyala (swing)",
-          "au as in aushadham (medicine)",
-          "ru as in rishi (sage)",
-          "am (like English um)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఋ",
-
-        answers: [
-          "ru as in rishi (sage)",
-          "ai as in aidu (five)",
-          "uu as in uuyala (swing)",
-          "au as in aushadham (medicine)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఎ",
-
-        answers: [
-          "e as in eluka (mouse)",
-          "aa as in aaṭa (play)",
-          "aha (like English aha!)",
-          "ee as in eenugu (elephant)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఏ",
-
-        answers: [
-          "ee as in eenugu (elephant)",
-          "ii as in eega (fly)",
-          "e as in eluka (mouse)",
-          "uu as in uuyala (swing)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఐ",
-
-        answers: [
-          "ai as in aidu (five)",
-          "oo as in ooḍa (ship)",
-          "a as in amma (mother)",
-          "i as in illu (house)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఒ",
-
-        answers: [
-          "o as in okaṭi (one)",
-          "u as in uḍatha (squirrel)",
-          "am (like English um)",
-          "e as in eluka (mouse)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఓ",
-
-        answers: [
-          "oo as in ooḍa (ship)",
-          "ii as in eega (fly)",
-          "o as in okaṭi (one)",
-          "ee as in eenugu (elephant)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: ఔ",
-
-        answers: [
-          "au as in aushadham (medicine)",
-          "i as in illu (house)",
-          "am (like English um)",
-          "e as in eluka (mouse)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: అం",
-
-        answers: [
-          "am (like English um)",
-          "aa as in aaṭa (play)",
-          "o as in okaṭi (one)",
-          "ru as in rishi (sage)"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following vowel: అః",
-
-        answers: [
-            "aha (like English aha!)",
-            "u as in uḍatha (squirrel)",
-            "ai as in aidu (five)",
-            "a as in amma (mother)"
-        ],
-
-        correct: 0
-      }
-
+  "Vowels": [
+    { id: "vowels-001", english: "Wave", telugu: "అల", transliteration: "ala", audio: "ala.mp3", difficulty: 1 },
+    { id: "vowels-002", english: "Play", telugu: "ఆట", transliteration: "aaṭa", audio: "aata.mp3", difficulty: 1 },
+    { id: "vowels-003", english: "Cow", telugu: "ఆవు", transliteration: "aavu", audio: "aavu.mp3", difficulty: 1 },
+    { id: "vowels-004", english: "Leaf", telugu: "ఆకు", transliteration: "aaku", audio: "aaku.mp3", difficulty: 1 },
+    { id: "vowels-005", english: "House", telugu: "ఇల్లు", transliteration: "illu", audio: "illu.mp3", difficulty: 1 },
+    { id: "vowels-006", english: "Brick", telugu: "ఇటుక", transliteration: "iṭuka", audio: "ituka.mp3", difficulty: 1 },
+    { id: "vowels-007", english: "Fly", telugu: "ఈగ", transliteration: "eega", audio: "eega.mp3", difficulty: 1 }
   ],
 
-  "[Challenge] Similar Consonants": [
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ఘ",
-
-        answers: [
-          "gha",
-          "jha",
-          "ya",
-          "ma"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ఝ",
-
-        answers: [
-          "gha",
-          "jha",
-          "ya",
-          "ma"
-        ],
-
-        correct: 1
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: య",
-
-        answers: [
-          "gha",
-          "jha",
-          "ya",
-          "ma"
-        ],
-
-        correct: 2
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: మ",
-
-        answers: [
-          "gha",
-          "jha",
-          "ya",
-          "ma"
-        ],
-
-        correct: 3
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: న",
-
-        answers: [
-          "na",
-          "sa",
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: స",
-
-        answers: [
-          "na",
-          "sa",
-        ],
-
-        correct: 1
-      },
-      
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: డ",
-
-        answers: [
-          "ḍa",
-          "ḍha",
-          "da",
-          "dha",
-          "tha"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ఢ",
-
-        answers: [
-          "ḍa",
-          "ḍha",
-          "da",
-          "dha",
-          "tha"
-        ],
-
-        correct: 1
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ద",
-
-        answers: [
-          "ḍa",
-          "ḍha",
-          "da",
-          "dha",
-          "tha"
-        ],
-
-        correct: 2
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ధ",
-
-        answers: [
-          "ḍa",
-          "ḍha",
-          "da",
-          "dha",
-          "tha"
-        ],
-
-        correct: 3
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: థ",
-
-        answers: [
-          "ḍa",
-          "ḍha",
-          "da",
-          "dha",
-          "tha"
-        ],
-
-        correct: 4
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: వ",
-
-        answers: [
-          "va",
-          "pa",
-          "pha",
-          "ṣa",
-          "ha"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ప",
-
-        answers: [
-          "va",
-          "pa",
-          "pha",
-          "ṣa",
-          "ha"
-        ],
-
-        correct: 1
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ఫ",
-
-        answers: [
-          "va",
-          "pa",
-          "pha",
-          "ṣa",
-          "ha"
-        ],
-
-        correct: 2
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ష",
-
-        answers: [
-          "va",
-          "pa",
-          "pha",
-          "ṣa",
-          "ha"
-        ],
-
-        correct: 3
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: హ",
-
-        answers: [
-          "va",
-          "pa",
-          "pha",
-          "ṣa",
-          "ha"
-        ],
-
-        correct: 4
-      },
-
-      {
-        type: "multiple-choice",
-        question: "Identify the following consonant: ర",
-
-        answers: [
-          "ra",
-          "ṭha"
-        ],
-
-        correct: 0
-      },
-
-      {
-        type: "multiple-choice",
-      question: "Identify the following consonant: ఠ",
-
-      answers: [
-        "ra",
-        "ṭha"
-      ],
-
-      correct: 1
-    },
-
-  ],
-
+  "Consonants": [
+    { id: "consonants-001", english: "Pen", telugu: "కలం", transliteration: "kalam", audio: null, difficulty: 2 },
+    { id: "consonants-002", english: "Frog", telugu: "కప్ప", transliteration: "kappa", audio: null, difficulty: 2 },
+    { id: "consonants-003", english: "Bell", telugu: "గంట", transliteration: "ganṭa", audio: null, difficulty: 2 },
+    { id: "consonants-004", english: "Basket", telugu: "గంప", transliteration: "gampa", audio: null, difficulty: 2 },
+    { id: "consonants-005", english: "Donkey", telugu: "ఖరము", transliteration: "kharamu", audio: null, difficulty: 2 },
+    { id: "consonants-006", english: "Crow", telugu: "కాకి", transliteration: "kaaki", audio: null, difficulty: 2 }
+  ]
 };
-
-
-
 
 /* =========================================================
    WORD SEARCH SETTINGS
@@ -2195,9 +1285,7 @@ function showActivities() {
 }
 
 function startPractice() {
-  /* Practice uses the existing quiz exactly as before. */
   document.getElementById("activities-screen").style.display = "none";
-
   showQuizCategories();
 }
 
@@ -2900,6 +1988,11 @@ let quizScore = 0;
 let playerName = "";
 let playerAnswers = [];
 let selectedQuizCategory = "";
+let selectedMaxDifficulty = 1;
+
+const VOCABULARY_PROGRESS_KEY = "teluguGameVocabularyProgress";
+const DEFAULT_CHOICE_COUNT = 4;
+const QUESTIONS_PER_QUIZ = 8;
 
 // Matching question state
 let matchingSelections = {};
@@ -2910,19 +2003,244 @@ function selectQuizCategory(category) {
   beginNewQuiz();
 }
 
-function beginNewQuiz() {
+function getVocabularyProgress() {
+  try {
+    const stored = localStorage.getItem(VOCABULARY_PROGRESS_KEY);
+    const progress = stored ? JSON.parse(stored) : {};
+    return progress && typeof progress === "object" ? progress : {};
+  } catch (error) {
+    console.error("Could not read vocabulary progress:", error);
+    return {};
+  }
+}
 
-  const pool = questionPools[selectedQuizCategory];
+function saveVocabularyProgress(progress) {
+  try {
+    localStorage.setItem(VOCABULARY_PROGRESS_KEY, JSON.stringify(progress));
+  } catch (error) {
+    console.error("Could not save vocabulary progress:", error);
+  }
+}
 
-  if (!pool || pool.length === 0) {
+function updateVocabularyProgress(vocabId, isCorrect) {
+  if (!vocabId) {
     return;
   }
 
-  /* Randomize the question pool. */
-  const shuffledPool = shuffle([...pool]);
+  const progress = getVocabularyProgress();
 
-  /* Select the required number. */
-  selectedQuestions = shuffledPool.slice(0, Math.min(QUESTIONS_PER_QUIZ,pool.length));
+  if (!progress[vocabId]) {
+    progress[vocabId] = {
+      correct: 0,
+      incorrect: 0
+    };
+  }
+
+  if (isCorrect) {
+    progress[vocabId].correct++;
+  } else {
+    progress[vocabId].incorrect++;
+  }
+
+  saveVocabularyProgress(progress);
+}
+
+function getEligibleVocabulary() {
+  const categoryVocabulary = VocabularyCategories[selectedQuizCategory];
+
+  if (!Array.isArray(categoryVocabulary)) {
+    return [];
+  }
+
+  return categoryVocabulary.filter(function(word) {
+    return Number(word.difficulty) <= selectedMaxDifficulty;
+  });
+}
+
+function getWordPriority(word, progress) {
+  const record = progress[word.id];
+  const isUnseen = !record;
+  const incorrect = record ? Number(record.incorrect || 0) : 0;
+
+  return {
+    difficulty: Number(word.difficulty) || 0,
+    unseen: isUnseen ? 1 : 0,
+    incorrect: incorrect
+  };
+}
+
+function compareWordPriority(a, b, progress) {
+  const priorityA = getWordPriority(a, progress);
+  const priorityB = getWordPriority(b, progress);
+
+  // Higher eligible difficulty first.
+  if (priorityB.difficulty !== priorityA.difficulty) {
+    return priorityB.difficulty - priorityA.difficulty;
+  }
+
+  // Within a difficulty: unseen before previously attempted.
+  if (priorityB.unseen !== priorityA.unseen) {
+    return priorityB.unseen - priorityA.unseen;
+  }
+
+  // Among missed words, most frequently missed first.
+  if (priorityB.incorrect !== priorityA.incorrect) {
+    return priorityB.incorrect - priorityA.incorrect;
+  }
+
+  // Randomize otherwise-equal words.
+  return Math.random() - 0.5;
+}
+
+function selectQuizWords() {
+  const eligibleVocabulary = getEligibleVocabulary();
+  const progress = getVocabularyProgress();
+
+  return eligibleVocabulary
+    .slice()
+    .sort(function(a, b) {
+      return compareWordPriority(a, b, progress);
+    })
+    .slice(0, Math.min(QUESTIONS_PER_QUIZ, eligibleVocabulary.length));
+}
+
+function getAvailableQuestionTypes(word) {
+  const types = [];
+
+  if (word.telugu && word.english) {
+    types.push("telugu-to-english");
+  }
+
+  if (word.english && word.telugu && word.transliteration) {
+    types.push("english-to-telugu");
+  }
+
+  if (word.audio && word.english) {
+    types.push("audio-to-english");
+  }
+
+  return types;
+}
+
+function getAnswerText(word, questionType) {
+  if (questionType === "telugu-to-english" || questionType === "audio-to-english") {
+    return word.english;
+  }
+
+  if (questionType === "english-to-telugu") {
+    return word.telugu + " (" + word.transliteration + ")";
+  }
+
+  return word.english;
+}
+
+function generateDistractors(correctWord, questionType, categoryVocabulary) {
+  const correctText = getAnswerText(correctWord, questionType);
+  const preferredDifficulty = Number(correctWord.difficulty) || 0;
+  const candidates = categoryVocabulary
+    .filter(function(word) {
+      return word.id !== correctWord.id;
+    })
+    .filter(function(word) {
+      return getAnswerText(word, questionType) !== correctText;
+    });
+
+  const sameDifficulty = candidates.filter(function(word) {
+    return Number(word.difficulty) === preferredDifficulty;
+  });
+
+  const lowerDifficulty = candidates
+    .filter(function(word) {
+      return Number(word.difficulty) < preferredDifficulty;
+    })
+    .sort(function(a, b) {
+      return Number(b.difficulty) - Number(a.difficulty);
+    });
+
+  const higherDifficulty = candidates
+    .filter(function(word) {
+      return Number(word.difficulty) > preferredDifficulty;
+    })
+    .sort(function(a, b) {
+      return Number(a.difficulty) - Number(b.difficulty);
+    });
+
+  return shuffle(sameDifficulty)
+    .concat(lowerDifficulty)
+    .concat(higherDifficulty)
+    .slice(0, DEFAULT_CHOICE_COUNT - 1);
+}
+
+function generateQuizQuestion(word) {
+  const questionTypes = getAvailableQuestionTypes(word);
+
+  if (!questionTypes.length) {
+    return null;
+  }
+
+  const questionType = questionTypes[Math.floor(Math.random() * questionTypes.length)];
+  const categoryVocabulary = VocabularyCategories[selectedQuizCategory] || [];
+  const distractors = generateDistractors(word, questionType, categoryVocabulary);
+  const answerWords = [word].concat(distractors);
+  const answers = answerWords.map(function(answerWord) {
+    return getAnswerText(answerWord, questionType);
+  });
+  const correctAnswer = getAnswerText(word, questionType);
+
+  shuffle(answers);
+
+  let question = "";
+  let audio = null;
+
+  if (questionType === "telugu-to-english") {
+    question = "Translate the following word to English: " +
+      word.telugu + " (" + word.transliteration + ")";
+  } else if (questionType === "english-to-telugu") {
+    question = "Translate the following word to Telugu: " +
+      word.english;
+  } else if (questionType === "audio-to-english") {
+    question = "Listen to the word and choose its English meaning.";
+    audio = word.audio;
+  }
+
+  return {
+    type: "multiple-choice",
+    questionType: questionType,
+    vocabId: word.id,
+    question: question,
+    answers: answers,
+    correct: answers.indexOf(correctAnswer),
+    audio: audio
+  };
+}
+
+function beginNewQuiz() {
+  const categoryVocabulary = VocabularyCategories[selectedQuizCategory];
+
+  if (!Array.isArray(categoryVocabulary) || categoryVocabulary.length === 0) {
+    return;
+  }
+
+  // The selected category determines the currently available maximum difficulty.
+  selectedMaxDifficulty = categoryVocabulary.reduce(function(maximum, word) {
+    return Math.max(maximum, Number(word.difficulty) || 0);
+  }, 0);
+
+  const selectedWords = selectQuizWords();
+
+  selectedQuestions = selectedWords
+    .map(function(word) {
+      return generateQuizQuestion(word);
+    })
+    .filter(function(question) {
+      return question !== null;
+    });
+
+  if (!selectedQuestions.length) {
+    document.getElementById("feedback").textContent =
+      "No Practice questions can be generated from this category yet.";
+    return;
+  }
 
   currentQuestion = 0;
   quizScore = 0;
@@ -2942,14 +2260,13 @@ function loadQuizQuestion() {
   const q = selectedQuestions[currentQuestion];
 
   /* Update question text. */
-  document.getElementById("question") .textContent =
-      `${currentQuestion + 1}. ${q.question}`;
+  document.getElementById("question").textContent =
+    (currentQuestion + 1) + ". " + q.question;
 
   const answersContainer = document.getElementById("answers");
   answersContainer.innerHTML = "";
   document.getElementById("feedback").textContent = "";
   document.getElementById("next-btn").style.display = "none";
-  document.getElementById("check-answer-btn").style.display = "none";
   document.getElementById("check-answer-btn").style.display = "none";
   const oldAudio = document.getElementById("question-audio");
 
@@ -2958,27 +2275,24 @@ function loadQuizQuestion() {
   }
 
   if (q.audio) {
-
     const container = createAudioButton(q.audio);
     const questionElement = document.getElementById("question");
 
-    /* Insert audio immediately after the question. */
-    questionElement
-      .parentNode
-      .insertBefore(
-        container,
-        document.getElementById("answers")
-      );
+    questionElement.parentNode.insertBefore(
+      container,
+      document.getElementById("answers")
+    );
   }
 
   if (q.type === "matching") {
     loadMatching(q);
-  } else if (q.type === "multiple-choice"){
+  } else if (q.type === "multiple-choice") {
     loadMultipleChoice(q);
   } else if (q.type === "multiple-answer") {
     loadMultipleAnswer(q);
   } else {
-    document.getElementById("feedback").textContent ="There seems to be an issue with this question...";
+    document.getElementById("feedback").textContent =
+      "There seems to be an issue with this question...";
     quizScore++;
     playerAnswers.push({
       question: q.question,
@@ -2997,7 +2311,6 @@ function formatAudio(audioName){
   return audioLink + audioName;
 }
 
-// Returns a container containing the audio button
 function createAudioButton(audioUrl) {
   const container = document.createElement("div");
   
@@ -3247,10 +2560,15 @@ function checkMultipleChoiceAnswer() {
   playerAnswers.push({
     question: q.question,
     type: "multiple-choice",
+    vocabId: q.vocabId || null,
+    questionType: q.questionType || null,
     answer: selectedButton.textContent,
     correct: isCorrect,
     pointsEarned: isCorrect ? 1 : 0
   });
+
+  // Practice progress is keyed by vocabulary ID, not by question text.
+  updateVocabularyProgress(q.vocabId, isCorrect);
 
   if (isCorrect) {
     quizScore++;
@@ -3747,7 +3065,7 @@ function buildQuizCategoryButtons() {
   const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
 
-  Object.keys(questionPools)
+  Object.keys(VocabularyCategories)
     .forEach(
       category => {
 
