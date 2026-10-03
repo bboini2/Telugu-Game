@@ -662,6 +662,334 @@ MATCHING
 }
 
 
+
+
+/* =========================================================
+   VOCABULARY ACTIVITY
+   ========================================================= */
+
+#vocabulary-category-screen,
+#vocabulary-screen {
+  min-height: 500px;
+  padding: 20px 0;
+}
+
+.vocabulary-panel {
+  width: 100%;
+  padding: 30px 25px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  text-align: center;
+}
+
+.vocabulary-progress-text {
+  margin: 0 0 12px 0;
+  color: #555555;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.vocabulary-progress-bar {
+  width: 100%;
+  height: 8px;
+  margin-bottom: 30px;
+  background-color: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.vocabulary-progress-fill {
+  width: 0%;
+  height: 100%;
+  background-color: #1b4557;
+  transition: width 0.3s ease;
+}
+
+.vocabulary-card {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 14px;
+  background: #fafafa;
+}
+
+.vocabulary-telugu {
+  margin: 0;
+  color: #1b4557;
+  font-size: 56px;
+  font-weight: bold;
+  line-height: 1.2;
+}
+
+.vocabulary-transliteration {
+  margin: 12px 0 24px 0;
+  color: #555555;
+  font-size: 24px;
+  font-style: italic;
+}
+
+.vocabulary-meaning {
+  margin: 20px 0 10px 0;
+  color: #222222;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.vocabulary-prompt {
+  margin: 0 0 20px 0;
+  color: #555555;
+  font-size: 16px;
+}
+
+.vocabulary-audio-button {
+  margin-bottom: 20px;
+}
+
+.vocabulary-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.vocabulary-action-button {
+  min-width: 170px;
+  padding: 14px 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.vocabulary-action-button.primary {
+  color: #ffffff;
+  background: #1b4557;
+  border-color: #1b4557;
+}
+
+.vocabulary-action-button.primary:hover {
+  background: #122f3b;
+}
+
+.vocabulary-action-button:hover:not(:disabled) {
+  border-color: #1b4557;
+}
+
+.vocabulary-action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   VOCABULARY SUMMARY
+   ========================================================= */
+
+.vocabulary-summary-intro {
+  margin: -10px 0 25px 0;
+  color: #555555;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.vocabulary-summary-section {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.vocabulary-summary-section h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.vocabulary-summary-list {
+  display: grid;
+  gap: 10px;
+}
+
+.vocabulary-summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px;
+  border: 2px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+}
+
+.vocabulary-summary-word {
+  min-width: 0;
+}
+
+.vocabulary-summary-telugu {
+  color: #1b4557;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.vocabulary-summary-transliteration {
+  color: #555555;
+  font-size: 15px;
+  font-style: italic;
+}
+
+.vocabulary-summary-meaning {
+  margin-top: 3px;
+  color: #222222;
+  font-size: 15px;
+}
+
+.vocabulary-summary-link {
+  flex: 0 0 auto;
+  padding: 9px 13px;
+  color: #1b4557;
+  background: #ffffff;
+  border: 2px solid #1b4557;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vocabulary-summary-link:hover {
+  background: #f5f3ff;
+}
+
+.vocabulary-summary-empty {
+  padding: 12px;
+  color: #666666;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.vocabulary-summary-top-actions {
+  display: flex;
+  gap: 12px;
+  margin: 0 0 25px 0;
+}
+
+@media (max-width: 600px) {
+  .vocabulary-summary-item {
+    align-items: flex-start;
+  }
+
+  .vocabulary-summary-top-actions {
+    flex-direction: column;
+  }
+}
+
+.vocabulary-feedback {
+  min-height: 24px;
+  margin-top: 18px;
+  color: #1b4557;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .vocabulary-telugu {
+    font-size: 44px;
+  }
+
+  .vocabulary-transliteration {
+    font-size: 21px;
+  }
+
+  .vocabulary-meaning {
+    font-size: 26px;
+  }
+}
+
+
+/* =========================================================
+   VOCABULARY SUMMARY
+   ========================================================= */
+
+.vocabulary-summary-intro {
+  margin: -10px 0 25px 0;
+  color: #555555;
+  line-height: 1.5;
+}
+
+.vocabulary-summary-section {
+  margin-top: 24px;
+  text-align: left;
+}
+
+.vocabulary-summary-section h2 {
+  margin-bottom: 10px !important;
+  font-size: 18px !important;
+}
+
+.vocabulary-summary-list {
+  display: grid;
+  gap: 8px;
+}
+
+.vocabulary-summary-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.vocabulary-summary-word {
+  min-width: 0;
+}
+
+.vocabulary-summary-telugu {
+  color: #1b4557;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.vocabulary-summary-transliteration {
+  color: #555555;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.vocabulary-summary-meaning {
+  color: #333333;
+  font-size: 14px;
+}
+
+.vocabulary-summary-link {
+  flex: 0 0 auto;
+  padding: 7px 10px;
+  color: #1b4557;
+  background: #ffffff;
+  border: 1px solid #1b4557;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vocabulary-summary-link:hover {
+  background: #f1f7f9;
+}
+
+.vocabulary-summary-empty {
+  padding: 12px;
+  color: #666666;
+  background: #f8fafb;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
 /* =========================================================
    WORD SEARCH
    ========================================================= */
@@ -903,6 +1231,14 @@ MATCHING
 
         <button
           type="button"
+          class="activity-button"
+          onclick="startVocabulary()"
+        >
+          Vocabulary
+        </button>
+
+        <button
+          type="button"
           id="word-search-activity-button"
           class="activity-button"
           onclick="startWordSearch()"
@@ -914,6 +1250,104 @@ MATCHING
 
     </div>
 
+  </div>
+
+
+
+
+  <!-- =====================================================
+       VOCABULARY CATEGORY SCREEN
+       ===================================================== -->
+
+  <div id="vocabulary-category-screen" class="quiz-screen" style="display: none;">
+    <h1>Choose a Vocabulary Category</h1>
+    <div id="vocabulary-category-list" class="category-list"></div>
+    <button type="button" class="quiz-button secondary-button" onclick="showActivities()">
+      ← Back to Activities
+    </button>
+  </div>
+
+
+  <!-- =====================================================
+       VOCABULARY FLASHCARD SCREEN
+       ===================================================== -->
+
+  <div id="vocabulary-screen" class="quiz-screen" style="display: none;">
+    <div class="vocabulary-panel">
+      <h1 id="vocabulary-title">Vocabulary</h1>
+
+      <p id="vocabulary-progress-text" class="vocabulary-progress-text"></p>
+      <div class="vocabulary-progress-bar">
+        <div id="vocabulary-progress-fill" class="vocabulary-progress-fill"></div>
+      </div>
+
+      <div class="vocabulary-card">
+        <p id="vocabulary-telugu" class="vocabulary-telugu"></p>
+        <p id="vocabulary-transliteration" class="vocabulary-transliteration"></p>
+        <p id="vocabulary-prompt" class="vocabulary-prompt">Can you remember what this means?</p>
+
+        <button id="vocabulary-audio-button" type="button" class="audio-button vocabulary-audio-button" style="display: none;"></button>
+
+        <button id="vocabulary-reveal-button" type="button" class="vocabulary-action-button primary" onclick="revealVocabularyMeaning()">
+          Reveal meaning
+        </button>
+
+        <div id="vocabulary-meaning" class="vocabulary-meaning" style="display: none;"></div>
+
+        <div id="vocabulary-feedback" class="vocabulary-feedback"></div>
+      </div>
+
+      <div class="vocabulary-actions">
+        <button id="vocabulary-previous-button" type="button" class="vocabulary-action-button" onclick="previousVocabularyCard()" disabled>
+          ← Previous
+        </button>
+        <button id="vocabulary-next-button" type="button" class="vocabulary-action-button primary" onclick="nextVocabularyCard()">
+          Next →
+        </button>
+      </div>
+      <button type="button" class="quiz-button secondary-button" onclick="showVocabularyCategories()">
+        ← Back to Categories
+      </button>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       VOCABULARY SUMMARY SCREEN
+       ===================================================== -->
+
+  <div id="vocabulary-summary-screen" class="quiz-screen" style="display: none;">
+    <div class="vocabulary-panel">
+      <h1 id="vocabulary-summary-title">Category Complete</h1>
+      <p id="vocabulary-summary-intro" class="vocabulary-summary-intro"></p>
+
+      <div class="vocabulary-summary-top-actions">
+        <button type="button" class="vocabulary-action-button" onclick="showVocabularyCategories()">
+          Vocabulary Categories
+        </button>
+        <button type="button" class="vocabulary-action-button primary" onclick="practiceVocabularyCategory()">
+          Practice This Category
+        </button>
+      </div>
+
+      <div class="vocabulary-summary-section">
+        <h2>Known from Practice</h2>
+        <div id="vocabulary-summary-known" class="vocabulary-summary-list"></div>
+      </div>
+
+      <div class="vocabulary-summary-section">
+        <h2>Still Need to Learn</h2>
+        <div id="vocabulary-summary-needs-practice" class="vocabulary-summary-list"></div>
+      </div>
+
+      <div class="vocabulary-summary-section">
+        <h2>Not Yet Tested</h2>
+        <div id="vocabulary-summary-untested" class="vocabulary-summary-list"></div>
+      </div>
+
+      <button type="button" class="quiz-button secondary-button" onclick="backToVocabularyStart()">
+        ↩ Back to Start
+      </button>
+    </div>
   </div>
 
 
@@ -1191,13 +1625,13 @@ const VocabularyCategories = {
   ],
 
   "Vowels": [
-    { id: "vowels-001", english: "Wave", telugu: "అల", transliteration: "ala", audio: "ala.mp3", difficulty: 1 },
-    { id: "vowels-002", english: "Play", telugu: "ఆట", transliteration: "aaṭa", audio: "aata.mp3", difficulty: 1 },
-    { id: "vowels-003", english: "Cow", telugu: "ఆవు", transliteration: "aavu", audio: "aavu.mp3", difficulty: 1 },
-    { id: "vowels-004", english: "Leaf", telugu: "ఆకు", transliteration: "aaku", audio: "aaku.mp3", difficulty: 1 },
-    { id: "vowels-005", english: "House", telugu: "ఇల్లు", transliteration: "illu", audio: "illu.mp3", difficulty: 1 },
-    { id: "vowels-006", english: "Brick", telugu: "ఇటుక", transliteration: "iṭuka", audio: "ituka.mp3", difficulty: 1 },
-    { id: "vowels-007", english: "Fly", telugu: "ఈగ", transliteration: "eega", audio: "eega.mp3", difficulty: 1 }
+    { id: "vowels-001", english: "Wave", telugu: "అల", transliteration: "ala", audio: null, difficulty: 1 },
+    { id: "vowels-002", english: "Play", telugu: "ఆట", transliteration: "aaṭa", audio: null, difficulty: 1 },
+    { id: "vowels-003", english: "Cow", telugu: "ఆవు", transliteration: "aavu", audio: null, difficulty: 1 },
+    { id: "vowels-004", english: "Leaf", telugu: "ఆకు", transliteration: "aaku", audio: null, difficulty: 1 },
+    { id: "vowels-005", english: "House", telugu: "ఇల్లు", transliteration: "illu", audio: null, difficulty: 1 },
+    { id: "vowels-006", english: "Brick", telugu: "ఇటుక", transliteration: "iṭuka", audio: null, difficulty: 1 },
+    { id: "vowels-007", english: "Fly", telugu: "ఈగ", transliteration: "eega", audio: null, difficulty: 1 }
   ],
 
   "Consonants": [
@@ -1278,20 +1712,49 @@ function showActivities() {
   document.getElementById("results").style.display = "none";
   document.getElementById("word-search-screen").style.display = "none";
   document.getElementById("word-search-category-screen").style.display = "none";
+  document.getElementById("vocabulary-category-screen").style.display = "none";
+  document.getElementById("vocabulary-screen").style.display = "none";
+  document.getElementById("vocabulary-summary-screen").style.display = "none";
 
   wordSearchDragging = false;
   wordSearchStartCell = null;
   clearWordSearchSelection();
 }
 
-function startPractice() {
+function startPracticeForCategory(category) {
+  if (!category || !VocabularyCategories[category]) {
+    return;
+  }
+
+  stopAudio();
+  selectedQuizCategory = category;
+  document.getElementById("vocabulary-summary-screen").style.display = "none";
+  document.getElementById("vocabulary-screen").style.display = "none";
+  document.getElementById("vocabulary-category-screen").style.display = "none";
   document.getElementById("activities-screen").style.display = "none";
+  beginNewQuiz();
+}
+
+function startPractice() {
+  /* Practice questions are generated from VocabularyCategories. */
+  document.getElementById("activities-screen").style.display = "none";
+
   showQuizCategories();
 }
 
 function startWordSearch() {
   showWordSearchCategories();
 }
+
+function startVocabulary() {
+  stopAudio();
+  document.getElementById("activities-screen").style.display = "none";
+  showVocabularyCategories();
+}
+
+/* =========================================================
+   GENERAL FUNCTIONS
+   ========================================================= */
 
 function launchConfetti() {
     const canvas = document.createElement('canvas');
@@ -1385,6 +1848,357 @@ function launchConfetti() {
 
     animate();
 }
+
+function formatAudio(audioName){
+  return audioLink + audioName;
+}
+
+function createAudioButton(audioUrl) {
+  const container = document.createElement("div");
+  
+  container.id = "question-audio";
+  container.className = "audio-container";
+
+  const button = document.createElement("button");
+  button.type = "button";
+
+  button.className = "audio-button";
+  button.textContent = "🔊 Listen";
+
+  button.addEventListener(
+    "click",
+    function() {
+      playAudio(formatAudio(audioUrl), button);
+    }
+  );
+
+  container.appendChild(button);
+
+  return container;
+}
+
+function stopAudio(){
+  /* Stop any previous audio. */
+  if (window.quizAudio) {
+    window.quizAudio.pause();
+    window.quizAudio.currentTime = 0;
+    window.quizAudio = null;
+  }
+}
+
+function playAudio(audioUrl, button) {
+  stopAudio();
+
+  const audio = new Audio(audioUrl);
+  window.quizAudio = audio;
+  button.disabled = true;
+  button.textContent = "🔊 Playing...";
+
+  audio.play()
+    .then(function() {
+
+      audio.addEventListener(
+        "ended",
+        function() {
+          button.disabled = false;
+          button.textContent = "🔊 Listen Again";
+        }
+      );
+
+    })
+    .catch(function(error) {
+      console.error("Audio could not be played:", error);
+      document.getElementById("feedback").textContent = "Audio could not be played.";
+      button.disabled = false;
+      button.textContent = "🔊 Play Audio";
+    });
+}
+
+/* =========================================================
+   VOCABULARY ACTIVITY
+   ========================================================= */
+
+const VOCABULARY_ACTIVITY_PROGRESS_KEY = "teluguVocabularyActivityProgress";
+
+let selectedVocabularyCategory = null;
+let vocabularyCards = [];
+let currentVocabularyCard = 0;
+let vocabularyMeaningRevealed = false;
+
+function getVocabularyActivityProgress() {
+  try {
+    const stored = localStorage.getItem(VOCABULARY_ACTIVITY_PROGRESS_KEY);
+    const progress = stored ? JSON.parse(stored) : {};
+    return progress && typeof progress === "object" ? progress : {};
+  } catch (error) {
+    console.error("Could not read vocabulary activity progress:", error);
+    return {};
+  }
+}
+
+function saveVocabularyActivityProgress(progress) {
+  try {
+    localStorage.setItem(VOCABULARY_ACTIVITY_PROGRESS_KEY, JSON.stringify(progress));
+  } catch (error) {
+    console.error("Could not save vocabulary activity progress:", error);
+  }
+}
+
+function showVocabularyCategories() {
+  stopAudio();
+  document.getElementById("vocabulary-screen").style.display = "none";
+  document.getElementById("vocabulary-summary-screen").style.display = "none";
+  document.getElementById("vocabulary-category-screen").style.display = "block";
+
+  const categoryList = document.getElementById("vocabulary-category-list");
+  categoryList.innerHTML = "";
+
+  Object.keys(VocabularyCategories).forEach(function(category) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-button";
+    button.textContent = category;
+    button.addEventListener("click", function() {
+      selectVocabularyCategory(category);
+    });
+    categoryList.appendChild(button);
+  });
+}
+
+function selectVocabularyCategory(category) {
+  const words = VocabularyCategories[category];
+
+  if (!Array.isArray(words) || words.length === 0) {
+    return;
+  }
+
+  selectedVocabularyCategory = category;
+  vocabularyCards = words.slice();
+  currentVocabularyCard = 0;
+
+  document.getElementById("vocabulary-category-screen").style.display = "none";
+  document.getElementById("vocabulary-summary-screen").style.display = "none";
+  document.getElementById("vocabulary-screen").style.display = "block";
+
+  loadVocabularyCard();
+}
+
+function loadVocabularyCard() {
+  stopAudio();
+
+  const word = vocabularyCards[currentVocabularyCard];
+  if (!word) {
+    showVocabularyCategories();
+    return;
+  }
+
+  vocabularyMeaningRevealed = false;
+
+  document.getElementById("vocabulary-title").textContent = selectedVocabularyCategory;
+  document.getElementById("vocabulary-progress-text").textContent =
+    `Word ${currentVocabularyCard + 1} of ${vocabularyCards.length}`;
+  document.getElementById("vocabulary-progress-fill").style.width =
+    `${((currentVocabularyCard + 1) / vocabularyCards.length) * 100}%`;
+
+  document.getElementById("vocabulary-telugu").textContent = word.telugu || "";
+  document.getElementById("vocabulary-transliteration").textContent = word.transliteration || "";
+  document.getElementById("vocabulary-prompt").textContent =
+    "Can you remember what this means?";
+  document.getElementById("vocabulary-meaning").textContent = word.english || "";
+  document.getElementById("vocabulary-meaning").style.display = "none";
+  document.getElementById("vocabulary-feedback").textContent = "";
+  document.getElementById("vocabulary-reveal-button").style.display = "inline-block";
+  document.getElementById("vocabulary-previous-button").disabled = currentVocabularyCard === 0;
+  document.getElementById("vocabulary-next-button").textContent =
+    currentVocabularyCard === vocabularyCards.length - 1 ? "Finish →" : "Next →";
+  document.getElementById("vocabulary-next-button").disabled = false;
+
+  const audioButton = document.getElementById("vocabulary-audio-button");
+  if (word.audio) {
+    audioButton.style.display = "inline-block";
+    audioButton.disabled = false;
+    audioButton.textContent = "🔊 Hear it";
+    audioButton.onclick = function() {
+      playAudio(word.audio, audioButton);
+    };
+  } else {
+    audioButton.style.display = "none";
+    audioButton.onclick = null;
+  }
+}
+
+function revealVocabularyMeaning() {
+  if (vocabularyMeaningRevealed) {
+    return;
+  }
+
+  vocabularyMeaningRevealed = true;
+  document.getElementById("vocabulary-meaning").style.display = "block";
+  document.getElementById("vocabulary-prompt").textContent =
+    "Meaning revealed. Continue when you are ready.";
+  document.getElementById("vocabulary-reveal-button").style.display = "none";
+  document.getElementById("vocabulary-next-button").disabled = false;
+
+  const progress = getVocabularyActivityProgress();
+  const word = vocabularyCards[currentVocabularyCard];
+  if (word) {
+    progress[word.id] = {
+      reviewedAt: new Date().toISOString()
+    };
+    saveVocabularyActivityProgress(progress);
+  }
+}
+
+function recordVocabularyCardVisit() {
+  const word = vocabularyCards[currentVocabularyCard];
+  if (!word) return;
+
+  const progress = getVocabularyActivityProgress();
+  progress[word.id] = {
+    reviewedAt: new Date().toISOString()
+  };
+  saveVocabularyActivityProgress(progress);
+}
+
+function previousVocabularyCard() {
+  if (currentVocabularyCard <= 0) {
+    return;
+  }
+
+  recordVocabularyCardVisit();
+  currentVocabularyCard--;
+  loadVocabularyCard();
+}
+
+function nextVocabularyCard() {
+  recordVocabularyCardVisit();
+
+  if (currentVocabularyCard < vocabularyCards.length - 1) {
+    currentVocabularyCard++;
+    loadVocabularyCard();
+  } else {
+    showVocabularySummary();
+  }
+}
+
+function createVocabularySummaryItem(word, showPracticeLink) {
+  const item = document.createElement("div");
+  item.className = "vocabulary-summary-item";
+
+  const wordInfo = document.createElement("div");
+  wordInfo.className = "vocabulary-summary-word";
+
+  const telugu = document.createElement("div");
+  telugu.className = "vocabulary-summary-telugu";
+  telugu.textContent = word.telugu || "";
+
+  const transliteration = document.createElement("div");
+  transliteration.className = "vocabulary-summary-transliteration";
+  transliteration.textContent = word.transliteration || "";
+
+  const meaning = document.createElement("div");
+  meaning.className = "vocabulary-summary-meaning";
+  meaning.textContent = word.english || "";
+
+  wordInfo.appendChild(telugu);
+  wordInfo.appendChild(transliteration);
+  wordInfo.appendChild(meaning);
+  item.appendChild(wordInfo);
+
+  if (showPracticeLink) {
+    const practiceButton = document.createElement("button");
+    practiceButton.type = "button";
+    practiceButton.className = "vocabulary-summary-link";
+    practiceButton.textContent = "Practice";
+    practiceButton.addEventListener("click", function() {
+      openVocabularyCardForWord(word.id);
+    });
+    item.appendChild(practiceButton);
+  }
+
+  return item;
+}
+
+function populateVocabularySummaryList(elementId, words, showPracticeLink) {
+  const container = document.getElementById(elementId);
+  container.innerHTML = "";
+
+  if (!words.length) {
+    const empty = document.createElement("div");
+    empty.className = "vocabulary-summary-empty";
+    empty.textContent = "None";
+    container.appendChild(empty);
+    return;
+  }
+
+  words.forEach(function(word) {
+    container.appendChild(createVocabularySummaryItem(word, showPracticeLink));
+  });
+}
+
+function showVocabularySummary() {
+  stopAudio();
+  document.getElementById("vocabulary-screen").style.display = "none";
+  document.getElementById("vocabulary-summary-screen").style.display = "block";
+
+  const practiceProgress = getVocabularyProgress();
+  const known = [];
+  const needsPractice = [];
+  const untested = [];
+
+  vocabularyCards.forEach(function(word) {
+    const record = practiceProgress[word.id];
+    if (!record || ((record.correct || 0) === 0 && (record.incorrect || 0) === 0)) {
+      untested.push(word);
+    } else if ((record.incorrect || 0) > (record.correct || 0)) {
+      needsPractice.push(word);
+    } else {
+      known.push(word);
+    }
+  });
+
+  document.getElementById("vocabulary-summary-title").textContent =
+    `${selectedVocabularyCategory} Complete`;
+  document.getElementById("vocabulary-summary-intro").textContent =
+    "This summary uses your Practice history. Reviewing a card here does not mark it as learned.";
+
+  populateVocabularySummaryList("vocabulary-summary-known", known, true);
+  populateVocabularySummaryList("vocabulary-summary-needs-practice", needsPractice, true);
+  populateVocabularySummaryList("vocabulary-summary-untested", untested, true);
+}
+
+function openVocabularyCardForWord(vocabId) {
+  const index = vocabularyCards.findIndex(function(word) {
+    return word.id === vocabId;
+  });
+
+  if (index === -1) {
+    return;
+  }
+
+  currentVocabularyCard = index;
+  document.getElementById("vocabulary-summary-screen").style.display = "none";
+  document.getElementById("vocabulary-category-screen").style.display = "none";
+  document.getElementById("vocabulary-screen").style.display = "block";
+  loadVocabularyCard();
+}
+
+function backToVocabularyStart() {
+  if (!vocabularyCards.length) {
+    return;
+  }
+
+  currentVocabularyCard = 0;
+  document.getElementById("vocabulary-summary-screen").style.display = "none";
+  document.getElementById("vocabulary-category-screen").style.display = "none";
+  document.getElementById("vocabulary-screen").style.display = "block";
+  loadVocabularyCard();
+}
+
+function practiceVocabularyCategory() {
+  startPracticeForCategory(selectedVocabularyCategory);
+}
+
 
 /* =========================================================
    WORD SEARCH FUNCTIONS
@@ -2305,71 +3119,6 @@ function loadQuizQuestion() {
 
   const progress = (currentQuestion / selectedQuestions.length) * 100;
   document.getElementById("progress-bar").style.width = progress + "%";
-}
-
-function formatAudio(audioName){
-  return audioLink + audioName;
-}
-
-function createAudioButton(audioUrl) {
-  const container = document.createElement("div");
-  
-  container.id = "question-audio";
-  container.className = "audio-container";
-
-  const button = document.createElement("button");
-  button.type = "button";
-
-  button.className = "audio-button";
-  button.textContent = "🔊 Listen";
-
-  button.addEventListener(
-    "click",
-    function() {
-      playAudio(formatAudio(audioUrl), button);
-    }
-  );
-
-  container.appendChild(button);
-
-  return container;
-}
-
-function stopAudio(){
-  /* Stop any previous audio. */
-  if (window.quizAudio) {
-    window.quizAudio.pause();
-    window.quizAudio.currentTime = 0;
-    window.quizAudio = null;
-  }
-}
-
-function playAudio(audioUrl, button) {
-  stopAudio();
-
-  const audio = new Audio(audioUrl);
-  window.quizAudio = audio;
-  button.disabled = true;
-  button.textContent = "🔊 Playing...";
-
-  audio.play()
-    .then(function() {
-
-      audio.addEventListener(
-        "ended",
-        function() {
-          button.disabled = false;
-          button.textContent = "🔊 Listen Again";
-        }
-      );
-
-    })
-    .catch(function(error) {
-      console.error("Audio could not be played:", error);
-      document.getElementById("feedback").textContent = "Audio could not be played.";
-      button.disabled = false;
-      button.textContent = "🔊 Play Audio";
-    });
 }
 
 function loadMultipleAnswer(q) {
