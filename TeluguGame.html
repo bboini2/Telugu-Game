@@ -1224,17 +1224,17 @@ MATCHING
         <button
           type="button"
           class="activity-button"
-          onclick="startPractice()"
+          onclick="startVocabulary()"
         >
-          Practice
+          Learn
         </button>
 
         <button
           type="button"
           class="activity-button"
-          onclick="startVocabulary()"
+          onclick="startPractice()"
         >
-          Vocabulary
+          Practice
         </button>
 
         <button
@@ -1253,14 +1253,12 @@ MATCHING
   </div>
 
 
-
-
   <!-- =====================================================
        VOCABULARY CATEGORY SCREEN
        ===================================================== -->
 
   <div id="vocabulary-category-screen" class="quiz-screen" style="display: none;">
-    <h1>Choose a Vocabulary Category</h1>
+    <h1>Choose a Category to Learn</h1>
     <div id="vocabulary-category-list" class="category-list"></div>
     <button type="button" class="quiz-button secondary-button" onclick="showActivities()">
       ← Back to Activities
@@ -1284,7 +1282,6 @@ MATCHING
       <div class="vocabulary-card">
         <p id="vocabulary-telugu" class="vocabulary-telugu"></p>
         <p id="vocabulary-transliteration" class="vocabulary-transliteration"></p>
-        <p id="vocabulary-prompt" class="vocabulary-prompt">Can you remember what this means?</p>
 
         <button id="vocabulary-audio-button" type="button" class="audio-button vocabulary-audio-button" style="display: none;"></button>
 
@@ -1306,7 +1303,7 @@ MATCHING
         </button>
       </div>
       <button type="button" class="quiz-button secondary-button" onclick="showVocabularyCategories()">
-        ← Back to Categories
+        Back to Categories
       </button>
     </div>
   </div>
@@ -1320,7 +1317,7 @@ MATCHING
       <h1 id="vocabulary-summary-title">Category Complete</h1>
       <p id="vocabulary-summary-intro" class="vocabulary-summary-intro"></p>
 
-      <div class="vocabulary-summary-top-actions">
+      <div class="vocabulary-actions">
         <button type="button" class="vocabulary-action-button" onclick="showVocabularyCategories()">
           Vocabulary Categories
         </button>
@@ -1608,7 +1605,7 @@ const audioLink = "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/au
    ========================================================= */
 
 const VocabularyCategories = {
-  Family: [
+  "Family": [
     { id: "family-001", english: "Younger Sister", telugu: "చెల్లి", transliteration: "Chelli", audio: null, difficulty: 1 },
     { id: "family-002", english: "Younger Brother", telugu: "తమ్ముడు", transliteration: "Tammuḍu", audio: null, difficulty: 1 },
     { id: "family-003", english: "Older Brother", telugu: "అన్న", transliteration: "Anna", audio: null, difficulty: 1 },
@@ -1618,7 +1615,7 @@ const VocabularyCategories = {
     { id: "family-007", english: "Maternal grandmother", telugu: "అమ్మమ్మ", transliteration: "Ammamma", audio: null, difficulty: 1 },
     { id: "family-008", english: "Aunt", telugu: "అత్త", transliteration: "Atta", audio: null, difficulty: 1 },
     // { id: "family-009", english: "Aunt", telugu: "పిన్ని", transliteration: "Pinni", audio: null, difficulty: 1 },
-    { id: "family-010", english: "Mother", telugu: "అమ్మ", transliteration: "Amma", audio: "amma.mp3", difficulty: 1 },
+    { id: "family-010", english: "Mother", telugu: "అమ్మ", transliteration: "Amma", audio: null, difficulty: 1 },
     // { id: "family-011", english: "Uncle", telugu: "బాబాయ్", transliteration: "Babai", audio: null, difficulty: 1 },
     { id: "family-012", english: "Uncle", telugu: "మామ", transliteration: "Māma", audio: null, difficulty: 1 },
     { id: "family-013", english: "Father", telugu: "నాన్న", transliteration: "Nāna", audio: null, difficulty: 1 }
