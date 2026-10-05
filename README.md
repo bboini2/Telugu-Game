@@ -11,3 +11,7 @@ This activity allows the player to see how much they have learned by quizzing th
 
 ## Word Search
 This activity is a more relaxed way to practice. The player gets clues in Telugu, and has to find the English words in the grid. While this activity can be completed without knowing the vocabulary, knowing the words helps the user search. 
+
+
+
+This game was created with the help of AI.
