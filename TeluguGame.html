@@ -227,13 +227,29 @@ body {
 
 #category-screen {
   display: none;
-  padding: 30px 0;
+  min-height: 500px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.category-panel {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 40px 35px;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.12);
+  text-align: center;
 }
 
 .category-list {
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
+  margin-top: 20px;
 }
 
 .category-button {
@@ -633,6 +649,10 @@ MATCHING
   }
 
   .activities-panel {
+    padding: 30px 20px;
+  }
+
+  .category-panel {
     padding: 30px 20px;
   }
 
@@ -1242,42 +1262,14 @@ MATCHING
        NAME SCREEN
        ===================================================== -->
 
-  <div
-    id="name-screen"
-    class="quiz-screen"
-  >
-
+  <div id="name-screen" class="quiz-screen">
     <div class="name-panel">
-
-      <h1>
-        Telugu Learning Game
-      </h1>
-
-      <label
-        class="name-label"
-        for="player-name"
-      >
-        Enter your name
-      </label>
-
-      <input
-        type="text"
-        id="player-name"
-        placeholder="Your name"
-        maxlength="100"
-        autocomplete="name"
-      >
-
-      <button
-        type="button"
-        class="quiz-button"
-        onclick="savePlayerName()"
-      >
-        Continue
-      </button>
-
+      <h1> Telugu Learning Game </h1>
+      <label class="name-label" for="player-name"> Enter your name </label>
+      <input type="text" id="player-name" placeholder="Your name"
+        maxlength="100" autocomplete="name">
+      <button type="button" class="quiz-button" onclick="savePlayerName()"> Continue</button>
     </div>
-
   </div>
 
   <!-- =====================================================
@@ -1285,10 +1277,12 @@ MATCHING
        ===================================================== -->
 
   <div id="category-screen" class="quiz-screen">
-    <h1> Choose a Category </h1>
-    <div id="category-error" class="word-search-error" style="display:none;"></div>
-    <div id="category-list" class="category-list"></div>
-    <button type="button" class="quiz-button secondary-button" onclick="showActivities()"> Back to Activities</button>
+    <div class="category-panel">
+      <h1 id = "category-heading"> Choose a Category </h1>
+      <div id="category-error" class="word-search-error" style="display:none;"></div>
+      <div id="category-list" class="category-list"></div>
+      <button type="button" class="quiz-button secondary-button" onclick="showActivities()" > Back to Activities </button>
+    </div>
   </div>
 
   <!-- =====================================================
@@ -1313,44 +1307,16 @@ MATCHING
        RESULTS SCREEN
        ===================================================== -->
 
-  <div
-    id="results"
-    class="quiz-screen"
-  >
-
-    <h1>
-      Quiz Complete!
-    </h1>
-
+  <div id="results" class="quiz-screen">
+    <h1> Quiz Complete! </h1>
     <div id="score"></div>
-
     <div id="result-message"></div>
-
     <div class="results-buttons">
-
-      <button
-        type="button"
-        class="quiz-button"
-        onclick="replayQuiz()"
-      >
-        Play Again
-      </button>
-
-      <button
-        type="button"
-        class="quiz-button secondary-button"
-        onclick="chooseAnotherQuizCategory()"
-      >
-        Choose Another Category
-      </button>
-
+      <button type="button" class="quiz-button" onclick="replayQuiz()"> Play Again </button>
+      <button type="button" class="quiz-button secondary-button" onclick="chooseAnotherQuizCategory()"> Choose Another Category </button>
     </div>
-
   </div>
-
 </div>
-
-
 
 <script>
 
@@ -1369,6 +1335,25 @@ const audioLink = "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/au
    ========================================================= */
 
 const VocabularyCategories = {
+  "Vowels Set 1": [
+    { id: "vowels-001", english: "Wave", telugu: "అల", transliteration: "ala", audio: null, difficulty: 1 },
+    { id: "vowels-002", english: "Play", telugu: "ఆట", transliteration: "aaṭa", audio: null, difficulty: 1 },
+    { id: "vowels-003", english: "Cow", telugu: "ఆవు", transliteration: "aavu", audio: null, difficulty: 1 },
+    { id: "vowels-004", english: "Leaf", telugu: "ఆకు", transliteration: "aaku", audio: null, difficulty: 1 },
+    { id: "vowels-005", english: "House", telugu: "ఇల్లు", transliteration: "illu", audio: null, difficulty: 1 },
+    { id: "vowels-006", english: "Brick", telugu: "ఇటుక", transliteration: "iṭuka", audio: null, difficulty: 1 },
+    { id: "vowels-007", english: "Fly", telugu: "ఈగ", transliteration: "eega", audio: null, difficulty: 1 }
+  ],
+
+  "Consonants Set 1": [
+    { id: "consonants-001", english: "Pen", telugu: "కలం", transliteration: "kalam", audio: null, difficulty: 2 },
+    { id: "consonants-002", english: "Frog", telugu: "కప్ప", transliteration: "kappa", audio: null, difficulty: 2 },
+    { id: "consonants-003", english: "Bell", telugu: "గంట", transliteration: "ganṭa", audio: null, difficulty: 2 },
+    { id: "consonants-004", english: "Basket", telugu: "గంప", transliteration: "gampa", audio: null, difficulty: 2 },
+    { id: "consonants-005", english: "Donkey", telugu: "ఖరము", transliteration: "kharamu", audio: null, difficulty: 2 },
+    { id: "consonants-006", english: "Crow", telugu: "కాకి", transliteration: "kaaki", audio: null, difficulty: 2 }
+  ],
+
   "Family": [
     { id: "family-001", english: "Younger Sister", telugu: "చెల్లి", transliteration: "Chelli", audio: null, difficulty: 1 },
     { id: "family-002", english: "Younger Brother", telugu: "తమ్ముడు", transliteration: "Tammuḍu", audio: null, difficulty: 1 },
@@ -1383,25 +1368,6 @@ const VocabularyCategories = {
     // { id: "family-011", english: "Uncle", telugu: "బాబాయ్", transliteration: "Babai", audio: null, difficulty: 1 },
     { id: "family-012", english: "Uncle", telugu: "మామ", transliteration: "Māma", audio: null, difficulty: 1 },
     { id: "family-013", english: "Father", telugu: "నాన్న", transliteration: "Nāna", audio: null, difficulty: 1 }
-  ],
-
-  "Vowels": [
-    { id: "vowels-001", english: "Wave", telugu: "అల", transliteration: "ala", audio: null, difficulty: 1 },
-    { id: "vowels-002", english: "Play", telugu: "ఆట", transliteration: "aaṭa", audio: null, difficulty: 1 },
-    { id: "vowels-003", english: "Cow", telugu: "ఆవు", transliteration: "aavu", audio: null, difficulty: 1 },
-    { id: "vowels-004", english: "Leaf", telugu: "ఆకు", transliteration: "aaku", audio: null, difficulty: 1 },
-    { id: "vowels-005", english: "House", telugu: "ఇల్లు", transliteration: "illu", audio: null, difficulty: 1 },
-    { id: "vowels-006", english: "Brick", telugu: "ఇటుక", transliteration: "iṭuka", audio: null, difficulty: 1 },
-    { id: "vowels-007", english: "Fly", telugu: "ఈగ", transliteration: "eega", audio: null, difficulty: 1 }
-  ],
-
-  "Consonants": [
-    { id: "consonants-001", english: "Pen", telugu: "కలం", transliteration: "kalam", audio: null, difficulty: 2 },
-    { id: "consonants-002", english: "Frog", telugu: "కప్ప", transliteration: "kappa", audio: null, difficulty: 2 },
-    { id: "consonants-003", english: "Bell", telugu: "గంట", transliteration: "ganṭa", audio: null, difficulty: 2 },
-    { id: "consonants-004", english: "Basket", telugu: "గంప", transliteration: "gampa", audio: null, difficulty: 2 },
-    { id: "consonants-005", english: "Donkey", telugu: "ఖరము", transliteration: "kharamu", audio: null, difficulty: 2 },
-    { id: "consonants-006", english: "Crow", telugu: "కాకి", transliteration: "kaaki", audio: null, difficulty: 2 }
   ],
 
   "Numbers": [
@@ -1748,6 +1714,8 @@ function showVocabularyCategories() {
   document.getElementById("vocabulary-summary-screen").style.display = "none";
   document.getElementById("category-screen").style.display = "block";
 
+  document.getElementById("category-heading").textContent = "Choose a Category to Learn";
+
   const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
 
@@ -1761,6 +1729,8 @@ function showVocabularyCategories() {
     });
     categoryList.appendChild(button);
   });
+
+
 }
 
 function selectVocabularyCategory(category) {
@@ -2010,6 +1980,7 @@ let wordSearchCurrentSelection = [];
 function showWordSearchCategories() {
   const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
+  document.getElementById("category-heading").textContent = "Choose a Puzzle Category";
   const categoryError = document.getElementById("category-error");
   if (categoryError) {
     categoryError.style.display = "none";
@@ -2028,7 +1999,7 @@ function showWordSearchCategories() {
   });
 
   if (!Object.keys(wordSearchPools).length) {
-    categoryList.innerHTML = "<p>No Word Search categories have been configured yet.</p>";
+    categoryList.innerHTML = "<p>No categories have been configured yet.</p>";
   }
 
   document.getElementById("activities-screen").style.display = "none";
@@ -3517,6 +3488,8 @@ function showQuizCategories() {
 
   const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
+
+  document.getElementById("category-heading").textContent = "Choose a Category to Practice";
 
   Object.keys(VocabularyCategories).forEach(function(category) {
     const button = document.createElement("button");
