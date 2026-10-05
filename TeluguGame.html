@@ -391,7 +391,6 @@ body {
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.20);
 }
 
-/* After submission, correctness takes priority over the blue selection state. */
 .answer.selected.correct {
   color: #166534 !important;
   background-color: #dcfce7 !important;
@@ -662,13 +661,10 @@ MATCHING
 }
 
 
-
-
 /* =========================================================
    VOCABULARY ACTIVITY
    ========================================================= */
 
-#vocabulary-category-screen,
 #vocabulary-screen {
   min-height: 500px;
   padding: 20px 0;
@@ -738,12 +734,6 @@ MATCHING
   color: #222222;
   font-size: 30px;
   font-weight: bold;
-}
-
-.vocabulary-prompt {
-  margin: 0 0 20px 0;
-  color: #555555;
-  font-size: 16px;
 }
 
 .vocabulary-audio-button {
@@ -910,87 +900,6 @@ MATCHING
 
 
 /* =========================================================
-   VOCABULARY SUMMARY
-   ========================================================= */
-
-.vocabulary-summary-intro {
-  margin: -10px 0 25px 0;
-  color: #555555;
-  line-height: 1.5;
-}
-
-.vocabulary-summary-section {
-  margin-top: 24px;
-  text-align: left;
-}
-
-.vocabulary-summary-section h2 {
-  margin-bottom: 10px !important;
-  font-size: 18px !important;
-}
-
-.vocabulary-summary-list {
-  display: grid;
-  gap: 8px;
-}
-
-.vocabulary-summary-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 8px;
-  background: #ffffff;
-}
-
-.vocabulary-summary-word {
-  min-width: 0;
-}
-
-.vocabulary-summary-telugu {
-  color: #1b4557;
-  font-size: 21px;
-  font-weight: bold;
-}
-
-.vocabulary-summary-transliteration {
-  color: #555555;
-  font-size: 14px;
-  font-style: italic;
-}
-
-.vocabulary-summary-meaning {
-  color: #333333;
-  font-size: 14px;
-}
-
-.vocabulary-summary-link {
-  flex: 0 0 auto;
-  padding: 7px 10px;
-  color: #1b4557;
-  background: #ffffff;
-  border: 1px solid #1b4557;
-  border-radius: 7px;
-  font-size: 13px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.vocabulary-summary-link:hover {
-  background: #f1f7f9;
-}
-
-.vocabulary-summary-empty {
-  padding: 12px;
-  color: #666666;
-  background: #f8fafb;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-/* =========================================================
    WORD SEARCH
    ========================================================= */
 
@@ -1063,7 +972,6 @@ MATCHING
   background: #dcecf2;
 }
 
-/* Temporary feedback when the user starts or drags through an already-found cell. */
 .word-search-cell.selected-found {
   outline: 3px solid #1b4557;
   outline-offset: -3px;
@@ -1076,19 +984,15 @@ MATCHING
   background: #b9d8e3;
 }
 
-/* Each discovered word gets its own visual color so nearby words are easier to distinguish. */
 .word-search-cell.found-0 { background: #f8d7da; }
 .word-search-cell.found-1 { background: #d1ecf1; }
 .word-search-cell.found-2 { background: #d4edda; }
 .word-search-cell.found-3 { background: #fff3cd; }
 .word-search-cell.found-4 { background: #e2d9f3; }
 .word-search-cell.found-5 { background: #cfe2ff; }
-.word-search-cell.found-6 { background: #fde2e4; }
-.word-search-cell.found-7 { background: #d8f3dc; }
-.word-search-cell.found-8 { background: #ffe5b4; }
-.word-search-cell.found-9 { background: #e0e0e0; }
+.word-search-cell.found-6 { background: #ffe5b4; }
+.word-search-cell.found-7 { background: #e0e0e0; }
 
-/* Overlapping found words use a split/segmented background instead of one color replacing another. */
 .word-search-cell.found-overlap {
   background: transparent;
 }
@@ -1133,10 +1037,8 @@ MATCHING
 .word-search-clue.found-3 { border-color: #c69b28; background: #fffaf0; }
 .word-search-clue.found-4 { border-color: #876bb2; background: #f7f3fc; }
 .word-search-clue.found-5 { border-color: #4e82c4; background: #f1f6ff; }
-.word-search-clue.found-6 { border-color: #c45d68; background: #fff3f4; }
-.word-search-clue.found-7 { border-color: #4f9660; background: #f0faf2; }
-.word-search-clue.found-8 { border-color: #c88635; background: #fff7eb; }
-.word-search-clue.found-9 { border-color: #777777; background: #f5f5f5; }
+.word-search-clue.found-6 { border-color: #c88635; background: #fff7eb; }
+.word-search-clue.found-7 { border-color: #777777; background: #f5f5f5; }
 
 .word-search-error {
   margin: 12px auto;
@@ -1196,75 +1098,25 @@ MATCHING
 
 </head>
 
-
 <body>
 
 
 <div id="quiz-app">
 
-
-
   <!-- =====================================================
        ACTIVITIES SCREEN
        ===================================================== -->
 
-  <div
-    id="activities-screen"
-    class="quiz-screen"
-  >
-
+  <div id="activities-screen" class="quiz-screen" >
     <div class="activities-panel">
-
-      <h1>
-        Activities
-      </h1>
-
+      <h1> Activities </h1>
       <div class="activity-list">
-
-        <button
-          type="button"
-          class="activity-button"
-          onclick="startVocabulary()"
-        >
-          Learn
-        </button>
-
-        <button
-          type="button"
-          class="activity-button"
-          onclick="startPractice()"
-        >
-          Practice
-        </button>
-
-        <button
-          type="button"
-          id="word-search-activity-button"
-          class="activity-button"
-          onclick="startWordSearch()"
-        >
-          Word Search
-        </button>
-
+        <button type="button" class="activity-button" onclick="startVocabulary()"> Learn </button>
+        <button type="button" class="activity-button" onclick="startPractice()"> Practice</button>
+        <button type="button" id="word-search-activity-button" class="activity-button" onclick="startWordSearch()"> Word Search</button>
       </div>
-
     </div>
-
   </div>
-
-
-  <!-- =====================================================
-       VOCABULARY CATEGORY SCREEN
-       ===================================================== -->
-
-  <div id="vocabulary-category-screen" class="quiz-screen" style="display: none;">
-    <h1>Choose a Category to Learn</h1>
-    <div id="vocabulary-category-list" class="category-list"></div>
-    <button type="button" class="quiz-button secondary-button" onclick="showActivities()">
-      ← Back to Activities
-    </button>
-  </div>
-
 
   <!-- =====================================================
        VOCABULARY FLASHCARD SCREEN
@@ -1347,33 +1199,12 @@ MATCHING
     </div>
   </div>
 
-
-  <!-- =====================================================
-       WORD SEARCH CATEGORY SCREEN
-       ===================================================== -->
-
-  <div id="word-search-category-screen" class="quiz-screen" style="display: none;">
-    <h1>Choose a Word Search Category</h1>
-    <div id="word-search-category-error" class="word-search-error" style="display:none;"></div>
-    <div id="word-search-category-list" class="category-list"></div>
-    <button type="button" class="quiz-button secondary-button" onclick="showActivities()">
-      ← Back to Activities
-    </button>
-  </div>
-
-
   <!-- =====================================================
        WORD SEARCH SCREEN
        ===================================================== -->
 
-  <div
-    id="word-search-screen"
-    class="quiz-screen word-search-screen"
-    style="display: none;"
-  >
-
+  <div  id="word-search-screen" class="word-search-screen" style="display: none;">
     <div class="word-search-panel">
-
       <div class="word-search-header">
         <h1 id="word-search-title">Word Search</h1>
         <p class="word-search-instructions">
@@ -1400,13 +1231,12 @@ MATCHING
         class="quiz-button secondary-button"
         onclick="showWordSearchCategories()"
       >
-        ← Back to Categories
+        Back to Categories
       </button>
 
     </div>
 
   </div>
-
 
   <!-- =====================================================
        NAME SCREEN
@@ -1450,98 +1280,34 @@ MATCHING
 
   </div>
 
-
   <!-- =====================================================
        CATEGORY SCREEN
        ===================================================== -->
 
-  <div
-    id="category-screen"
-    class="quiz-screen"
-  >
-
-    <h1>
-      Choose a Category
-    </h1>
-
-    <div
-      id="category-list"
-      class="category-list"
-    ></div>
-
-
-    <button
-      type="button"
-      class="quiz-button secondary-button"
-      onclick="showActivities()"
-    >
-      ← Back to Activities
-    </button>
-
+  <div id="category-screen" class="quiz-screen">
+    <h1> Choose a Category </h1>
+    <div id="category-error" class="word-search-error" style="display:none;"></div>
+    <div id="category-list" class="category-list"></div>
+    <button type="button" class="quiz-button secondary-button" onclick="showActivities()"> Back to Activities</button>
   </div>
-
 
   <!-- =====================================================
        QUIZ SCREEN
        ===================================================== -->
 
-  <div
-    id="quiz"
-    class="quiz-screen"
-  >
-
+  <div id="quiz" class="quiz-screen">
     <div id="category-display"></div>
-
     <div class="progress">
-
-      <div
-        id="progress-bar"
-        class="progress-bar"
-      ></div>
-
+      <div id="progress-bar" class="progress-bar"></div>
     </div>
-
     <p id="question"></p>
-
     <!-- Audio button will be inserted here when needed -->
-
-    <div
-      id="answers"
-      class="answers"
-    ></div>
-
+    <div id="answers" class="answers"></div>
     <div id="feedback"></div>
-
-    <button
-      type="button"
-      id="next-btn"
-      class="quiz-button"
-      onclick="nextQuizQuestion()"
-    >
-      Next Question
-    </button>
-
-    <button
-      type="button"
-      id="check-answer-btn"
-      class="quiz-button"
-      onclick="checkAnswer()"
-      style="display: none;"
-    >
-      Check Answer
-    </button>
-
-    <button
-      type="button"
-      id="back-category-btn"
-      class="quiz-button secondary-button"
-      onclick="backToQuizCategories()"
-    >
-      ← Back to Categories
-    </button>
-
+    <button type="button" id="next-btn" class="quiz-button" onclick="nextQuizQuestion()"> Next Question </button>
+    <button type="button" id="check-answer-btn" class="quiz-button" onclick="checkAnswer()" style="display: none;"> Check Answer </button>
+    <button type="button" id="back-category-btn" class="quiz-button secondary-button" onclick="backToQuizCategories()"> Back to Categories </button>
   </div>
-
 
   <!-- =====================================================
        RESULTS SCREEN
@@ -1582,7 +1348,6 @@ MATCHING
 
   </div>
 
-
 </div>
 
 
@@ -1597,7 +1362,6 @@ const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbxlJZGHfxUYM313fFLgZd-9LlObHUhAKvKAoCzW6jugbnjmi55wxOccMdD7WZ-3H8OOXA/exec";
 
 const audioLink = "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/audio/";
-
 
 
 /* =========================================================
@@ -1638,7 +1402,50 @@ const VocabularyCategories = {
     { id: "consonants-004", english: "Basket", telugu: "గంప", transliteration: "gampa", audio: null, difficulty: 2 },
     { id: "consonants-005", english: "Donkey", telugu: "ఖరము", transliteration: "kharamu", audio: null, difficulty: 2 },
     { id: "consonants-006", english: "Crow", telugu: "కాకి", transliteration: "kaaki", audio: null, difficulty: 2 }
-  ]
+  ],
+
+  "Numbers": [
+    { id: "numbers-001", english: "One", telugu: "ఒకటి", transliteration: "okaṭi", audio: null, difficulty: 1 },
+    { id: "numbers-002", english: "Two", telugu: "రెండు", transliteration: "renḍu", audio: null, difficulty: 1 },
+    { id: "numbers-003", english: "Three", telugu: "మూడు", transliteration: "mūḍu", audio: null, difficulty: 1 },
+    { id: "numbers-004", english: "Four", telugu: "నాలుగు", transliteration: "nālugu", audio: null, difficulty: 1 },
+    { id: "numbers-005", english: "Five", telugu: "ఐదు", transliteration: "aidu", audio: null, difficulty: 1 },
+    { id: "numbers-006", english: "Six", telugu: "ఆరు", transliteration: "āru", audio: null, difficulty: 1 },
+    { id: "numbers-007", english: "Seven", telugu: "ఏడు", transliteration: "eḍu", audio: null, difficulty: 1 },
+    { id: "numbers-008", english: "Eight", telugu: "ఎనిమిది", transliteration: "enimidi", audio: null, difficulty: 1 },
+    { id: "numbers-009", english: "Nine", telugu: "తొమ్మిది", transliteration: "tommidi", audio: null, difficulty: 1 },
+    { id: "numbers-010", english: "Ten", telugu: "పది", transliteration: "padi", audio: null, difficulty: 2 },
+    { id: "numbers-011", english: "Eleven", telugu: "పదకొండు", transliteration: "padakonḍu", audio: null, difficulty: 2 },
+    { id: "numbers-012", english: "Twelve", telugu: "పన్నెండు", transliteration: "pannenḍu", audio: null, difficulty: 2 },
+    { id: "numbers-013", english: "Thirteen", telugu: "పదమూడు", transliteration: "padamūḍu", audio: null, difficulty: 2 },
+    { id: "numbers-014", english: "Fourteen", telugu: "పద్నాలుగు", transliteration: "padnālugu", audio: null, difficulty: 2 },
+    { id: "numbers-015", english: "Fifteen", telugu: "పదిహేను", transliteration: "padihenu", audio: null, difficulty: 2 },
+    { id: "numbers-016", english: "Sixteen", telugu: "పదహారు", transliteration: "padahāru", audio: null, difficulty: 2 },
+    { id: "numbers-017", english: "Seventeen", telugu: "పదిహేడు", transliteration: "padiheḍu", audio: null, difficulty: 2 },
+    { id: "numbers-018", english: "Eighteen", telugu: "పద్దెనిమిది", transliteration: "paddenimidi", audio: null, difficulty: 2 },
+    { id: "numbers-019", english: "Nineteen", telugu: "పందొమ్మిది", transliteration: "pandhommidi", audio: null, difficulty: 2 },
+    { id: "numbers-020", english: "Twenty", telugu: "ఇరవై", transliteration: "iravai", audio: null, difficulty: 2 },
+    { id: "numbers-021", english: "Thirty", telugu: "ముప్పై", transliteration: "muppai", audio: null, difficulty: 2 },
+    { id: "numbers-022", english: "Forty", telugu: "నలభై", transliteration: "nalabhai", audio: null, difficulty: 2 },
+    { id: "numbers-023", english: "Fifty", telugu: "యాభై", transliteration: "yābhai", audio: null, difficulty: 2 },
+    { id: "numbers-024", english: "Sixty", telugu: "అరవై", transliteration: "aravai", audio: null, difficulty: 2 },
+    { id: "numbers-025", english: "Seventy", telugu: "డెబ్బై", transliteration: "ḍebbai", audio: null, difficulty: 2 },
+    { id: "numbers-026", english: "Eighty", telugu: "ఎనభై", transliteration: "enabhai", audio: null, difficulty: 2 },
+    { id: "numbers-027", english: "Ninety", telugu: "తొంభై", transliteration: "tombhai", audio: null, difficulty: 2 },
+    { id: "numbers-028", english: "One hundred", telugu: "వంద", transliteration: "vanda", audio: null, difficulty: 2 },
+  ],
+
+  "Animals": [
+    { id: "animals-001", english: "Elephant", telugu: "ఏనుగు", transliteration: "enugu", audio: null, difficulty: 1 },
+    { id: "animals-002", english: "Tiger", telugu: "పులి", transliteration: "puli", audio: null, difficulty: 1 },
+    { id: "animals-003", english: "Horse", telugu: "గుర్రం", transliteration: "gurram", audio: null, difficulty: 1 },
+    { id: "animals-004", english: "Rabbit", telugu: "కుందేలు", transliteration: "kundelu", audio: null, difficulty: 1 },
+    { id: "animals-005", english: "Cat", telugu: "పిల్లి", transliteration: "pilli", audio: null, difficulty: 1 },
+    { id: "animals-006", english: "Dog", telugu: "కుక్క", transliteration: "kukka", audio: null, difficulty: 1 },
+    { id: "animals-007", english: "Lion", telugu: "సింహం", transliteration: "simham", audio: null, difficulty: 1 },
+    { id: "animals-008", english: "Goat", telugu: "మేక", transliteration: "meka", audio: null, difficulty: 1 },
+  ],
+
 };
 
 /* =========================================================
@@ -1666,14 +1473,9 @@ const wordSearchPools = {
   Animals: {
     gridSize: 10,
     entries: [
-      { word: "elephant",   clue: "ఏనుగు (enugu)" },
-      { word: "tiger",      clue: "పులి (puli)" },
-      { word: "horse",      clue: "గుర్రం (gurram)" },
-      { word: "rabbit",     clue: "కుందేలు (kundelu)" },
-      { word: "cat",        clue: "పిల్లి (pilli)" },
-      { word: "dog",        clue: "కుక్క (kukka)" },
-      { word: "lion",       clue: "సింహం (simham)" },
-      { word: "goat",       clue: "మేక (meka)" }
+      { word: "dog",        clue: "kukka" },
+      { word: "lion",       clue: "simham" },
+      { word: "goat",       clue: "meka" }
     ]
   }
 
@@ -1708,8 +1510,6 @@ function showActivities() {
   document.getElementById("quiz").style.display = "none";
   document.getElementById("results").style.display = "none";
   document.getElementById("word-search-screen").style.display = "none";
-  document.getElementById("word-search-category-screen").style.display = "none";
-  document.getElementById("vocabulary-category-screen").style.display = "none";
   document.getElementById("vocabulary-screen").style.display = "none";
   document.getElementById("vocabulary-summary-screen").style.display = "none";
 
@@ -1727,15 +1527,15 @@ function startPracticeForCategory(category) {
   selectedQuizCategory = category;
   document.getElementById("vocabulary-summary-screen").style.display = "none";
   document.getElementById("vocabulary-screen").style.display = "none";
-  document.getElementById("vocabulary-category-screen").style.display = "none";
   document.getElementById("activities-screen").style.display = "none";
+  document.getElementById("category-screen").style.display = "none";
   beginNewQuiz();
 }
 
 function startPractice() {
   /* Practice questions are generated from VocabularyCategories. */
   document.getElementById("activities-screen").style.display = "none";
-
+  document.getElementById("category-screen").style.display = "none";
   showQuizCategories();
 }
 
@@ -1746,6 +1546,7 @@ function startWordSearch() {
 function startVocabulary() {
   stopAudio();
   document.getElementById("activities-screen").style.display = "none";
+  document.getElementById("category-screen").style.display = "none";
   showVocabularyCategories();
 }
 
@@ -1945,9 +1746,9 @@ function showVocabularyCategories() {
   stopAudio();
   document.getElementById("vocabulary-screen").style.display = "none";
   document.getElementById("vocabulary-summary-screen").style.display = "none";
-  document.getElementById("vocabulary-category-screen").style.display = "block";
+  document.getElementById("category-screen").style.display = "block";
 
-  const categoryList = document.getElementById("vocabulary-category-list");
+  const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
 
   Object.keys(VocabularyCategories).forEach(function(category) {
@@ -1973,9 +1774,9 @@ function selectVocabularyCategory(category) {
   vocabularyCards = words.slice();
   currentVocabularyCard = 0;
 
-  document.getElementById("vocabulary-category-screen").style.display = "none";
   document.getElementById("vocabulary-summary-screen").style.display = "none";
   document.getElementById("vocabulary-screen").style.display = "block";
+  document.getElementById("category-screen").style.display = "none";
 
   loadVocabularyCard();
 }
@@ -1999,8 +1800,6 @@ function loadVocabularyCard() {
 
   document.getElementById("vocabulary-telugu").textContent = word.telugu || "";
   document.getElementById("vocabulary-transliteration").textContent = word.transliteration || "";
-  document.getElementById("vocabulary-prompt").textContent =
-    "Can you remember what this means?";
   document.getElementById("vocabulary-meaning").textContent = word.english || "";
   document.getElementById("vocabulary-meaning").style.display = "none";
   document.getElementById("vocabulary-feedback").textContent = "";
@@ -2031,8 +1830,6 @@ function revealVocabularyMeaning() {
 
   vocabularyMeaningRevealed = true;
   document.getElementById("vocabulary-meaning").style.display = "block";
-  document.getElementById("vocabulary-prompt").textContent =
-    "Meaning revealed. Continue when you are ready.";
   document.getElementById("vocabulary-reveal-button").style.display = "none";
   document.getElementById("vocabulary-next-button").disabled = false;
 
@@ -2175,7 +1972,6 @@ function openVocabularyCardForWord(vocabId) {
 
   currentVocabularyCard = index;
   document.getElementById("vocabulary-summary-screen").style.display = "none";
-  document.getElementById("vocabulary-category-screen").style.display = "none";
   document.getElementById("vocabulary-screen").style.display = "block";
   loadVocabularyCard();
 }
@@ -2187,7 +1983,6 @@ function backToVocabularyStart() {
 
   currentVocabularyCard = 0;
   document.getElementById("vocabulary-summary-screen").style.display = "none";
-  document.getElementById("vocabulary-category-screen").style.display = "none";
   document.getElementById("vocabulary-screen").style.display = "block";
   loadVocabularyCard();
 }
@@ -2213,9 +2008,9 @@ let wordSearchStartCell = null;
 let wordSearchCurrentSelection = [];
 
 function showWordSearchCategories() {
-  const categoryList = document.getElementById("word-search-category-list");
+  const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
-  const categoryError = document.getElementById("word-search-category-error");
+  const categoryError = document.getElementById("category-error");
   if (categoryError) {
     categoryError.style.display = "none";
     categoryError.textContent = "";
@@ -2242,7 +2037,7 @@ function showWordSearchCategories() {
   document.getElementById("quiz").style.display = "none";
   document.getElementById("results").style.display = "none";
   document.getElementById("word-search-screen").style.display = "none";
-  document.getElementById("word-search-category-screen").style.display = "block";
+  document.getElementById("category-screen").style.display = "block";
 }
 
 function launchWordSearch(category) {
@@ -2289,7 +2084,7 @@ function launchWordSearch(category) {
   const puzzleBuilt = buildWordSearchPuzzle();
 
   if (!puzzleBuilt) {
-    const categoryError = document.getElementById("word-search-category-error");
+    const categoryError = document.getElementById("category-error");
     if (categoryError) {
       categoryError.textContent =
         "This puzzle could not be generated with gridSize " + wordSearchGridSize + ". Increase gridSize and try again.";
@@ -2304,7 +2099,6 @@ function launchWordSearch(category) {
   document.getElementById("category-screen").style.display = "none";
   document.getElementById("quiz").style.display = "none";
   document.getElementById("results").style.display = "none";
-  document.getElementById("word-search-category-screen").style.display = "none";
   document.getElementById("word-search-screen").style.display = "flex";
 
   renderWordSearch();
@@ -2699,8 +2493,8 @@ function updateWordSearchCellAppearance(cell, indices) {
   const uniqueIndices = Array.from(new Set(indices));
 
   cell.classList.remove(
-    "found-0", "found-1", "found-2", "found-3", "found-4",
-    "found-5", "found-6", "found-7", "found-8", "found-9",
+    "found-0", "found-1", "found-2", "found-3", 
+    "found-4", "found-5", "found-6", "found-7",
     "found-overlap"
   );
   cell.style.background = "";
@@ -3720,6 +3514,20 @@ function showQuizCategories() {
   document.getElementById("progress-bar").style.width = "0%";
   document.getElementById("answers").innerHTML = "";
   document.getElementById("feedback").textContent = "";
+
+  const categoryList = document.getElementById("category-list");
+  categoryList.innerHTML = "";
+
+  Object.keys(VocabularyCategories).forEach(function(category) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "category-button";
+    button.textContent = category;
+    button.addEventListener("click", function() {
+      selectQuizCategory(category);
+    });
+    categoryList.appendChild(button);
+  });
 }
 
 function showQuizResults() {
