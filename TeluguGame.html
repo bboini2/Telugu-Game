@@ -928,7 +928,7 @@ MATCHING
 }
 
 .word-search-panel {
-  width: 100%;
+  width: calc(100% + 300px);
   padding: 30px 25px;
   background: #ffffff;
   border-radius: 16px;
@@ -946,16 +946,23 @@ MATCHING
   line-height: 1.5;
 }
 
+.word-search-content {
+  display: grid;
+  grid-template-columns: minmax(600px, 1fr) minmax(220px, 300px);
+  gap: 25px;
+  align-items: start;
+}
+
 .word-search-grid-wrap {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto 25px auto;
+  margin: 0;
   overflow-x: auto;
 }
 
 .word-search-grid {
   display: grid;
-  width: min(100%, 600px);
+  width: min(100%, 700px);
   margin: 0 auto;
   aspect-ratio: 1 / 1;
   border: 2px solid #1b4557;
@@ -1026,11 +1033,20 @@ MATCHING
   border-right: 0;
 }
 
+.word-search-clues-section h3 {
+  margin: 0 0 12px 0;
+  font-size: 20px;
+}
+
 .word-search-clues {
   display: grid;
+  align-content: start;
   gap: 10px;
-  margin: 0 auto 25px auto;
-  max-width: 600px;
+  width: 100%;
+  max-height: 600px;
+  box-sizing: border-box;
+  margin: 0;
+  overflow-y: auto;
 }
 
 .word-search-clue {
@@ -1106,11 +1122,22 @@ MATCHING
 
 @media (max-width: 600px) {
   .word-search-panel {
+    width: 100%;
     padding: 25px 12px;
+  }
+
+  .word-search-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .word-search-grid {
     width: 100%;
+  }
+
+  .word-search-clues {
+    height: auto;
+    max-height: none;
   }
 }
 
@@ -1235,11 +1262,13 @@ MATCHING
 
       <div id="word-search-status" class="word-search-status"></div>
 
-      <div class="word-search-grid-wrap">
-        <div id="word-search-grid" class="word-search-grid" aria-label="Word search grid"></div>
-      </div>
+      <div class="word-search-content">
+        <div class="word-search-grid-wrap">
+          <div id="word-search-grid" class="word-search-grid" aria-label="Word search grid"></div>
+        </div>
 
-      <div id="word-search-clues" class="word-search-clues"></div>
+        <div class="word-search-clues-section"><h3>Clues</h3><div id="word-search-clues" class="word-search-clues"></div></div>
+      </div>
 
       <div id="word-search-complete" class="word-search-complete" style="display: none;">
         <h2>Completed!</h2>
@@ -1325,9 +1354,9 @@ MATCHING
    ========================================================= */
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxlJZGHfxUYM313fFLgZd-9LlObHUhAKvKAoCzW6jugbnjmi55wxOccMdD7WZ-3H8OOXA/exec";
+  "";
 
-const audioLink = "https://raw.githubusercontent.com/bboini2/Telugu-Game/main/audio/";
+const audioLink = "";
 
 
 /* =========================================================
@@ -1414,44 +1443,6 @@ const VocabularyCategories = {
 
 };
 
-/* =========================================================
-   WORD SEARCH SETTINGS
-   =========================================================
-
-   Edit gridSize to control the grid dimensions for each puzzle.
-   ========================================================= */
-
-// 10 colors, up to 10 words
-const WORD_SEARCH_COLORS = [
-  "#f8d7da",
-  "#d1ecf1",
-  "#d4edda",
-  "#fff3cd",
-  "#e2d9f3",
-  "#cfe2ff",
-  "#fde2e4",
-  "#d8f3dc",
-  "#ffe5b4",
-  "#e0e0e0"
-];
-
-const wordSearchPools = {
-  Animals: {
-    gridSize: 10,
-    entries: [
-      { word: "elephant",   clue: "ఏనుగు (enugu)" },
-      { word: "tiger",      clue: "పులి (puli)" },
-      { word: "horse",      clue: "గుర్రం (gurram)" },
-      { word: "rabbit",     clue: "కుందేలు (kundelu)" },
-      { word: "cat",        clue: "పిల్లి (pilli)" },
-      { word: "dog",        clue: "కుక్క (kukka)" },
-      { word: "lion",       clue: "సింహం (simham)" },
-      { word: "goat",       clue: "మేక (meka)" }
-    ]
-  }
-
-  
-};
 
 /* =========================================================
    FUNCTIONS
@@ -1982,17 +1973,34 @@ let wordSearchDragging = false;
 let wordSearchStartCell = null;
 let wordSearchCurrentSelection = [];
 
+// 8 colors, up to 8 words
+const WORD_SEARCH_COLORS = [
+  "#f8d7da",
+  "#d1ecf1",
+  "#d4edda",
+  "#fff3cd",
+  "#e2d9f3",
+  "#cfe2ff",
+  "#ffe5b4",
+  "#e0e0e0"
+];
+
+
+
 function showWordSearchCategories() {
   const categoryList = document.getElementById("category-list");
   categoryList.innerHTML = "";
-  document.getElementById("category-heading").textContent = "Choose a Puzzle Category";
+  document.getElementById("category-heading").textContent = "Choose a Vocabulary Category";
+
   const categoryError = document.getElementById("category-error");
   if (categoryError) {
     categoryError.style.display = "none";
     categoryError.textContent = "";
   }
 
-  Object.keys(wordSearchPools).forEach(function(category) {
+  const categories = Object.keys(VocabularyCategories);
+
+  categories.forEach(function(category) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "category-button";
@@ -2003,8 +2011,8 @@ function showWordSearchCategories() {
     categoryList.appendChild(button);
   });
 
-  if (!Object.keys(wordSearchPools).length) {
-    categoryList.innerHTML = "<p>No categories have been configured yet.</p>";
+  if (!categories.length) {
+    categoryList.innerHTML = "<p>No vocabulary categories have been configured yet.</p>";
   }
 
   document.getElementById("activities-screen").style.display = "none";
@@ -2017,28 +2025,62 @@ function showWordSearchCategories() {
 }
 
 function launchWordSearch(category) {
+  const vocabulary = VocabularyCategories[category];
 
-  const puzzle = wordSearchPools[category];
-
-  if (!puzzle) {
+  if (!Array.isArray(vocabulary)) {
     showActivities();
     return;
   }
 
   selectedWordSearchCategory = category;
-  wordSearchGridSize = Math.max(5, parseInt(puzzle.gridSize, 10) || 12);
-  wordSearchEntries = puzzle.entries.map(function(entry) {
+
+  const eligibleEntries = vocabulary.filter(function(entry) {
+    const english = String(entry.english || "").trim();
+    return english && !/\s/.test(english);
+  });
+
+  if (!eligibleEntries.length) {
+    showWordSearchCategories();
+
+    const categoryError = document.getElementById("category-error");
+    if (categoryError) {
+      categoryError.textContent = "This vocabulary category does not contain any valid single-word entries for a word search.";
+      categoryError.style.display = "block";
+    }
+
+    return;
+  }
+
+  const shuffledEntries = eligibleEntries.slice();
+  for (let i = shuffledEntries.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = shuffledEntries[i];
+    shuffledEntries[i] = shuffledEntries[j];
+    shuffledEntries[j] = temp;
+  }
+
+  wordSearchEntries = shuffledEntries.slice(0, 8).map(function(entry) {
+    const english = String(entry.english || "").trim();
+    const telugu = String(entry.telugu || "").trim();
+    const transliteration = String(entry.transliteration || "").trim();
+
     return {
-      word: String(entry.word || "").toUpperCase().replace(/[^A-Z]/g, ""),
-      clue: String(entry.clue || "")
+      word: english.toUpperCase().replace(/[^A-Z]/g, ""),
+      clue: [telugu, transliteration ? "(" + transliteration + ")" : ""].filter(Boolean).join(" ")
     };
   }).filter(function(entry) {
     return entry.word.length > 1 && entry.clue;
   });
 
   if (!wordSearchEntries.length) {
-    alert("This Word Search does not contain any valid entries.");
-    showActivities();
+    showWordSearchCategories();
+
+    const categoryError = document.getElementById("category-error");
+    if (categoryError) {
+      categoryError.textContent = "This vocabulary category does not contain any valid single-word entries for a word search.";
+      categoryError.style.display = "block";
+    }
+
     return;
   }
 
@@ -2046,11 +2088,7 @@ function launchWordSearch(category) {
     return entry.word.length;
   }));
 
-  if (longestWord > wordSearchGridSize) {
-    alert("The grid is too small for the longest word. Increase gridSize to at least " + longestWord + ".");
-    showActivities();
-    return;
-  }
+  wordSearchGridSize = Math.max(10, longestWord);
 
   wordSearchFound = new Set();
   wordSearchDragging = false;
@@ -2063,13 +2101,12 @@ function launchWordSearch(category) {
     const categoryError = document.getElementById("category-error");
     if (categoryError) {
       categoryError.textContent =
-        "This puzzle could not be generated with gridSize " + wordSearchGridSize + ". Increase gridSize and try again.";
+        "This puzzle could not be generated with gridSize " + wordSearchGridSize + ".";
       categoryError.style.display = "block";
     }
     return;
   }
 
-  // Show the Word Search puzzle screen after the puzzle is successfully built.
   document.getElementById("activities-screen").style.display = "none";
   document.getElementById("name-screen").style.display = "none";
   document.getElementById("category-screen").style.display = "none";
